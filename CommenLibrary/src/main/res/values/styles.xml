@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <!--白天主题，此处直接和AppTheme一样-->
+    <style name="DayTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/night_one_text_color</item>
+
+        <item name="dayNightBackground">@color/day_backgroup_color</item>
+        <item name="dayNightOneTextColor">@color/day_one_text_color</item>
+        <item name="dayNightTwoTextColor">@color/day_two_text_color</item>
+        <item name="dayNightThreeTextColor">@color/day_three_text_color</item>
+        <item name="dayNightBackgroundDrawable">@color/day_backgroup_color</item>
+    </style>
+
+    <!--夜间主题-->
+    <style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/night_backgroup_color</item>
+        <item name="colorPrimaryDark">@color/night_backgroup_color</item>
+        <item name="colorAccent">@color/night_backgroup_color</item>
+
+        <item name="dayNightBackground">@color/night_backgroup_color</item>
+        <item name="dayNightOneTextColor">@color/night_one_text_color</item>
+        <item name="dayNightTwoTextColor">@color/night_two_text_color</item>
+        <item name="dayNightThreeTextColor">@color/night_there_text_color</item>
+        <item name="dayNightBackgroundDrawable">@color/night_there_text_color</item>
+
+    </style>
+
+    <!--flyme Toast-->
+    <style name="Animation_FlymeToast" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/toast_enter</item>
+        <item name="android:windowExitAnimation">@anim/toast_exit</item>
+    </style>
+</resources>

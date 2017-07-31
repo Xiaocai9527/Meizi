@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/tool_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?android:attr/actionBarSize"-->
+        <!--android:background="@color/white"-->
+        <!--android:elevation="@dimen/elevation_header">-->
+
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <FrameLayout
+        android:id="@+id/home_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
