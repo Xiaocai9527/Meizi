@@ -18,6 +18,4 @@
 
 ​		
 
-![](http://ww1.sinaimg.cn/large/d473a073gy1fi381gpfhaj20cq0laaqg.jpg)
 
-![](http://ww1.sinaimg.cn/large/d473a073gy1fi38637j7sj20cl0l54jh.jpg)
