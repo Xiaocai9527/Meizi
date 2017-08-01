@@ -27,7 +27,7 @@ import butterknife.Bind;
 public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> implements HomeContract.View
 {
 
-    private static HomeFragment mHomeFragment = null;
+    //    private static HomeFragment mHomeFragment = null;
     public static final int PRELOAD_SIZE = 6;
     private boolean mIsFirstTimeTouchBottom = true;
     private boolean isClearData = true;
@@ -42,16 +42,24 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
     private HomeRvAdapter adapter;
     private List<HomeMixEntity> datas;
 
+    //会造成内存泄漏
+//    public static HomeFragment getInstance(Bundle bundle)
+//    {
+//        synchronized (HomeFragment.class)
+//        {
+//            if (mHomeFragment == null)
+//            {
+//                mHomeFragment = new HomeFragment();
+//                mHomeFragment.setArguments(bundle);
+//            }
+//        }
+//        return mHomeFragment;
+//    }
+
     public static HomeFragment getInstance(Bundle bundle)
     {
-        synchronized (HomeFragment.class)
-        {
-            if (mHomeFragment == null)
-            {
-                mHomeFragment = new HomeFragment();
-                mHomeFragment.setArguments(bundle);
-            }
-        }
+        HomeFragment mHomeFragment = new HomeFragment();
+        mHomeFragment.setArguments(bundle);
         return mHomeFragment;
     }
 
@@ -109,7 +117,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
     @Override
     public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
     {
-        datas = new ArrayList<HomeMixEntity>();
+        datas = new ArrayList<>();
         datas.addAll(homeMixEntities);
         adapter = new HomeRvAdapter(mActivity, R.layout.item_category, datas);
         homeRv.setAdapter(adapter);
