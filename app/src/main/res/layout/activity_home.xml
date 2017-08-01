@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/view_toolbar"/>
+    <include layout="@layout/view_app_bar"/>
     <!--<android.support.v7.widget.Toolbar-->
         <!--android:id="@+id/tool_bar"-->
         <!--android:layout_width="match_parent"-->
