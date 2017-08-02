@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Meizi</string>
     <string name="action_settings">设置</string>
+    <string name="nav_meizi_view">坤哥后宫！</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="meizi">妹纸</string>
+    <string name="android">Android</string>
+    <string name="ios">IOS</string>
+    <string name="front">前端</string>
 </resources>

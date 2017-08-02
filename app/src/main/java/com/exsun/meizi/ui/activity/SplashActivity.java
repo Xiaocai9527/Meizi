@@ -3,6 +3,7 @@ package com.exsun.meizi.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.LinearLayout;
 
 import com.exsun.meizi.R;
@@ -12,7 +13,7 @@ import butterknife.Bind;
 
 public class SplashActivity extends BaseActivity
 {
-
+    @Nullable
     @Bind(R.id.activity_splash)
     LinearLayout activitySplash;
 

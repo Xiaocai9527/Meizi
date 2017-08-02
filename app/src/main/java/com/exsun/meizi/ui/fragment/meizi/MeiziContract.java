@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.fragment.home;
+package com.exsun.meizi.ui.fragment.meizi;
 
 import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.HomeMixEntity;
@@ -15,7 +15,7 @@ import io.reactivex.Observable;
  * Created by xiaokun on 2017/7/26.
  */
 
-public interface HomeContract
+public interface MeiziContract
 {
     interface Model extends AppBaseModel
     {
@@ -28,7 +28,7 @@ public interface HomeContract
 
     interface View extends BaseView
     {
-//        void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList);
+        void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList);
 
         void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities);
 
@@ -39,10 +39,12 @@ public interface HomeContract
 
     abstract class Presenter extends BasePresenter<Model, View>
     {
-//        public abstract void getCategory(String category, int count, int page);
+        public abstract void getCategory(String category, int count, int page);
 
         public abstract void getMixData(String category1, String category2, int count, int page);
 
         public abstract void getMixDataFormDB();
+
+
     }
 }

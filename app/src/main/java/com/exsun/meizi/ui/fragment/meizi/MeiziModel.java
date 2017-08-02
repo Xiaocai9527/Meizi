@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.fragment.home;
+package com.exsun.meizi.ui.fragment.meizi;
 
 import com.exsun.meizi.MzApplication;
 import com.exsun.meizi.entity.GankCategoryEntity;
@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by xiaokun on 2017/7/26.
  */
 
-public class HomeModel implements HomeContract.Model
+public class MeiziModel implements MeiziContract.Model
 {
     @Override
     public Observable<List<GankCategoryEntity.ResultsBean>> getCategoryData(String category, int count, int page)

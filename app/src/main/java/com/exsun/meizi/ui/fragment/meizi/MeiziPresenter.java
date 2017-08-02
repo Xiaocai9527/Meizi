@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.fragment.home;
+package com.exsun.meizi.ui.fragment.meizi;
 
 import android.util.Log;
 
@@ -20,8 +20,52 @@ import io.reactivex.schedulers.Schedulers;
  * Created by xiaokun on 2017/7/26.
  */
 
-public class HomePresenter extends HomeContract.Presenter
+public class MeiziPresenter extends MeiziContract.Presenter
 {
+    @Override
+    public void getCategory(String category, int count, int page)
+    {
+        mModel.getCategoryData(category, count, page)
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<List<GankCategoryEntity.ResultsBean>>()
+                {
+                    @Override
+                    public void accept(List<GankCategoryEntity.ResultsBean> resultsBeen) throws Exception
+                    {
+                        //保存数据到数据库中，保存之前注意切换线程到io，保存完后记得切换线程到main
+                        //observeOn切换下游事件线程，可以多次赋值取最后一次为准
+                        //subscribeOn切换上游事件线程，只能赋值一次
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<GankCategoryEntity.ResultsBean>>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+
+                    }
+
+                    @Override
+                    public void onNext(List<GankCategoryEntity.ResultsBean> value)
+                    {
+                        mView.getCategorySuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e)
+                    {
+                        mView.getCategoryFailed(e);
+                    }
+
+                    @Override
+                    public void onComplete()
+                    {
+
+                    }
+                });
+    }
+
     @Override
     public void getMixData(String welfare, String android, int count, int page)
     {
@@ -50,7 +94,7 @@ public class HomePresenter extends HomeContract.Presenter
                     public void accept(List<HomeMixEntity> homeMixEntities) throws Exception
                     {
                         mModel.saveMeizhis(homeMixEntities);
-                        Log.e("HomePresenter", "call(HomePresenter.java:76)" + "current thread: " + Thread.currentThread().getName());
+                        Log.e("MeiziPresenter", "call(MeiziPresenter.java:76)" + "current thread: " + Thread.currentThread().getName());
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<HomeMixEntity>>()
@@ -64,7 +108,7 @@ public class HomePresenter extends HomeContract.Presenter
                     @Override
                     public void onNext(List<HomeMixEntity> homeMixEntities)
                     {
-                        Log.e("HomePresenter", "onNext(HomePresenter.java:101)" + "onNext");
+                        Log.e("MeiziPresenter", "onNext(MeiziPresenter.java:101)" + "onNext");
                         if (homeMixEntities == null)
                         {
                             return;
@@ -85,6 +129,7 @@ public class HomePresenter extends HomeContract.Presenter
                     }
                 });
     }
+
 
     @Override
     public void getMixDataFormDB()

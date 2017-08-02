@@ -30,4 +30,6 @@
     <dimen name="dimen_5_dp">5dp</dimen>
     <dimen name="text_size_12">12sp</dimen>
 
+    <dimen name="size_160dp">16dp</dimen>
+
 </resources>

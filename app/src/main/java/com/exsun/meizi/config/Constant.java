@@ -13,4 +13,10 @@ public class Constant
     public static final int VIEWPAGE_COUNT = 5;
     public static final String WELFARE = "福利";
     public static final String VIDEO = "休息视频";
+
+    public static final int MEIZHI = 0;
+    public static final int ANDROID = 1;
+    public static final int IOS = 2;
+    public static final int FRONT = 3;
+
 }

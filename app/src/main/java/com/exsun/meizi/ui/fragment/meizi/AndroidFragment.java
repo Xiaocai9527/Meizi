@@ -1,17 +1,17 @@
-package com.exsun.meizi.ui.fragment.home;
+package com.exsun.meizi.ui.fragment.meizi;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.config.Constant;
+import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.HomeMixEntity;
-import com.exsun.meizi.ui.adapter.HomeRvAdapter;
+import com.exsun.meizi.ui.adapter.AndroidAdapter;
 import com.exsun.meizi.widge.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 
@@ -19,49 +19,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
- * Created by xiaokun on 2017/7/26.
+ * Created by xiaokun on 2017/8/2.
  */
 
-public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> implements HomeContract.View
+public class AndroidFragment extends BaseFragment<MeiziPresenter, MeiziModel> implements MeiziContract.View
 {
-
-    //    private static HomeFragment mHomeFragment = null;
-    public static final int PRELOAD_SIZE = 6;
-    private boolean mIsFirstTimeTouchBottom = true;
-    private boolean isClearData = true;
-
     @Bind(R.id.home_rv)
     RecyclerView homeRv;
     @Bind(R.id.home_sr)
     SwipeRefreshLayout homeSr;
 
+    public static final String COLUMN_RV = "meizi_column_rv";
+    public static final int PRELOAD_SIZE = 6;
+    private boolean mIsFirstTimeTouchBottom = true;
+    private boolean isClearData = true;
+    public int column;
     private int page = 1;
     private int count = 10;
-    private HomeRvAdapter adapter;
-    private List<HomeMixEntity> datas;
+    private AndroidAdapter adapter;
+    private List<GankCategoryEntity.ResultsBean> datas;
+    private String query1 = "";
+    private String query2 = "";
 
-    //会造成内存泄漏
-//    public static HomeFragment getInstance(Bundle bundle)
-//    {
-//        synchronized (HomeFragment.class)
-//        {
-//            if (mHomeFragment == null)
-//            {
-//                mHomeFragment = new HomeFragment();
-//                mHomeFragment.setArguments(bundle);
-//            }
-//        }
-//        return mHomeFragment;
-//    }
-
-    public static HomeFragment getInstance(Bundle bundle)
+    public static AndroidFragment getInstance(Bundle bundle)
     {
-        HomeFragment mHomeFragment = new HomeFragment();
-        mHomeFragment.setArguments(bundle);
-        return mHomeFragment;
+        AndroidFragment mAndroidFragment = new AndroidFragment();
+        mAndroidFragment.setArguments(bundle);
+        return mAndroidFragment;
     }
+
 
     @Override
     protected int getLayoutId()
@@ -78,15 +67,20 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
     @Override
     public void initData(Bundle bundle)
     {
-
+        if (bundle == null)
+        {
+            return;
+        }
+        column = bundle.getInt(MeiziFragment.COLUMN_RV);
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
+        query2 = "Android";
         final int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         homeRv.addItemDecoration(new OffsetDecoration(spacing));
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3,
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.VERTICAL);
         homeRv.setLayoutManager(layoutManager);
         homeRv.addOnScrollListener(getOnButtomListener(layoutManager));
@@ -97,7 +91,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
             {
                 isClearData = true;
                 page = 1;
-                getCategory(Constant.WELFARE, Constant.VIDEO, count, page);
+                getData(query1, query2, count, page);
             }
         });
     }
@@ -105,42 +99,18 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
     @Override
     public void doBusiness(Context context)
     {
-        mPresenter.getMixDataFormDB();
+        datas = new ArrayList<>();
+//        datas.addAll(homeMixEntities);
+        adapter = new AndroidAdapter(mActivity, R.layout.item_category, datas);
+        homeRv.setAdapter(adapter);
+        getData(query1, query2, count, page);
     }
 
-    private void getCategory(String welfare, String category, int count, int page)
+    public void getData(String query1, String query2, int count, int page)
     {
         homeSr.setRefreshing(true);
-        mPresenter.getMixData(welfare, category, count, page);
-    }
-
-    @Override
-    public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
-    {
-        datas = new ArrayList<>();
-        datas.addAll(homeMixEntities);
-        adapter = new HomeRvAdapter(mActivity, R.layout.item_category, datas);
-        homeRv.setAdapter(adapter);
-        getCategory(Constant.WELFARE, Constant.VIDEO, count, page);
-    }
-
-    @Override
-    public void getMixSuccess(List<HomeMixEntity> homeMixEntities)
-    {
-        homeSr.setRefreshing(false);
-        if (isClearData)
-        {
-            datas.clear();
-        }
-        datas.addAll(homeMixEntities);
-        adapter.notifyDataSetChanged();
-        isClearData = false;
-    }
-
-    @Override
-    public void getCategoryFailed(Throwable e)
-    {
-        homeSr.setRefreshing(false);
+//        mPresenter.getMixData(query1, query2, count, page);
+        mPresenter.getCategory(query2, count, page);
     }
 
     private RecyclerView.OnScrollListener getOnButtomListener(final StaggeredGridLayoutManager layoutManager)
@@ -153,15 +123,13 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
                 super.onScrolled(recyclerView, dx, dy);
                 int[] positions = layoutManager.findLastCompletelyVisibleItemPositions(new int[layoutManager.getSpanCount()]);
                 boolean isBottom = positions[layoutManager.getSpanCount() - 1] >= (adapter.getItemCount() - PRELOAD_SIZE);
-                Log.e("HomeFragment", "onScrolled(HomeFragment.java:147)" + positions[layoutManager.getSpanCount() - 1]);
-                Log.e("HomeFragment", "onScrolled(HomeFragment.java:149)" + adapter.getItemCount());
                 if (!homeSr.isRefreshing() && isBottom)
                 {
                     if (!mIsFirstTimeTouchBottom)
                     {
                         page++;
                         homeSr.setRefreshing(true);
-                        getCategory(Constant.WELFARE, Constant.VIDEO, count, page);
+                        getData(Constant.WELFARE, Constant.VIDEO, count, page);
                     } else
                     {
                         mIsFirstTimeTouchBottom = false;
@@ -169,5 +137,43 @@ public class HomeFragment extends BaseFragment<HomePresenter, HomeModel> impleme
                 }
             }
         };
+    }
+
+    @Override
+    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
+    {
+        homeSr.setRefreshing(false);
+        if (isClearData)
+        {
+            datas.clear();
+        }
+        datas.addAll(resultsBeanList);
+        adapter.notifyDataSetChanged();
+        isClearData = false;
+    }
+
+    @Override
+    public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
+    {
+
+    }
+
+    @Override
+    public void getMixSuccess(List<HomeMixEntity> homeMixEntities)
+    {
+
+    }
+
+    @Override
+    public void getCategoryFailed(Throwable e)
+    {
+
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

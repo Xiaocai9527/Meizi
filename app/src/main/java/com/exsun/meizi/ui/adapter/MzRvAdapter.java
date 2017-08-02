@@ -24,10 +24,10 @@ import java.util.List;
  * Created by xiaokun on 2017/7/26.
  */
 
-public class HomeRvAdapter extends CommonAdapter<HomeMixEntity>
+public class MzRvAdapter extends CommonAdapter<HomeMixEntity>
 {
 
-    public HomeRvAdapter(Context context, int layoutId, List<HomeMixEntity> datas)
+    public MzRvAdapter(Context context, int layoutId, List<HomeMixEntity> datas)
     {
         super(context, layoutId, datas);
     }
