@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.exsun.meizi.R;
-import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.HomeMixEntity;
 import com.exsun.meizi.ui.adapter.AndroidAdapter;
@@ -25,8 +25,12 @@ import butterknife.ButterKnife;
  * Created by xiaokun on 2017/8/2.
  */
 
-public class AndroidFragment extends BaseFragment<MeiziPresenter, MeiziModel> implements MeiziContract.View
+public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> implements MeiziContract.View
 {
+    public static final String ANDROID_CETOGARY = "android_cetogary";
+    public static final String IOS_CETOGARY = "ios_cetogary";
+    public static final String FRONT_CETOGARY = "front_cetogary";
+
     @Bind(R.id.home_rv)
     RecyclerView homeRv;
     @Bind(R.id.home_sr)
@@ -37,20 +41,22 @@ public class AndroidFragment extends BaseFragment<MeiziPresenter, MeiziModel> im
     private boolean mIsFirstTimeTouchBottom = true;
     private boolean isClearData = true;
     public int column;
-    private int page = 1;
-    private int count = 10;
-    private AndroidAdapter adapter;
-    private List<GankCategoryEntity.ResultsBean> datas;
-    private String query1 = "";
-    private String query2 = "";
+    public int page = 1;
+    public int count = 10;
+    public AndroidAdapter adapter;
+    public List<GankCategoryEntity.ResultsBean> datas;
+    public String query1 = "";
+    public String query2 = "";
+    public String android;
+    public String ios;
+    public String front;
 
-    public static AndroidFragment getInstance(Bundle bundle)
+    public static OtherFragment getInstance(Bundle bundle)
     {
-        AndroidFragment mAndroidFragment = new AndroidFragment();
-        mAndroidFragment.setArguments(bundle);
-        return mAndroidFragment;
+        OtherFragment fragment = new OtherFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
-
 
     @Override
     protected int getLayoutId()
@@ -72,12 +78,26 @@ public class AndroidFragment extends BaseFragment<MeiziPresenter, MeiziModel> im
             return;
         }
         column = bundle.getInt(MeiziFragment.COLUMN_RV);
+        android = bundle.getString(ANDROID_CETOGARY);
+        ios = bundle.getString(IOS_CETOGARY);
+        front = bundle.getString(FRONT_CETOGARY);
     }
 
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
-        query2 = "Android";
+        if (!TextUtils.isEmpty(android))
+        {
+            query2 = android;
+        }
+        if (!TextUtils.isEmpty(ios))
+        {
+            query2 = ios;
+        }
+        if (!TextUtils.isEmpty(front))
+        {
+            query2 = front;
+        }
         final int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         homeRv.addItemDecoration(new OffsetDecoration(spacing));
         final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
@@ -129,7 +149,7 @@ public class AndroidFragment extends BaseFragment<MeiziPresenter, MeiziModel> im
                     {
                         page++;
                         homeSr.setRefreshing(true);
-                        getData(Constant.WELFARE, Constant.VIDEO, count, page);
+                        getData(query1, query2, count, page);
                     } else
                     {
                         mIsFirstTimeTouchBottom = false;

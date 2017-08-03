@@ -16,8 +16,8 @@ import android.view.MenuItem;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.ui.adapter.HomeVpAdapter;
-import com.exsun.meizi.ui.fragment.meizi.AndroidFragment;
 import com.exsun.meizi.ui.fragment.meizi.MeiziFragment;
+import com.exsun.meizi.ui.fragment.meizi.OtherFragment;
 import com.yuyh.library.Base.BaseActivity;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
@@ -109,14 +109,24 @@ public class HomeActivity extends BaseActivity
         tabLayoutHome.addTab(tabLayoutHome.newTab().setText(R.string.ios));
         tabLayoutHome.addTab(tabLayoutHome.newTab().setText(R.string.front));
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(MeiziFragment.COLUMN_RV, 2);
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(MeiziFragment.getInstance(bundle));
-        fragments.add(AndroidFragment.getInstance(bundle));
-        fragments.add(MeiziFragment.getInstance(bundle));
-        fragments.add(MeiziFragment.getInstance(bundle));
+        Bundle mzBundle = new Bundle();
+        mzBundle.putInt(MeiziFragment.COLUMN_RV, 2);
+        fragments.add(MeiziFragment.getInstance(mzBundle));
+
+        Bundle aBundle = new Bundle();
+        aBundle.putInt(OtherFragment.COLUMN_RV, 1);
+        aBundle.putString(OtherFragment.ANDROID_CETOGARY, "Android");
+        fragments.add(OtherFragment.getInstance(aBundle));
+
+        Bundle iBundle = new Bundle();
+        iBundle.putString(OtherFragment.IOS_CETOGARY, "iOS");
+        fragments.add(OtherFragment.getInstance(iBundle));
+
+        Bundle fBundle = new Bundle();
+        fBundle.putString(OtherFragment.FRONT_CETOGARY, "前端");
+        fragments.add(OtherFragment.getInstance(fBundle));
 
         viewPagerHome.setOffscreenPageLimit(3);
         HomeVpAdapter homeVpAdapter = new HomeVpAdapter(getSupportFragmentManager(), fragments, titles);
@@ -148,18 +158,6 @@ public class HomeActivity extends BaseActivity
     public void requestSdcardFailed()
     {
 
-    }
-
-    private void attachCategoryGridFragment()
-    {
-
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = fm.findFragmentById(R.id.home_container);
-//        if (!(fragment instanceof MeiziFragment))
-//        {
-//            fragment = MeiziFragment.getInstance(null);
-//        }
-//        fm.beginTransaction().replace(R.id.home_container, fragment).commit();
     }
 
     @Override

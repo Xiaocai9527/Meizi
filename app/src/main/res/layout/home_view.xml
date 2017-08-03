@@ -16,8 +16,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll"/>
+            android:layout_height="?attr/actionBarSize"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout_home"
