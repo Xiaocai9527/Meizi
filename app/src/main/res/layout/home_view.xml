@@ -10,7 +10,7 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?attr/colorPrimary"
         app:elevation="3dp">
 
         <android.support.v7.widget.Toolbar

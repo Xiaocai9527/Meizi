@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ui.activity.HomeActivity"/>
         <activity android:name=".ui.activity.PictureActivity"/>
+        <activity android:name=".ui.activity.BaseWebActivity"/>
 
         <meta-data
             android:name="AA_DB_NAME"

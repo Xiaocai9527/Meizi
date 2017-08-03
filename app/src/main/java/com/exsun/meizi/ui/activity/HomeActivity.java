@@ -163,7 +163,7 @@ public class HomeActivity extends BaseActivity
     @Override
     public void setStatusBar()
     {
-        super.setStatusBar();
+//        StatusBarUtil.setColorForDrawerLayout(this, drawerLayout, getResources().getColor(R.color.white), 60);
     }
 
     @Override

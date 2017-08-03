@@ -65,4 +65,6 @@ dependencies {
     // 权限处理工具
     apt 'com.zhy:mpermission-compiler:1.0.0'
     compile 'com.zhy:mpermission-api:1.0.0'
+    //webview的封装类
+    compile 'com.just.agentweb:agentweb:1.2.6'
 }

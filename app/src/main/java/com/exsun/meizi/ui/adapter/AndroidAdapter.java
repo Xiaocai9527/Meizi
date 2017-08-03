@@ -1,6 +1,8 @@
 package com.exsun.meizi.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.GankCategoryEntity;
+import com.exsun.meizi.ui.activity.BaseWebActivity;
 import com.yuyh.library.utils.DimenUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -26,7 +29,7 @@ public class AndroidAdapter extends CommonAdapter<GankCategoryEntity.ResultsBean
     }
 
     @Override
-    protected void convert(ViewHolder holder, GankCategoryEntity.ResultsBean resultsBean, int position)
+    protected void convert(ViewHolder holder, final GankCategoryEntity.ResultsBean resultsBean, int position)
     {
         int limit = 48;
         String string = resultsBean.getDesc();
@@ -39,5 +42,19 @@ public class AndroidAdapter extends CommonAdapter<GankCategoryEntity.ResultsBean
         tv.setTextSize(16);
         tv.setText(text);
         holder.getView(R.id.category_img).setVisibility(View.GONE);
+
+        tv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(mContext, BaseWebActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(BaseWebActivity.WEB_URL, resultsBean.getUrl());
+                intent.putExtras(bundle);
+
+                mContext.startActivity(intent);
+            }
+        });
     }
 }
