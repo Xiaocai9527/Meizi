@@ -22,49 +22,49 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MeiziPresenter extends MeiziContract.Presenter
 {
-    @Override
-    public void getCategory(String category, int count, int page)
-    {
-        mModel.getCategoryData(category, count, page)
-                .observeOn(Schedulers.io())
-                .doOnNext(new Consumer<List<GankCategoryEntity.ResultsBean>>()
-                {
-                    @Override
-                    public void accept(List<GankCategoryEntity.ResultsBean> resultsBeen) throws Exception
-                    {
-                        //保存数据到数据库中，保存之前注意切换线程到io，保存完后记得切换线程到main
-                        //observeOn切换下游事件线程，可以多次赋值取最后一次为准
-                        //subscribeOn切换上游事件线程，只能赋值一次
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<GankCategoryEntity.ResultsBean>>()
-                {
-                    @Override
-                    public void onSubscribe(Disposable d)
-                    {
-
-                    }
-
-                    @Override
-                    public void onNext(List<GankCategoryEntity.ResultsBean> value)
-                    {
-                        mView.getCategorySuccess(value);
-                    }
-
-                    @Override
-                    public void onError(Throwable e)
-                    {
-                        mView.getCategoryFailed(e);
-                    }
-
-                    @Override
-                    public void onComplete()
-                    {
-
-                    }
-                });
-    }
+//    @Override
+//    public void getCategory(String category, int count, int page)
+//    {
+//        mModel.getCategoryData(category, count, page)
+//                .observeOn(Schedulers.io())
+//                .doOnNext(new Consumer<List<GankCategoryEntity.ResultsBean>>()
+//                {
+//                    @Override
+//                    public void accept(List<GankCategoryEntity.ResultsBean> resultsBeen) throws Exception
+//                    {
+//                        //保存数据到数据库中，保存之前注意切换线程到io，保存完后记得切换线程到main
+//                        //observeOn切换下游事件线程，可以多次赋值取最后一次为准
+//                        //subscribeOn切换上游事件线程，只能赋值一次
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<List<GankCategoryEntity.ResultsBean>>()
+//                {
+//                    @Override
+//                    public void onSubscribe(Disposable d)
+//                    {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(List<GankCategoryEntity.ResultsBean> value)
+//                    {
+//                        mView.getCategorySuccess(value);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e)
+//                    {
+//                        mView.getCategoryFailed(e);
+//                    }
+//
+//                    @Override
+//                    public void onComplete()
+//                    {
+//
+//                    }
+//                });
+//    }
 
     @Override
     public void getMixData(String welfare, String android, int count, int page)
@@ -119,7 +119,7 @@ public class MeiziPresenter extends MeiziContract.Presenter
                     @Override
                     public void onError(Throwable e)
                     {
-                        mView.getCategoryFailed(e);
+//                        mView.getCategoryFailed(e);
                     }
 
                     @Override

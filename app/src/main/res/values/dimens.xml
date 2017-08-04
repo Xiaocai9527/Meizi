@@ -31,5 +31,6 @@
     <dimen name="text_size_12">12sp</dimen>
 
     <dimen name="size_160dp">16dp</dimen>
+    <dimen name="header_height">200dp</dimen>
 
 </resources>

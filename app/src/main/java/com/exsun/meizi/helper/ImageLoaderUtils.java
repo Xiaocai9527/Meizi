@@ -108,4 +108,20 @@ public class ImageLoaderUtils
                 .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
     }
 
+    public static void displaySize(Context context, ImageView imageView, String url, int width, int height)
+    {
+        if (imageView == null)
+        {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .placeholder(R.drawable.ic_image_loading)
+                .error(R.drawable.ic_empty_picture)
+                .crossFade()
+                .override(width, height)
+                .into(imageView);
+    }
+
 }

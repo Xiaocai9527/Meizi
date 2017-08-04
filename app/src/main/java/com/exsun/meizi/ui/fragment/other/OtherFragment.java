@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.fragment.meizi;
+package com.exsun.meizi.ui.fragment.other;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,13 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.entity.AndroidMixEntity;
 import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.HomeMixEntity;
+import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.adapter.AndroidAdapter;
+import com.exsun.meizi.ui.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.widge.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
+import com.yuyh.library.utils.DimenUtils;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by xiaokun on 2017/8/2.
  */
 
-public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> implements MeiziContract.View
+public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> implements OtherContract.View
 {
     public static final String ANDROID_CETOGARY = "android_cetogary";
     public static final String IOS_CETOGARY = "ios_cetogary";
@@ -35,6 +40,8 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     RecyclerView homeRv;
     @Bind(R.id.home_sr)
     SwipeRefreshLayout homeSr;
+//    @Bind(R.id.radom_meizi)
+//    ImageView radomMeizi;
 
     public static final String COLUMN_RV = "meizi_column_rv";
     public static final int PRELOAD_SIZE = 6;
@@ -42,14 +49,16 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     private boolean isClearData = true;
     public int column;
     public int page = 1;
-    public int count = 10;
+    public int count = 20;
     public AndroidAdapter adapter;
     public List<GankCategoryEntity.ResultsBean> datas;
-    public String query1 = "";
+    public String query1 = "福利";
     public String query2 = "";
     public String android;
     public String ios;
     public String front;
+    private HeaderAndFooterWrapper wrapper;
+    private ImageView img;
 
     public static OtherFragment getInstance(Bundle bundle)
     {
@@ -111,6 +120,7 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
             {
                 isClearData = true;
                 page = 1;
+                isRefresh = true;
                 getData(query1, query2, count, page);
             }
         });
@@ -121,8 +131,12 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     {
         datas = new ArrayList<>();
 //        datas.addAll(homeMixEntities);
-        adapter = new AndroidAdapter(mActivity, R.layout.item_category, datas);
-        homeRv.setAdapter(adapter);
+        adapter = new AndroidAdapter(mActivity, R.layout.item_other, datas);
+        wrapper = new HeaderAndFooterWrapper(adapter);
+        View headView = View.inflate(mActivity, R.layout.head_view_img, null);
+        img = (ImageView) headView.findViewById(R.id.head_img);
+        wrapper.addHeaderView(img);
+        homeRv.setAdapter(wrapper);
         getData(query1, query2, count, page);
     }
 
@@ -130,7 +144,34 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     {
         homeSr.setRefreshing(true);
 //        mPresenter.getMixData(query1, query2, count, page);
-        mPresenter.getCategory(query2, count, page);
+        mPresenter.getAndroidMix(query1, query2, count, page);
+    }
+
+    private boolean isRefresh = true;
+
+    @Override
+    public void getAndroidMixSuccess(AndroidMixEntity androidMixEntity)
+    {
+        if (isRefresh)
+        {
+            ImageLoaderUtils.displaySize(mActivity, img, androidMixEntity.getUrl(), DimenUtils.getScreenWidth()
+                    , (int) DimenUtils.dpToPx(200));
+            isRefresh = false;
+        }
+        homeSr.setRefreshing(false);
+        if (isClearData)
+        {
+            datas.clear();
+        }
+        datas.addAll(androidMixEntity.getResults());
+        wrapper.notifyDataSetChanged();
+        isClearData = false;
+    }
+
+    @Override
+    public void getAndroidMixFailed(Throwable throwable)
+    {
+
     }
 
     private RecyclerView.OnScrollListener getOnButtomListener(final StaggeredGridLayoutManager layoutManager)
@@ -159,36 +200,19 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         };
     }
 
-    @Override
-    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
-    {
-        homeSr.setRefreshing(false);
-        if (isClearData)
-        {
-            datas.clear();
-        }
-        datas.addAll(resultsBeanList);
-        adapter.notifyDataSetChanged();
-        isClearData = false;
-    }
+//    @Override
+//    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
+//    {
+//        homeSr.setRefreshing(false);
+//        if (isClearData)
+//        {
+//            datas.clear();
+//        }
+//        datas.addAll(resultsBeanList);
+//        adapter.notifyDataSetChanged();
+//        isClearData = false;
+//    }
 
-    @Override
-    public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
-    {
-
-    }
-
-    @Override
-    public void getMixSuccess(List<HomeMixEntity> homeMixEntities)
-    {
-
-    }
-
-    @Override
-    public void getCategoryFailed(Throwable e)
-    {
-
-    }
 
     @Override
     public void onDestroyView()
@@ -196,4 +220,6 @@ public class OtherFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+
 }

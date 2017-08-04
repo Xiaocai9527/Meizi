@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import com.exsun.meizi.R;
 import com.exsun.meizi.ui.adapter.HomeVpAdapter;
 import com.exsun.meizi.ui.fragment.meizi.MeiziFragment;
-import com.exsun.meizi.ui.fragment.meizi.OtherFragment;
+import com.exsun.meizi.ui.fragment.other.OtherFragment;
 import com.yuyh.library.Base.BaseActivity;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
@@ -75,6 +75,8 @@ public class HomeActivity extends BaseActivity
 
     private void initToolBar()
     {
+        toolBar.setTitle("要什么女朋友，我有无数对象");
+        toolBar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolBar);
     }
 

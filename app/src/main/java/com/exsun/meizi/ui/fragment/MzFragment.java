@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.config.Constant;
-import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.HomeMixEntity;
 import com.exsun.meizi.ui.adapter.MzRvAdapter;
 import com.exsun.meizi.ui.fragment.meizi.MeiziContract;
@@ -30,12 +29,6 @@ public class MzFragment extends GankFragment implements MeiziContract.View
     }
 
     @Override
-    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
-    {
-
-    }
-
-    @Override
     public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
     {
         datas = new ArrayList<>();
@@ -56,12 +49,6 @@ public class MzFragment extends GankFragment implements MeiziContract.View
         datas.addAll(homeMixEntities);
         adapter.notifyDataSetChanged();
         isClearData = false;
-    }
-
-    @Override
-    public void getCategoryFailed(Throwable e)
-    {
-
     }
 
     @Override

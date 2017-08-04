@@ -5,5 +5,9 @@
         <item
             android:id="@+id/nav_meizi"
             android:title="@string/nav_meizi_view"/>
+
+        <item
+            android:id="@+id/nav_douyu"
+           android:title="@string/douyukanqiu"/>
     </group>
 </menu>

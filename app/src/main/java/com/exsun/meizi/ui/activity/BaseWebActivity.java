@@ -83,7 +83,8 @@ public class BaseWebActivity extends BaseActivity
                 //传入AgentWeb 的父控件 ，如果父控件为 RelativeLayout ， 那么第二参数需要传入 RelativeLayout.LayoutParams
                 .setAgentWebParent(container, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()// 使用默认进度条
-                .defaultProgressBarColor()// 使用默认进度条颜色
+                .setIndicatorColor(R.color.colorPrimary)
+//                .defaultProgressBarColor()// 使用默认进度条颜色
                 .setReceivedTitleCallback(mCallback)//设置 Web 页面的 title 回调
 //                .setWebChromeClient(mWebChromeClient)
 //                .setWebViewClient(mWebViewClient)

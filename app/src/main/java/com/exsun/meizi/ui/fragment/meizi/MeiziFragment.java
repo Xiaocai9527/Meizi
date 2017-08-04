@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.config.Constant;
-import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.HomeMixEntity;
 import com.exsun.meizi.ui.adapter.MzRvAdapter;
 import com.exsun.meizi.widge.OffsetDecoration;
@@ -55,7 +54,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     @Override
     protected int getLayoutId()
     {
-        return R.layout.fragment_home;
+        return R.layout.fragment_meizi;
     }
 
     @Override
@@ -104,12 +103,6 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     }
 
     @Override
-    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
-    {
-
-    }
-
-    @Override
     public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
     {
         datas = new ArrayList<>();
@@ -130,12 +123,6 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         datas.addAll(homeMixEntities);
         adapter.notifyDataSetChanged();
         isClearData = false;
-    }
-
-    @Override
-    public void getCategoryFailed(Throwable e)
-    {
-        homeSr.setRefreshing(false);
     }
 
     public void getData(String query1, String query2, int count, int page)
