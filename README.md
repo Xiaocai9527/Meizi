@@ -1,18 +1,26 @@
 利用gank的Api做的一款练习。
 
-整体架构：
+------
 
-①首先封装了一个基础库，里面包含了大量的工具类；
+本项目你会学习到什么：
 
-②同时封装了BaseActivity、BaseFragment等基类，保持统一的编码风格；
+1. MVP在实际项目中的使用以及基于MVP模式如何对项目进行目录分层；
 
-③BaseAdapter使用鸿洋大神的库，大大降低Adapter类的代码量；
+2. 异步操作处理上，MVP+RxJava/MVP+RxJava+Retrofit的相结合；
 
-④编码架构采用MVP，层级分明，代码解耦；
+3. BaseAdapter的使用，用的鸿洋大大的库，大大降低Adapter类的代码量；
 
-⑤引用Rxjava对所有的异步处理事件的链式编程让代码可读性更强；
+4. BaseActivity、BaseFragment等基类的封装；
 
+5. 对一个app基本的混淆处理；
 
+6. 关于CoordinatorLayout+AppBarLayout+ToolBar的简单组合使用；
+
+7. 后面想进行的关于单元测试的编写...；
+
+   ------
+
+   ​
 
 ### 还在开发中。。。。前期探险工作已经完成。。
 
@@ -23,6 +31,10 @@
 ![](screenshots/2.png)
 
 ![](screenshots/3.png)
+
+![](screenshots/4.png)
+
+![](screenshots/5.png)
 
 =============================================================================
 
