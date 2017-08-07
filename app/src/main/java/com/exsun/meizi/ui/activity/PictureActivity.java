@@ -3,6 +3,8 @@ package com.exsun.meizi.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.exsun.meizi.R;
@@ -24,6 +26,8 @@ public class PictureActivity extends BaseActivity
 
     @Bind(R.id.picture_img)
     ImageView pictureImg;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     private String imgDesc;
     private String imgUrl;
 
@@ -53,6 +57,20 @@ public class PictureActivity extends BaseActivity
     @Override
     public void initView()
     {
+        toolbar.setTitle(imgDesc);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+//        toolbar.setNavigationIcon(R.mipmap._back_white);
+        toolbar.setContentInsetStartWithNavigation(0);
+//        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+
         ViewCompat.setTransitionName(pictureImg, TRANSIT_PIC);
         ImageLoaderUtils.display(this, pictureImg, imgUrl);
     }
@@ -67,5 +85,11 @@ public class PictureActivity extends BaseActivity
     public void onViewClicked()
     {
 
+    }
+
+    @Override
+    public void setStatusBar()
+    {
+//        super.setStatusBar();
     }
 }
