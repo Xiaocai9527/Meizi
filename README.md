@@ -28,19 +28,11 @@
 
 ### 还在开发中。。。。前期探险工作已经完成。。
 
-### 原来图片是这么传上去的。。
+### 静态图换成动态图，一张就够了。。
 
-![](screenshots/1.png)
+![](screenshots/7.gif)
 
-![](screenshots/2.png)
 
-![](screenshots/3.png)
-
-![](screenshots/4.png)
-
-![](screenshots/5.png)
-
-![](screenshots/6.png)
 
 =============================================================================
 
