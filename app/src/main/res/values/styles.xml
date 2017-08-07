@@ -8,13 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="toolBar">
+    <style name="toolBar_with_cha">
         <item name="colorControlNormal">#ffffff</item>
         <item name="android:homeAsUpIndicator">@mipmap/cha</item>
         <item name="android:titleTextStyle">@style/titlestyle</item>
     </style>
 
+    <style name="toolBar_with_back">
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="android:homeAsUpIndicator">@mipmap/back</item>
+        <item name="android:titleTextStyle">@style/titlestyle</item>
+    </style>
+
+
     <style name="titlestyle">
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">12sp</item>
     </style>
 

@@ -1,16 +1,24 @@
 package com.exsun.meizi.ui.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.helper.Toasts;
 import com.just.library.AgentWeb;
+import com.just.library.AgentWebUtils;
 import com.just.library.ChromeClientCallbackManager;
 import com.yuyh.library.Base.BaseActivity;
 
@@ -60,12 +68,9 @@ public class BaseWebActivity extends BaseActivity
     {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-        {
-            // Enable the Up button
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        toolbar.setContentInsetStartWithNavigation(0);
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+        toolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -74,6 +79,76 @@ public class BaseWebActivity extends BaseActivity
                 finish();
             }
         });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                switch (item.getItemId())
+                {
+                    case R.id.refresh:
+                        if (mAgentWeb != null)
+                        {
+                            mAgentWeb.getLoader().reload();
+                        }
+                        break;
+                    case R.id.copy:
+                        if (mAgentWeb != null)
+                        {
+                            toCopy(BaseWebActivity.this, mAgentWeb.getWebCreator().get().getUrl());
+                        }
+                        break;
+                    case R.id.default_browser:
+                        if (mAgentWeb != null)
+                            openBrowser(mAgentWeb.getWebCreator().get().getUrl());
+                        break;
+                    default:
+
+                        break;
+                }
+                return false;
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+    }
+
+    /**
+     * 复制浏览器地址
+     *
+     * @param context
+     * @param text
+     */
+    private void toCopy(Context context, String text)
+    {
+        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        mClipboardManager.setPrimaryClip(ClipData.newPlainText(null, text));
+        Toasts.showSingleLong("成功复制链接：" + text);
+    }
+
+    /**
+     * 外部浏览器打开地址
+     *
+     * @param targetUrl
+     */
+    private void openBrowser(String targetUrl)
+    {
+        if (!TextUtils.isEmpty(targetUrl) && targetUrl.startsWith("file://"))
+        {
+            AgentWebUtils.toastShowShort(this, targetUrl + " 该链接无法使用浏览器打开。");
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri url = Uri.parse(targetUrl);
+        intent.setData(url);
+        startActivity(intent);
     }
 
     @Override

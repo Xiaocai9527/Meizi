@@ -14,9 +14,16 @@
     <!--android:title="notifications"-->
     <!--app:showAsAction="ifRoom"/>-->
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_save"
+        android:icon="@mipmap/save"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:title="保存图片"
+        app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/share"
+        android:orderInCategory="100"
+        android:title="分享"
+        app:showAsAction="always"/>
 </menu>

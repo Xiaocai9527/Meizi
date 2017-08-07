@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        toolbar:navigationIcon="@mipmap/_back_white"/>
+        toolbar:navigationIcon="@mipmap/back"/>
 
-    <ImageView
+    <com.exsun.meizi.widge.PinchImageView
         android:id="@+id/picture_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

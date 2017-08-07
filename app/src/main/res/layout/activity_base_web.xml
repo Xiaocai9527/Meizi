@@ -13,7 +13,7 @@
         android:layout_height="?android:actionBarSize"
         android:background="?attr/colorPrimary"
         android:titleTextColor="@android:color/white"
-        app:theme="@style/toolBar"
+        app:navigationIcon="@mipmap/cha"
         app:titleTextColor="@android:color/white">
 
         <TextView

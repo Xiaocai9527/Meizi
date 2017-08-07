@@ -1,16 +1,23 @@
 package com.yuyh.library.Base.rx;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by Administrator on 2016/12/31.
  */
 
 public class RxManager
 {
-//    public RxBus mRxBus = RxBus.$();
-//    private Map<String, Observable<?>> mObservables = new HashMap<>();// 管理观察源
-//    private CompositeSubscription mCompositeSubscription = new CompositeSubscription();// 管理订阅者
-//
-//
+    public RxBus mRxBus = RxBus.$();
+    private Map<String, Observable<?>> mObservables = new HashMap<>();// 管理观察源
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();// 管理订阅者
+
+
 //    public void on(String eventName, Action1<Object> action1)
 //    {
 //        Observable<?> mObservable = mRxBus.register(eventName);
@@ -26,21 +33,21 @@ public class RxManager
 //                            }
 //                        }));
 //    }
-//
-//    public void add(Subscription m)
-//    {
-//        mCompositeSubscription.add(m);
-//    }
-//
-//    public void clear()
-//    {
-//        mCompositeSubscription.unsubscribe();// 取消订阅
-//        for (Map.Entry<String, Observable<?>> entry : mObservables.entrySet())
-//            mRxBus.unregister(entry.getKey(), entry.getValue());// 移除观察
-//    }
-//
-//    public void post(Object tag, Object content)
-//    {
-//        mRxBus.post(tag, content);
-//    }
+
+    public void add(Disposable m)
+    {
+        compositeDisposable.add(m);
+    }
+
+    public void clear()
+    {
+        compositeDisposable.clear();// 取消订阅
+        for (Map.Entry<String, Observable<?>> entry : mObservables.entrySet())
+            mRxBus.unregister(entry.getKey(), entry.getValue());// 移除观察
+    }
+
+    public void post(Object tag, Object content)
+    {
+        mRxBus.post(tag, content);
+    }
 }

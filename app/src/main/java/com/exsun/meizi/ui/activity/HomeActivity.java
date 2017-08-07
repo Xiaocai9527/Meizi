@@ -111,7 +111,6 @@ public class HomeActivity extends BaseActivity
         tabLayoutHome.addTab(tabLayoutHome.newTab().setText(R.string.ios));
         tabLayoutHome.addTab(tabLayoutHome.newTab().setText(R.string.front));
 
-
         List<Fragment> fragments = new ArrayList<>();
         Bundle mzBundle = new Bundle();
         mzBundle.putInt(MeiziFragment.COLUMN_RV, 2);
