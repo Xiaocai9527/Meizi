@@ -16,5 +16,6 @@
     <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
     <string name="action_share">分享</string>
     <string name="share_meizhi_to">开撸！</string>
+    <string name="action_change_skin">换肤</string>
 
 </resources>

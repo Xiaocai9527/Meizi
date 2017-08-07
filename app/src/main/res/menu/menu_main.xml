@@ -14,9 +14,9 @@
     <!--android:title="notifications"-->
     <!--app:showAsAction="ifRoom"/>-->
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_change_skin"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_change_skin"
         app:showAsAction="never"/>
 
 </menu>

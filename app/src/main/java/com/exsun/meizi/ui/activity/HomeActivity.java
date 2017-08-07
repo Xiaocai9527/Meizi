@@ -7,12 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.ui.adapter.HomeVpAdapter;
@@ -77,25 +78,58 @@ public class HomeActivity extends BaseActivity
     {
         toolBar.setTitle("要什么女朋友，我有无数对象");
         toolBar.setTitleTextColor(getResources().getColor(R.color.white));
-        setSupportActionBar(toolBar);
-    }
+        toolBar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
+        toolBar.inflateMenu(R.menu.menu_main);
+        toolBar.setContentInsetStartWithNavigation(0);
 
-    private void initNavigationView()
-    {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();//添加导航开关
 
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+
+        toolBar.setNavigationOnClickListener(new View.OnClickListener()
         {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item)
+            public void onClick(View v)
             {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                switch (item.getItemId())
+                {
+                    case R.id.action_change_skin:
+
+                        break;
+                    default:
+
+                        break;
+                }
                 return false;
             }
         });
-        navView.setItemIconTintList(null);
+//        setSupportActionBar(toolBar);
+    }
+
+    private void initNavigationView()
+    {
+
+
+//        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+//        {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem item)
+//            {
+//                return false;
+//            }
+//        });
+//        navView.setItemIconTintList(null);
     }
 
     private void initViewPager()
@@ -167,25 +201,25 @@ public class HomeActivity extends BaseActivity
 //        StatusBarUtil.setColorForDrawerLayout(this, drawerLayout, getResources().getColor(R.color.white), 60);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.action_settings:
-
-                break;
-            default:
-
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//        switch (item.getItemId())
+//        {
+//            case R.id.action_settings:
+//
+//                break;
+//            default:
+//
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }
