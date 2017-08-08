@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
-    <group android:checkableBehavior="none">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_meizi"
+            android:checkable="true"
+            android:checked="true"
             android:title="@string/nav_meizi_view"/>
 
         <item
             android:id="@+id/nav_douyu"
-           android:title="@string/douyukanqiu"/>
+            android:title="@string/douyukanqiu"/>
+
+        <item
+            android:id="@+id/my_like"
+            android:icon="@mipmap/pre_like1"
+            android:title="@string/my_like"/>
+        <!--<item android:title="@string/option">-->
+        <!--<menu>-->
+        <!--<item-->
+        <!--android:id="@+id/my_like"-->
+        <!--android:icon="@mipmap/pre_like1"-->
+        <!--android:title="@string/my_like"/>-->
+        <!--</menu>-->
+
+        <!--</item>-->
     </group>
+
+
 </menu>

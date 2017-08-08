@@ -51,6 +51,8 @@ public class AndroidAdapter extends CommonAdapter<GankCategoryEntity.ResultsBean
                 Intent intent = new Intent(mContext, BaseWebActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(BaseWebActivity.WEB_URL, resultsBean.getUrl());
+                bundle.putString(BaseWebActivity.WEB_DESC, resultsBean.getDesc());
+                bundle.putString(BaseWebActivity.WEB_AUTHOR, resultsBean.getWho());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

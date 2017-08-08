@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/like_cv"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground"
+    card_view:cardCornerRadius="@dimen/margin_3"
+    card_view:cardElevation="@dimen/dimen_2_dp"
+    card_view:cardPreventCornerOverlap="true"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_like"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_5_dp"/>
+
+        <TextView
+            android:id="@+id/my_like_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_like"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="@dimen/dimen_5_dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#787b84"
+            android:textSize="@dimen/dimen_14sp"/>
+
+        <TextView
+            android:id="@+id/author_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/margin_10"
+            android:textSize="@dimen/dimen_12sp"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

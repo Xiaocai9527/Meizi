@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -15,12 +16,20 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.exsun.meizi.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.config.Constant;
+import com.exsun.meizi.entity.MyLikeEntity;
+import com.exsun.meizi.helper.Shares;
 import com.exsun.meizi.helper.Toasts;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebUtils;
 import com.just.library.ChromeClientCallbackManager;
 import com.yuyh.library.Base.BaseActivity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -31,6 +40,8 @@ import butterknife.Bind;
 public class BaseWebActivity extends BaseActivity
 {
     public static final String WEB_URL = "web_url";
+    public static final String WEB_DESC = "web_desc";
+    public static final String WEB_AUTHOR = "web_author";
     @Bind(R.id.toolbar_title)
     TextView toolbarTitle;
     @Bind(R.id.toolbar)
@@ -38,8 +49,11 @@ public class BaseWebActivity extends BaseActivity
     @Bind(R.id.container)
     LinearLayout container;
     private String url;
-
+    private String descTitle;
+    private String author;
     protected AgentWeb mAgentWeb;
+    private List<MyLikeEntity> myLikeEntities;
+
 
     @Override
     public void initData(Bundle bundle)
@@ -49,6 +63,8 @@ public class BaseWebActivity extends BaseActivity
             return;
         }
         url = bundle.getString(WEB_URL);
+        descTitle = bundle.getString(WEB_DESC);
+        author = bundle.getString(WEB_AUTHOR);
     }
 
     @Override
@@ -66,11 +82,24 @@ public class BaseWebActivity extends BaseActivity
     @Override
     public void initView()
     {
+        boolean isLike = MzApplication.mPref.get(url, false);
+
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.inflateMenu(R.menu.toolbar_menu);
         toolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
+
+        final ActionMenuItemView likeItem = (ActionMenuItemView) toolbar.findViewById(R.id.like);
+        if (isLike)
+        {
+            likeItem.setIcon(getResources().getDrawable(R.mipmap.likedm));
+
+        } else
+        {
+
+            likeItem.setIcon(getResources().getDrawable(R.mipmap.pre_like));
+        }
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -102,6 +131,23 @@ public class BaseWebActivity extends BaseActivity
                         if (mAgentWeb != null)
                             openBrowser(mAgentWeb.getWebCreator().get().getUrl());
                         break;
+                    case R.id.like:
+                        boolean isLike = MzApplication.mPref.get(url, false);
+                        if (isLike)
+                        {
+                            deleteFromPhone();
+                            likeItem.setIcon(getResources().getDrawable(R.mipmap.pre_like));
+                            MzApplication.mPref.put(url, false);
+                        } else
+                        {
+                            saveToPhone();
+                            likeItem.setIcon(getResources().getDrawable(R.mipmap.likedm));
+                            MzApplication.mPref.put(url, true);
+                        }
+                        break;
+                    case R.id.share:
+                        Shares.share(BaseWebActivity.this, url);
+                        break;
                     default:
 
                         break;
@@ -117,6 +163,60 @@ public class BaseWebActivity extends BaseActivity
                 finish();
             }
         });
+    }
+
+    /**
+     * 理应异步处理
+     */
+    private void deleteFromPhone()
+    {
+        MyLikeEntity myLikeEntity = new MyLikeEntity();
+        myLikeEntity.setUrl(url);
+        myLikeEntity.setDesc(descTitle);
+        myLikeEntity.setAuthor(author);
+        myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
+        if (myLikeEntities == null)
+        {
+            myLikeEntities = new ArrayList<>();
+        }
+        ArrayList<MyLikeEntity> entities = (ArrayList<MyLikeEntity>) ((ArrayList<MyLikeEntity>) myLikeEntities).clone();
+
+        for (MyLikeEntity entity : myLikeEntities)
+        {
+            if (entity.getUrl().equals(url))
+            {
+                entities.remove(entity);
+            }
+        }
+//        myLikeEntities.remove(myLikeEntity);
+        MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) entities);
+        Toasts.showSingleShort(R.string.cancel_success);
+    }
+
+    /**
+     * 理应异步处理
+     */
+    private void saveToPhone()
+    {
+        MyLikeEntity myLikeEntity = new MyLikeEntity();
+        myLikeEntity.setUrl(url);
+        myLikeEntity.setDesc(descTitle);
+        myLikeEntity.setAuthor(author);
+        myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
+        if (myLikeEntities == null)
+        {
+            myLikeEntities = new ArrayList<>();
+        }
+        for (MyLikeEntity entity : myLikeEntities)
+        {
+            if (entity.getUrl().equals(url))
+            {
+                return;
+            }
+        }
+        myLikeEntities.add(myLikeEntity);
+        MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
+        Toasts.showSingleShort(R.string.save_success);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.exsun.meizi.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -38,5 +39,17 @@ public class HomeVpAdapter extends FragmentStatePagerAdapter
     public CharSequence getPageTitle(int position)
     {
         return mTitles.get(position);
+    }
+
+    @Override
+    public void finishUpdate(ViewGroup container)
+    {
+        try
+        {
+            super.finishUpdate(container);
+        } catch (NullPointerException nullPointerException)
+        {
+            System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
+        }
     }
 }

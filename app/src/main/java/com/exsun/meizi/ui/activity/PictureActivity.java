@@ -98,7 +98,8 @@ public class PictureActivity extends BaseActivity
             @Override
             public void onClick(View v)
             {
-                finish();
+                onBackPressed();
+//                finish();
             }
         });
         ViewCompat.setTransitionName(pictureImg, TRANSIT_PIC);

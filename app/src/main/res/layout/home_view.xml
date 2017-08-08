@@ -17,21 +17,22 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@mipmap/category"/>
+            app:navigationIcon="@mipmap/list"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="#e0e0e0"
             app:tabTextColor="#fafafa"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <!--<android.support.v4.view.ViewPager-->
+    <!--android:id="@+id/view_pager_home"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

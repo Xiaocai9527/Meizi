@@ -21,5 +21,16 @@
         android:visible="true"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/like"
+        android:icon="@mipmap/pre_like"
+        android:title="@string/like"
+        app:showAsAction="always"
+        />
 
+    <item
+        android:id="@+id/share"
+        android:icon="@mipmap/share"
+        android:title="@string/action_share"
+        app:showAsAction="always"/>
 </menu>

@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.exsun.meizi.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.AndroidMixEntity;
 import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
@@ -154,6 +156,7 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     {
         if (isRefresh)
         {
+            MzApplication.mPref.put(Constant.MY_LIKE_URL, androidMixEntity.getUrl());
             ImageLoaderUtils.displaySize(mActivity, img, androidMixEntity.getUrl(), DimenUtils.getScreenWidth()
                     , (int) DimenUtils.dpToPx(200));
             isRefresh = false;

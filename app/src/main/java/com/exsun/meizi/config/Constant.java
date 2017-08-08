@@ -19,4 +19,6 @@ public class Constant
     public static final int IOS = 2;
     public static final int FRONT = 3;
 
+    public static final String MY_LIKE_DATA = "my_like_data";
+    public static String MY_LIKE_URL = "my_like_url";
 }

@@ -32,5 +32,9 @@
 
     <dimen name="size_160dp">16dp</dimen>
     <dimen name="header_height">200dp</dimen>
+    <dimen name="dimen_18sp">18sp</dimen>
+    <dimen name="dimen_10_dp">10dp</dimen>
+    <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
 
 </resources>

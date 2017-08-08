@@ -10,13 +10,15 @@ import com.yuyh.library.utils.data.cipher.Cipher;
  * @author yuyh.
  * @date 16/4/9.
  */
-public class PrefsUtils {
+public class PrefsUtils
+{
 
     private SharedPreferences sp;
     public static final String KEY_PK_HOME = "msg_pk_home";
     public static final String KEY_PK_NEW = "msg_pk_new";
 
-    public PrefsUtils(Context context, String fileName) {
+    public PrefsUtils(Context context, String fileName)
+    {
         sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
     }
 
@@ -24,32 +26,40 @@ public class PrefsUtils {
      * *************** get ******************
      */
 
-    public String get(String key, String defValue) {
+    public String get(String key, String defValue)
+    {
         return sp.getString(key, defValue);
     }
 
-    public boolean get(String key, boolean defValue) {
+    public boolean get(String key, boolean defValue)
+    {
         return sp.getBoolean(key, defValue);
     }
 
-    public float get(String key, float defValue) {
+    public float get(String key, float defValue)
+    {
         return sp.getFloat(key, defValue);
     }
 
-    public int getInt(String key, int defValue) {
+    public int getInt(String key, int defValue)
+    {
         return sp.getInt(key, defValue);
     }
 
-    public long get(String key, long defValue) {
+    public long get(String key, long defValue)
+    {
         return sp.getLong(key, defValue);
     }
 
-    public Object get(String key) {
+    public Object get(String key)
+    {
         return get(key, (Cipher) null);
     }
 
-    public Object get(String key, Cipher cipher) {
-        try {
+    public Object get(String key, Cipher cipher)
+    {
+        try
+        {
             String hex = get(key, (String) null);
             if (hex == null)
                 return null;
@@ -58,7 +68,8 @@ public class PrefsUtils {
                 bytes = cipher.decrypt(bytes);
             Object obj = ByteUtils.byteToObject(bytes);
             return obj;
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
         return null;
@@ -67,47 +78,65 @@ public class PrefsUtils {
     /**
      * *************** put ******************
      */
-    public void put(String key, Object ser) {
+    public void put(String key, Object ser)
+    {
         put(key, ser, null);
-        put("","", new Base64Cipher());
+        put("", "", new Base64Cipher());
     }
 
-    public void put(String key, Object obj, Cipher cipher) {
-        try {
-            if (obj == null) {
+    public void put(String key, Object obj, Cipher cipher)
+    {
+        try
+        {
+            if (obj == null)
+            {
                 sp.edit().remove(key).commit();
-            } else {
+            } else
+            {
                 byte[] bytes = ByteUtils.objectToByte(obj);
                 if (cipher != null)
                     bytes = cipher.encrypt(bytes);
                 put(key, HexUtils.encodeHexStr(bytes));
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void put(String key, String value) {
-        if (value == null) {
+    public void put(String key, String value)
+    {
+        if (value == null)
+        {
             sp.edit().remove(key).commit();
-        } else {
+        } else
+        {
             sp.edit().putString(key, value).commit();
         }
     }
 
-    public void put(String key, boolean value) {
+    public void put(String key, boolean value)
+    {
         sp.edit().putBoolean(key, value).commit();
     }
 
-    public void put(String key, float value) {
+    public void put(String key, float value)
+    {
         sp.edit().putFloat(key, value).commit();
     }
 
-    public void put(String key, long value) {
+    public void put(String key, long value)
+    {
         sp.edit().putLong(key, value).commit();
     }
 
-    public void putInt(String key, int value) {
+    public void putInt(String key, int value)
+    {
         sp.edit().putInt(key, value).commit();
+    }
+
+    public void clear()
+    {
+        sp.edit().clear();
     }
 }
