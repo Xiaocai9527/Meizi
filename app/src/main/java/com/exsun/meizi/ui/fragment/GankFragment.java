@@ -4,12 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.network.Api;
+import com.exsun.meizi.network.ApiService;
 import com.exsun.meizi.ui.adapter.HomeVpAdapter;
 import com.exsun.meizi.ui.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.ui.fragment.other.OtherFragment;
@@ -33,6 +37,10 @@ public class GankFragment extends BaseFragment
     private static GankFragment mGankFragment = null;
     @Bind(R.id.tab_layout_home)
     TabLayout tabLayoutHome;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    private ApiService apiService = Api.getDefault(0);
 
     public static GankFragment getInstance()
     {
@@ -69,36 +77,45 @@ public class GankFragment extends BaseFragment
     {
         if (savedInstanceState == null)
         {
-//            initToolBar();
+            initToolBar();
             initViewPager();
         }
     }
 
     private void initToolBar()
     {
-        Toolbar toolBar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolBar.setTitle("follow your heart");
-        toolBar.setTitleTextColor(getResources().getColor(R.color.white));
-        toolBar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
-        toolBar.inflateMenu(R.menu.menu_main);
-        toolBar.setContentInsetStartWithNavigation(0);
-
-        toolBar.setNavigationOnClickListener(new View.OnClickListener()
+        toolbar.setTitle(R.string.follow_your_heart);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setContentInsetStartWithNavigation(0);
+        toolbar.inflateMenu(R.menu.menu_gank);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-//                drawerLayout.openDrawer(GravityCompat.START);
+                ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout)).openDrawer(GravityCompat.START);
             }
         });
-        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
         {
             @Override
             public boolean onMenuItemClick(MenuItem item)
             {
                 switch (item.getItemId())
                 {
-                    case R.id.action_change_skin:
+                    case R.id.search:
+
+//                        editSearch.setVisibility(View.GONE);
+//                        if (editSearch.getVisibility() == View.GONE)
+//                        {
+//                            editSearch.setVisibility(View.VISIBLE);
+//                            toolbar.setTitle("");
+//                        } else
+//                        {
+//                            int selectedTabPosition = tabLayoutHome.getSelectedTabPosition();
+//
+//                        }
 
                         break;
                     default:

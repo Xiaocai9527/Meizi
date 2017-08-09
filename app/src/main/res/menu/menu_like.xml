@@ -13,12 +13,12 @@
     <!--android:icon="@mipmap/search"-->
     <!--android:title="notifications"-->
     <!--app:showAsAction="ifRoom"/>-->
-    <item
-        android:id="@+id/search"
-        android:icon="@mipmap/search"
-        android:orderInCategory="100"
-        android:title="@string/search"
-        app:showAsAction="always"/>
+    <!--<item-->
+    <!--android:id="@+id/search"-->
+    <!--android:icon="@mipmap/search"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="@string/search"-->
+    <!--app:showAsAction="always"/>-->
 
     <item
         android:id="@+id/clear_cache"

@@ -3,6 +3,7 @@ package com.exsun.meizi.network;
 import com.exsun.meizi.entity.GankCategoryEntity;
 import com.exsun.meizi.entity.GankDayEntity;
 import com.exsun.meizi.entity.RadomMzEntity;
+import com.exsun.meizi.entity.SearchEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -24,4 +25,8 @@ public interface ApiService
 
     @GET("random/data/{category}/{page}")
     Observable<RadomMzEntity> getRadomMz(@Path("category") String category, @Path("page") int page);
+
+    @GET("search/query/{queryWhat}/category/{category}/count/{count}/page/{page}")
+    Observable<SearchEntity> getSearchData(@Path("queryWhat") String queryWhat, @Path("category") String category
+            , @Path("count") String count, @Path("page") int page);
 }

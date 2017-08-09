@@ -20,10 +20,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/home_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <!--<include-->
+        <!--layout="@layout/home_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
         <FrameLayout
             android:id="@+id/home_fl"

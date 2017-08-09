@@ -83,7 +83,6 @@ public class BaseWebActivity extends BaseActivity
     public void initView()
     {
         boolean isLike = MzApplication.mPref.get(url, false);
-
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
         toolbar.setContentInsetStartWithNavigation(0);
@@ -142,6 +141,7 @@ public class BaseWebActivity extends BaseActivity
                         {
                             saveToPhone();
                             likeItem.setIcon(getResources().getDrawable(R.mipmap.likedm));
+                            Constant.IS_CLEAR = false;
                             MzApplication.mPref.put(url, true);
                         }
                         break;

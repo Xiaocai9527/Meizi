@@ -44,7 +44,6 @@ public class DoubleClickExitHelper
                 mBackToast.cancel();
             }
             AppManager.getAppManager().AppExit(mActivity, false);
-//            AppManager.getAppManager().AppExit(mActivity, false);
             return true;
         } else
         {

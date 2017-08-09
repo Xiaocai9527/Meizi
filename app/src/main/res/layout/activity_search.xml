@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize">
+        <!-- ToolBar 中添加一个 编辑框 -->
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"/>
+    </android.support.v7.widget.Toolbar>
+
+    <com.yuyh.library.swipeback.SwipeBackLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.yuyh.library.swipeback.SwipeBackLayout>
+</LinearLayout>

@@ -137,6 +137,6 @@ public class PrefsUtils
 
     public void clear()
     {
-        sp.edit().clear();
+        sp.edit().clear().commit();
     }
 }

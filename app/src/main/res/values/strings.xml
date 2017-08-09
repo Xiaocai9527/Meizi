@@ -23,5 +23,9 @@
     <string name="save_success">收藏成功</string>
     <string name="cancel_success">取消收藏</string>
     <string name="tip_double_click_exit">再按一次，退出程序</string>
+    <string name="follow_your_heart">follow your heart</string>
+    <string name="clear_success">清除成功</string>
+    <string name="clear_cache">清除收藏</string>
+    <string name="search">搜索</string>
 
 </resources>
