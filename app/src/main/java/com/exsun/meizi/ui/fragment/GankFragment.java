@@ -1,6 +1,7 @@
 package com.exsun.meizi.ui.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -169,6 +170,18 @@ public class GankFragment extends BaseFragment
         viewPagerHome.setAdapter(homeVpAdapter);
         tabLayoutHome.setupWithViewPager(viewPagerHome);
         tabLayoutHome.setTabsFromPagerAdapter(homeVpAdapter);
+    }
+
+    public void setNight()
+    {
+        if (toolbar == null || tabLayoutHome == null || viewPagerHome == null)
+        {
+            return;
+        }
+        toolbar.setBackgroundColor(Color.parseColor("#3F3F3F"));
+        tabLayoutHome.setBackgroundColor(Color.parseColor("#3F3F3F"));
+        viewPagerHome.setBackgroundResource(R.drawable.night_bg);
+//        viewPagerHome.setBackgroundColor(Color.parseColor("#3F3F3F"));
     }
 
     @Override

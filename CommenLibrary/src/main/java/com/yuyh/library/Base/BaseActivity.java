@@ -32,6 +32,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
+//        ChangeModeController.getInstance().init(this, getClass());
         super.onCreate(savedInstanceState);
         mContext = this;
         Bundle bundle = getIntent().getExtras();

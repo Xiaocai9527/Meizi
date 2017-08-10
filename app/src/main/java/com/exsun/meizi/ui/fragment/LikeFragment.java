@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -236,6 +237,16 @@ public class LikeFragment extends BaseFragment
             }
         };
         likeRv.setAdapter(adapter);
+    }
+
+    public void setNight()
+    {
+        if (toolbar == null)
+        {
+            return;
+        }
+        toolbar.setBackgroundColor(Color.parseColor("#3F3F3F"));
+        likeRv.setBackgroundColor(Color.parseColor("#3F3F3F"));
     }
 
     @Override

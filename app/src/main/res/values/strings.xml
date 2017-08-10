@@ -27,5 +27,6 @@
     <string name="clear_success">清除成功</string>
     <string name="clear_cache">清除收藏</string>
     <string name="search">搜索</string>
+    <string name="night_day_mode">夜间/日间模式</string>
 
 </resources>

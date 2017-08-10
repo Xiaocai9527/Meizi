@@ -50,7 +50,6 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         return mMeiziFragment;
     }
 
-
     @Override
     protected int getLayoutId()
     {

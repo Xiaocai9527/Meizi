@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -19,6 +21,7 @@ import com.exsun.meizi.helper.DoubleClickExitHelper;
 import com.exsun.meizi.ui.fragment.GankFragment;
 import com.exsun.meizi.ui.fragment.LikeFragment;
 import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.utils.StatusBarUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -125,11 +128,18 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 //        });
     }
 
+
     private void initFragment(String showFragment, boolean isFirst)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        gankFragment = GankFragment.getInstance();
-        likeFragment = LikeFragment.getInstance();
+        if (gankFragment == null)
+        {
+            gankFragment = GankFragment.getInstance();
+        }
+        if (likeFragment == null)
+        {
+            likeFragment = LikeFragment.getInstance();
+        }
         Fragment mFragment = null;
         switch (showFragment)
         {
@@ -148,8 +158,27 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (isFirst)
         {
-            ft.add(R.id.home_fl, gankFragment).add(R.id.home_fl, likeFragment)
-                    .hide(likeFragment).show(gankFragment).commit();
+            if (gankFragment.isAdded())
+            {
+                ft.remove(gankFragment);
+            }
+            if (likeFragment.isAdded())
+            {
+                ft.remove(likeFragment);
+            }
+            ft.add(R.id.home_fl, gankFragment);
+            ft.add(R.id.home_fl, likeFragment);
+//            if (!gankFragment.isAdded())
+//            {
+//
+//            }
+//            if (!likeFragment.isAdded())
+//            {
+//
+//            }
+            ft.hide(likeFragment).show(gankFragment).commit();
+//            ft.add(R.id.home_fl, gankFragment).add(R.id.home_fl, likeFragment)
+//                    .hide(likeFragment).show(gankFragment).commit();
         } else
         {
             ft.hide(currentFragment).show(mFragment).commit();
@@ -177,6 +206,17 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     case R.id.nav_douyu:
 
                         break;
+                    case R.id.night_day_mode:
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        StatusBarUtil.setColorNoTranslucent(HomeActivity.this, Color.parseColor("#3F3F3F"));
+//                        navView.setBackgroundResource(R.drawable.night_bg);
+                        navView.findViewById(R.id.nav_header).setBackgroundResource(R.drawable.night_bg);
+                        gankFragment.setNight();
+                        likeFragment.setNight();
+//                        setStatusBar();
+//                        recreate();
+                        break;
                     default:
 
                         break;
@@ -185,6 +225,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         }, 200);
 
         return true;
+    }
+
+    @Override
+    public void initTheme()
+    {
+
     }
 
     @Override
