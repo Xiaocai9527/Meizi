@@ -19,6 +19,7 @@
         <activity android:name=".ui.home.activity.HomeActivity"/>
         <activity android:name=".ui.picture.PictureActivity"/>
         <activity android:name=".ui.web.BaseWebActivity"/>
+        <activity android:name=".ui.search.GankSearchActivity"/>
 
         <meta-data
             android:name="AA_DB_NAME"
