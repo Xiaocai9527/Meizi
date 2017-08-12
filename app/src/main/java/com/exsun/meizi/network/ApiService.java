@@ -28,5 +28,5 @@ public interface ApiService
 
     @GET("search/query/{queryWhat}/category/{category}/count/{count}/page/{page}")
     Observable<SearchEntity> getSearchData(@Path("queryWhat") String queryWhat, @Path("category") String category
-            , @Path("count") String count, @Path("page") int page);
+            , @Path("count") int count, @Path("page") int page);
 }

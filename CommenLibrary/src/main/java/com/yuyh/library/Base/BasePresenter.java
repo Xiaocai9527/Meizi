@@ -29,7 +29,7 @@ public abstract class BasePresenter<M, V>
 
     public void detachVM()
     {
-//        mRxManager.clear();
+        mRxManager.clear();
         mView = null;
         mModel = null;
     }
