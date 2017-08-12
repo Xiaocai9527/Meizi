@@ -3,7 +3,6 @@ package com.yuyh.library.utils;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 
 import java.util.Stack;
 
@@ -221,10 +220,10 @@ public class AppManager
             /**
              * 跳转至桌面代码
              */
-            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory(Intent.CATEGORY_HOME);
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(homeIntent);
+//            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+//            homeIntent.addCategory(Intent.CATEGORY_HOME);
+//            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            context.startActivity(homeIntent);
             finishAllActivity();
             ActivityManager activityMgr = (ActivityManager) context
                     .getSystemService(Context.ACTIVITY_SERVICE);

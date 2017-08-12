@@ -112,6 +112,7 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
                 }
                 if (!TextUtils.isEmpty(searchEdit.getText().toString().trim()))
                 {
+                    searchSwipe.setRefreshing(true);
                     mPresenter.getSearchData(trim, type, count, page);
                 } else
                 {
@@ -173,6 +174,12 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
     public void getSearchFailed(Throwable throwable)
     {
 
+    }
+
+    @Override
+    public void setStatusBar()
+    {
+        //        super.setStatusBar();
     }
 
     private RecyclerView.OnScrollListener getOnButtomListener(final StaggeredGridLayoutManager layoutManager)

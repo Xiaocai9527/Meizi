@@ -1,6 +1,7 @@
 package com.exsun.meizi.ui.home.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import com.exsun.meizi.network.ApiService;
 import com.exsun.meizi.ui.home.adapter.HomeVpAdapter;
 import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.ui.home.fragment.other.OtherFragment;
+import com.exsun.meizi.ui.search.GankSearchActivity;
 import com.yuyh.library.Base.BaseFragment;
 
 import java.util.ArrayList;
@@ -106,18 +108,8 @@ public class GankFragment extends BaseFragment
                 switch (item.getItemId())
                 {
                     case R.id.search:
-
-//                        editSearch.setVisibility(View.GONE);
-//                        if (editSearch.getVisibility() == View.GONE)
-//                        {
-//                            editSearch.setVisibility(View.VISIBLE);
-//                            toolbar.setTitle("");
-//                        } else
-//                        {
-//                            int selectedTabPosition = tabLayoutHome.getSelectedTabPosition();
-//
-//                        }
-
+                        startActivity(new Intent(mActivity, GankSearchActivity.class));
+                        //                        mActivity.startActivity(GankSearchActivity.class);
                         break;
                     default:
 
@@ -181,7 +173,7 @@ public class GankFragment extends BaseFragment
         toolbar.setBackgroundColor(Color.parseColor("#3F3F3F"));
         tabLayoutHome.setBackgroundColor(Color.parseColor("#3F3F3F"));
         viewPagerHome.setBackgroundResource(R.drawable.night_bg);
-//        viewPagerHome.setBackgroundColor(Color.parseColor("#3F3F3F"));
+        //        viewPagerHome.setBackgroundColor(Color.parseColor("#3F3F3F"));
     }
 
     @Override
