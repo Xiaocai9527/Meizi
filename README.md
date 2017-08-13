@@ -6,21 +6,29 @@
 
 1. MVP在实际项目中的使用以及基于MVP模式如何对项目进行目录分层；
 
-2. 异步操作处理上，MVP+RxJava/MVP+RxJava+Retrofit的相结合；
+2. 异步操作处理上，MVP+RxJava/MVP+RxJava+Retrofit的相结合，rxjava中关于map丶flatMap丶zip丶doOnNext操作符等在项目中均有用到；
 
 3. BaseAdapter的使用，用的鸿洋大大的库，大大降低Adapter类的代码量；
 
 4. BaseActivity、BaseFragment等基类的封装；
 
-5. 对一个app基本的混淆处理；
+5. 对一个app基本的混淆处理，混淆处理，有关于混淆这里有一篇文章：http://drakeet.me/android-advanced-proguard-and-security/；
 
 6. 关于CoordinatorLayout+AppBarLayout+ToolBar的简单组合使用；
 
 7. 图片的双指触摸缩放功能；
 
-8. 接下来想做一个换肤功能；
+8. 利用AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);夜间模式的简单实现，需要注意的是这个方法只会对未启动的activity有作用，当前activity是无效的。针对这种情况有两种方法：①如果界面不太复杂，直接setColor就行(本项目就是利用这个)；②如果界面太过复杂，那么就走recreact重新创建activity方法，记得调用 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-9. 后面想进行的关于单元测试的编写...；
+9. 想增加一个扫一扫功能；
+
+10. 想做一个im即时通讯模块；
+
+11. 想做一个斗鱼tv直播模块；
+
+12. 想利用bmob做一个后台登录，或者将收藏功能做到服务端而不是手机本地保存；
+
+13. 后面想进行的关于单元测试的编写...；
 
    ------
 
