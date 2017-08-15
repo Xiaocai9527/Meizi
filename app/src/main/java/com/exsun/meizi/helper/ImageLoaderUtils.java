@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.exsun.meizi.MzApplication;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
 
 import java.io.File;

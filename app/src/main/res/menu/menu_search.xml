@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<item-->
+    <!--android:id="@+id/gank_search"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="@string/search_types"-->
+    <!--app:showAsAction="always"/>-->
+
+    <item
+        android:id="@+id/android_search"
+        android:orderInCategory="100"
+        android:title="@string/android"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/ios_search"
+        android:orderInCategory="100"
+        android:title="@string/ios"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/front_search"
+        android:orderInCategory="100"
+        android:title="@string/front"
+        app:showAsAction="never"/>
+
+</menu>

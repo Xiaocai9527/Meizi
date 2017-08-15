@@ -28,5 +28,9 @@
     <string name="clear_cache">清除收藏</string>
     <string name="search">搜索</string>
     <string name="night_day_mode">夜间/日间模式</string>
+    <string name="search_types">类型选择</string>
+    <string name="please_input_something">搜索内容不能为空</string>
+    <string name="tip_empty_gank">搜的啥玩意，专业点行不行！</string>
+    <string name="input_you_want">搜你想搜的</string>
 
 </resources>

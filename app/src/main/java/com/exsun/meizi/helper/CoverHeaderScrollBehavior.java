@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.exsun.meizi.MzApplication;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
 
 

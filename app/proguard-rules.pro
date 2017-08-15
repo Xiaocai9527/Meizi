@@ -157,7 +157,7 @@
 }
 
 # b.对内嵌类的混淆处理,例如假若HomeActivity里有内嵌类，那么处理如下
-#-keep class com.exsun.meizi.ui.activity.HomeActivity$* {*;}
+#-keep class com.exsun.meizi.ui.home.activity.HomeActivity$* {*;}
 
 # c.对webview的混淆处理，如果项目中用到了WebView的复杂操作,加入如下混淆代码
 #-keepclasseswithmembers class * extends android.webkit.webViewClient{
@@ -170,7 +170,7 @@
 
 # d.对JavaScript的混淆处理,对所有添加addJavascriptInterface注解类混淆
 # 假若JSInterface是HomeActivity的子类，要保留js调用原生的方法不被混淆
-#-keepclasseswithmembers class com.exsun.meizi.ui.activity.HomeActivity$JSInterface{
+#-keepclasseswithmembers class com.exsun.meizi.ui.home.activity.HomeActivity$JSInterface{
 #    <methods>;
 #}
 
