@@ -76,11 +76,8 @@ public class GankFragment extends BaseFragment
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
-        if (savedInstanceState == null)
-        {
-            initToolBar();
-            initViewPager();
-        }
+        initToolBar();
+        initViewPager();
     }
 
     private void initToolBar()
@@ -106,18 +103,7 @@ public class GankFragment extends BaseFragment
                 switch (item.getItemId())
                 {
                     case R.id.search:
-
-//                        editSearch.setVisibility(View.GONE);
-//                        if (editSearch.getVisibility() == View.GONE)
-//                        {
-//                            editSearch.setVisibility(View.VISIBLE);
-//                            toolbar.setTitle("");
-//                        } else
-//                        {
-//                            int selectedTabPosition = tabLayoutHome.getSelectedTabPosition();
-//
-//                        }
-
+                        //搜索逻辑
                         break;
                     default:
 
