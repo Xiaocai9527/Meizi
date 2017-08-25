@@ -2,8 +2,8 @@ package com.exsun.meizi.ui.home.fragment.meizi;
 
 import android.util.Log;
 
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.HomeMixEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.HomeMixEntity;
 
 import java.util.ArrayList;
 import java.util.List;

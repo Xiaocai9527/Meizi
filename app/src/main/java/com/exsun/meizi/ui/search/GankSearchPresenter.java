@@ -1,6 +1,6 @@
 package com.exsun.meizi.ui.search;
 
-import com.exsun.meizi.entity.SearchEntity;
+import com.exsun.meizi.entity.gank.SearchEntity;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.exsun.meizi.ui.home.fragment.meizi;
 
 import com.exsun.meizi.base.MzApplication;
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.HomeMixEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.HomeMixEntity;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 

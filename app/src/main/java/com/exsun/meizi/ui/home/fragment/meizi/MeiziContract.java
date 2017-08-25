@@ -1,7 +1,7 @@
 package com.exsun.meizi.ui.home.fragment.meizi;
 
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.HomeMixEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.HomeMixEntity;
 import com.exsun.meizi.base.AppBaseModel;
 import com.yuyh.library.Base.BasePresenter;
 import com.yuyh.library.Base.BaseView;

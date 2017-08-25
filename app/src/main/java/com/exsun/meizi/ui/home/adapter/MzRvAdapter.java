@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.exsun.meizi.R;
-import com.exsun.meizi.entity.HomeMixEntity;
+import com.exsun.meizi.entity.gank.HomeMixEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.yuyh.library.Base.BaseActivity;

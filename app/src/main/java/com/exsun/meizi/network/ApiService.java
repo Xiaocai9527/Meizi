@@ -1,9 +1,9 @@
 package com.exsun.meizi.network;
 
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.GankDayEntity;
-import com.exsun.meizi.entity.RadomMzEntity;
-import com.exsun.meizi.entity.SearchEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.GankDayEntity;
+import com.exsun.meizi.entity.gank.RadomMzEntity;
+import com.exsun.meizi.entity.gank.SearchEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

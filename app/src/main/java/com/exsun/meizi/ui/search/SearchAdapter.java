@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.exsun.meizi.R;
-import com.exsun.meizi.entity.SearchEntity;
+import com.exsun.meizi.entity.gank.SearchEntity;
 import com.exsun.meizi.ui.web.BaseWebActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
