@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
-import com.exsun.meizi.entity.SearchEntity;
+import com.exsun.meizi.entity.gank.SearchEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.widge.OffsetDecoration;
 import com.yuyh.library.Base.BaseActivity;

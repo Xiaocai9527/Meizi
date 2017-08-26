@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
 import com.exsun.meizi.config.Constant;
-import com.exsun.meizi.entity.MyLikeEntity;
+import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.helper.Shares;
 import com.exsun.meizi.helper.Toasts;
 import com.just.library.AgentWeb;

@@ -7,6 +7,8 @@ package com.exsun.meizi.config;
 public class Constant
 {
     public static final String ROOT_PATH = "http://gank.io/api/";
+    public static final String DOUYU_BASE_URL = "http://www.douyutv.com/";
+
 
     public static final int API_COUNT = 10;
 

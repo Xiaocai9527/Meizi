@@ -1,4 +1,4 @@
-package com.exsun.meizi.entity;
+package com.exsun.meizi.entity.gank;
 
 import java.util.List;
 

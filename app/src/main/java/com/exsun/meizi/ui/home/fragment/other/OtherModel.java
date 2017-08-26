@@ -1,7 +1,7 @@
 package com.exsun.meizi.ui.home.fragment.other;
 
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.RadomMzEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.RadomMzEntity;
 
 import java.util.List;
 

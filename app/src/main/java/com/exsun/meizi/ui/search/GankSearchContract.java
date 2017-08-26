@@ -1,7 +1,7 @@
 package com.exsun.meizi.ui.search;
 
 import com.exsun.meizi.base.AppBaseModel;
-import com.exsun.meizi.entity.SearchEntity;
+import com.exsun.meizi.entity.gank.SearchEntity;
 import com.yuyh.library.Base.BasePresenter;
 import com.yuyh.library.Base.BaseView;
 

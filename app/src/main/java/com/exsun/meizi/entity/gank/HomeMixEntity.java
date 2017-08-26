@@ -1,4 +1,4 @@
-package com.exsun.meizi.entity;
+package com.exsun.meizi.entity.gank;
 
 import com.litesuits.orm.db.annotation.Column;
 import com.litesuits.orm.db.annotation.PrimaryKey;

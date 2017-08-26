@@ -1,8 +1,8 @@
 package com.exsun.meizi.ui.home.fragment.other;
 
-import com.exsun.meizi.entity.AndroidMixEntity;
-import com.exsun.meizi.entity.GankCategoryEntity;
-import com.exsun.meizi.entity.RadomMzEntity;
+import com.exsun.meizi.entity.gank.AndroidMixEntity;
+import com.exsun.meizi.entity.gank.GankCategoryEntity;
+import com.exsun.meizi.entity.gank.RadomMzEntity;
 import com.exsun.meizi.base.AppBaseModel;
 import com.yuyh.library.Base.BasePresenter;
 import com.yuyh.library.Base.BaseView;
