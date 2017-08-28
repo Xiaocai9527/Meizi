@@ -1,6 +1,6 @@
 package com.exsun.meizi.ui.douyu.presenter;
 
-import com.exsun.meizi.entity.douyu.ChannelEntity;
+import com.exsun.meizi.entity.douyu.ChannelsEntity;
 import com.exsun.meizi.ui.douyu.contract.DyMainContract;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class DyMainPresenter extends DyMainContract.Presenter
     @Override
     public void getChannelsData()
     {
-        mModel.getChannels().subscribe(new Observer<List<ChannelEntity>>()
+        mModel.getChannels().subscribe(new Observer<List<ChannelsEntity.DataBean>>()
         {
             @Override
             public void onSubscribe(Disposable d)
@@ -26,7 +26,7 @@ public class DyMainPresenter extends DyMainContract.Presenter
             }
 
             @Override
-            public void onNext(List<ChannelEntity> value)
+            public void onNext(List<ChannelsEntity.DataBean> value)
             {
                 mView.getChannelsSuccess(value);
             }

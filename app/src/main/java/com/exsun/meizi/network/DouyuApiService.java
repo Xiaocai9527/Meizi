@@ -1,12 +1,12 @@
 package com.exsun.meizi.network;
 
 import com.exsun.meizi.entity.douyu.CateEntity;
-import com.exsun.meizi.entity.douyu.ChannelEntity;
-import com.exsun.meizi.entity.douyu.RoomEntity;
+import com.exsun.meizi.entity.douyu.ChannelsEntity;
 import com.exsun.meizi.entity.douyu.RoomInfoEntity;
 import com.exsun.meizi.entity.douyu.RoomInfoEntity2;
+import com.exsun.meizi.entity.douyu.RoomsEntity;
 import com.exsun.meizi.entity.douyu.SearchEntity;
-import com.exsun.meizi.entity.douyu.SliderEntity;
+import com.exsun.meizi.entity.douyu.SlidersEntity;
 import com.exsun.meizi.entity.douyu.TagEntity;
 import com.exsun.meizi.entity.douyu.TempLiveEntity;
 
@@ -30,7 +30,7 @@ public interface DouyuApiService
      * @return
      */
     @GET("api/v1/game")
-    Observable<List<ChannelEntity>> getChannels();
+    Observable<ChannelsEntity> getChannels();
 
     /**
      * 获取斗鱼房间信息
@@ -41,7 +41,7 @@ public interface DouyuApiService
      * @return
      */
     @GET("api/v1/live/{cate_id}")
-    Observable<List<RoomEntity>> getRooms(@Path("cate_id") String str, @Query("limit") int i, @Query("offset") int i2);
+    Observable<RoomsEntity> getRooms(@Path("cate_id") String str, @Query("limit") int i, @Query("offset") int i2);
 
     /**
      * 首页轮播图
@@ -49,7 +49,7 @@ public interface DouyuApiService
      * @return
      */
     @GET("api/v1/slide")
-    Observable<List<SliderEntity>> getSliders();
+    Observable<SlidersEntity> getSliders();
 
     @GET("api/v1/getColumnList")
     Observable<List<CateEntity>> getCateList();

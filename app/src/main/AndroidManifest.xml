@@ -20,6 +20,7 @@
         <activity android:name=".ui.picture.PictureActivity"/>
         <activity android:name=".ui.web.BaseWebActivity"/>
         <activity android:name=".ui.search.GankSearchActivity"/>
+        <activity android:name=".ui.douyu.activity.DyMainActivity"/>
 
         <meta-data
             android:name="AA_DB_NAME"
