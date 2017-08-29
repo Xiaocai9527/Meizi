@@ -17,7 +17,7 @@ import com.exsun.meizi.ui.douyu.adapter.ChannelAdapter;
 import com.exsun.meizi.ui.douyu.contract.ChannelContract;
 import com.exsun.meizi.ui.douyu.model.ChannelModel;
 import com.exsun.meizi.ui.douyu.presenter.ChannelPresenter;
-import com.exsun.meizi.widge.OffsetDecoration;
+import com.exsun.meizi.widget.OffsetDecoration;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -138,7 +138,7 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
         //设置圆形指示器
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.CENTER);
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
         banner.start();
         wrapper.addHeaderView(banner);
         recyclerView.setAdapter(wrapper);

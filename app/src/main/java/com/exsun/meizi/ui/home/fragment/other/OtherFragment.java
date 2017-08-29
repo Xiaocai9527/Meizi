@@ -17,7 +17,7 @@ import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.home.adapter.AndroidAdapter;
 import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
-import com.exsun.meizi.widge.OffsetDecoration;
+import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 import com.yuyh.library.utils.DimenUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;

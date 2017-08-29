@@ -22,6 +22,10 @@ public class Constant
     public static final int FRONT = 3;
 
     public static final String MY_LIKE_DATA = "my_like_data";
+    public static final java.lang.String CDN_CODE = "cdn_code";
+    public static final java.lang.String RATE_CODE = "rate_code";
+    public static final java.lang.String USING_MEDIA_CODEC = "using_media_codec";
+
     public static boolean IS_CLEAR = false;
     public static String MY_LIKE_URL = "my_like_url";
 }

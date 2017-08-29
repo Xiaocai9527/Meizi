@@ -70,6 +70,10 @@ dependencies {
     //轮播图
     compile 'com.youth.banner:banner:1.4.9'
     //视频
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.2'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.2'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.2'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.2'
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+
+    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
 }

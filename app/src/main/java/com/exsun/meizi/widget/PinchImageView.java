@@ -1,4 +1,4 @@
-package com.exsun.meizi.widge;
+package com.exsun.meizi.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
