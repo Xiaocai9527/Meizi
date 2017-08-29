@@ -17,7 +17,7 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.SearchEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
-import com.exsun.meizi.widge.OffsetDecoration;
+import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseActivity;
 import com.yuyh.library.utils.DimenUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;

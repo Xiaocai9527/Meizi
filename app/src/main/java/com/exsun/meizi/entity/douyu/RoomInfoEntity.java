@@ -2,611 +2,917 @@ package com.exsun.meizi.entity.douyu;
 
 import java.util.List;
 
-public class RoomInfoEntity {
-    private List<?> black;
-    private String cate_id;
-    private CateLimitBean cate_limit;
-    private List<String> cdns;
-    private List<CdnsWithNameBean> cdnsWithName;
-    private String column_id;
-    private String coverSrc;
-    private String credit_illegal;
-    private String cur_credit;
-    private String defaultSrc;
-    private String game_icon_url;
-    private String game_name;
-    private String game_url;
-    private int isDefaultAvatar;
-    private int isVertical;
-    private int is_high_game;
-    private int is_pass_player;
-    private String is_white_list;
-    private String low_credit;
-    private List<MultiratesBean> multirates;
-    private String nickname;
-    private int online;
-    private int open_full_screen;
-    private String owner_avatar;
-    private String owner_uid;
-    private P2pSettingsBean p2p_settings;
-    private int room_dm_delay;
-    private String room_id;
-    private RoomIdleBean room_idle;
-    private String room_name;
-    private String room_src;
-    private String rtmp_cdn;
-    private String rtmp_live;
-    private String rtmp_url;
-    private List<ServersBean> servers;
-    private String show_details;
-    private String show_status;
-    private String show_time;
-    private String specific_catalog;
-    private String specific_status;
-    private String url;
-    private String use_p2p;
-    private String vertical_src;
-    private String vod_quality;
-    private List<WsproxyBean> wsproxy;
+/**
+ * Created by xiaokun on 2017/8/29.
+ */
 
-    public static class CateLimitBean {
-        private int limit_num;
-        private int limit_threshold;
-        private int limit_time;
-        private int limit_type;
+public class RoomInfoEntity
+{
 
-        public int getLimit_type() {
-            return this.limit_type;
+    /**
+     * error : 0
+     * data : {"room_id":"78561","room_src":"https://rpic.douyucdn.cn/acrpic/170829/78561_1356.jpg","vertical_src":"https://rpic.douyucdn.cn/acrpic/170829/78561_1356.jpg","isVertical":0,"cate_id":"270","room_name":"雪MM：单排吃鸡小美女~","vod_quality":"0","show_status":"1","show_time":"1503976875","owner_uid":"1670103","specific_catalog":"flxow","specific_status":"0","credit_illegal":"0","is_white_list":"0","cur_credit":"12","low_credit":"4","online":201776,"nickname":"妃凌雪","url":"/78561","game_url":"/directory/game/jdqs","game_name":"绝地求生","game_icon_url":"https://staticlive.douyucdn.cn/upload/game_cate/541b7a110b5600999660283999d13c77.jpg","rtmp_url":"http://hdla.douyucdn.cn/live","rtmp_live":"","rtmp_cdn":"ws","rtmp_multi_bitrate":{"middle":"_550","middle2":"_900"},"servers":[{"ip":"119.90.49.88","port":"8088"},{"ip":"119.90.49.102","port":"8008"},{"ip":"119.90.49.105","port":"8021"},{"ip":"119.90.49.103","port":"8014"},{"ip":"119.90.49.104","port":"8020"},{"ip":"119.90.49.104","port":"8019"},{"ip":"119.90.49.109","port":"8041"},{"ip":"119.90.49.102","port":"8010"},{"ip":"119.90.49.94","port":"8067"},{"ip":"119.90.49.103","port":"8015"},{"ip":"119.90.49.91","port":"8055"},{"ip":"119.90.49.104","port":"8018"},{"ip":"119.90.49.105","port":"8023"},{"ip":"119.90.49.89","port":"8094"},{"ip":"119.90.49.105","port":"8024"},{"ip":"119.90.49.90","port":"8096"},{"ip":"119.90.49.86","port":"8077"},{"ip":"119.90.49.107","port":"8032"},{"ip":"119.90.49.106","port":"8030"},{"ip":"119.90.49.92","port":"8056"},{"ip":"119.90.49.110","port":"8048"},{"ip":"119.90.49.106","port":"8027"},{"ip":"119.90.49.94","port":"8068"},{"ip":"119.90.49.109","port":"8045"},{"ip":"119.90.49.108","port":"8038"},{"ip":"119.90.49.94","port":"8070"},{"ip":"119.90.49.106","port":"8028"},{"ip":"119.90.49.93","port":"8062"},{"ip":"119.90.49.108","port":"8039"},{"ip":"119.90.49.93","port":"8064"}],"use_p2p":"0","room_dm_delay":90,"black":[],"show_details":"扣群：374186230","owner_avatar":"https://apic.douyucdn.cn/upload/avatar/face/201608/31/7717fb9606c2df4ffd1f4690e454fd20_big.jpg","cdns":["ws","tct","ws2"],"cdnsWithName":[{"name":"主线路","cdn":"ws"},{"name":"备用线路5","cdn":"tct"},{"name":"备用线路2","cdn":"ws2"}],"is_pass_player":0,"open_full_screen":0,"multirates":[{"type":0,"name":"超清"},{"type":2,"name":"高清"},{"type":1,"name":"普清"}],"column_id":"15","cate_limit":{"limit_type":0,"limit_num":0,"limit_threshold":0,"limit_time":0},"is_high_game":0,"room_idle":{"active":1,"minute_limit":40},"coverSrc":"","defaultSrc":"https://staticlive.douyucdn.cn/common/douyu/images/dbg1.jpg","p2p_settings":{"plan_id":0,"name_id":0,"w_dm":0,"m_dm":0,"player":0,"online_limit":0},"isDefaultAvatar":0,"wsproxy":[{"domain":"dy2.8686c.com","port":"10010"},{"domain":"dy2.8686c.com","port":"10011"},{"domain":"dy2.8686c.com","port":"10012"},{"domain":"dy2.8686c.com","port":"10013"},{"domain":"dy2.8686c.com","port":"10014"}]}
+     */
+
+    private int error;
+    private DataBean data;
+
+    public int getError()
+    {
+        return error;
+    }
+
+    public void setError(int error)
+    {
+        this.error = error;
+    }
+
+    public DataBean getData()
+    {
+        return data;
+    }
+
+    public void setData(DataBean data)
+    {
+        this.data = data;
+    }
+
+    public static class DataBean
+    {
+        /**
+         * room_id : 78561
+         * room_src : https://rpic.douyucdn.cn/acrpic/170829/78561_1356.jpg
+         * vertical_src : https://rpic.douyucdn.cn/acrpic/170829/78561_1356.jpg
+         * isVertical : 0
+         * cate_id : 270
+         * room_name : 雪MM：单排吃鸡小美女~
+         * vod_quality : 0
+         * show_status : 1
+         * show_time : 1503976875
+         * owner_uid : 1670103
+         * specific_catalog : flxow
+         * specific_status : 0
+         * credit_illegal : 0
+         * is_white_list : 0
+         * cur_credit : 12
+         * low_credit : 4
+         * online : 201776
+         * nickname : 妃凌雪
+         * url : /78561
+         * game_url : /directory/game/jdqs
+         * game_name : 绝地求生
+         * game_icon_url : https://staticlive.douyucdn.cn/upload/game_cate/541b7a110b5600999660283999d13c77.jpg
+         * rtmp_url : http://hdla.douyucdn.cn/live
+         * rtmp_live :
+         * rtmp_cdn : ws
+         * rtmp_multi_bitrate : {"middle":"_550","middle2":"_900"}
+         * servers : [{"ip":"119.90.49.88","port":"8088"},{"ip":"119.90.49.102","port":"8008"},{"ip":"119.90.49.105","port":"8021"},{"ip":"119.90.49.103","port":"8014"},{"ip":"119.90.49.104","port":"8020"},{"ip":"119.90.49.104","port":"8019"},{"ip":"119.90.49.109","port":"8041"},{"ip":"119.90.49.102","port":"8010"},{"ip":"119.90.49.94","port":"8067"},{"ip":"119.90.49.103","port":"8015"},{"ip":"119.90.49.91","port":"8055"},{"ip":"119.90.49.104","port":"8018"},{"ip":"119.90.49.105","port":"8023"},{"ip":"119.90.49.89","port":"8094"},{"ip":"119.90.49.105","port":"8024"},{"ip":"119.90.49.90","port":"8096"},{"ip":"119.90.49.86","port":"8077"},{"ip":"119.90.49.107","port":"8032"},{"ip":"119.90.49.106","port":"8030"},{"ip":"119.90.49.92","port":"8056"},{"ip":"119.90.49.110","port":"8048"},{"ip":"119.90.49.106","port":"8027"},{"ip":"119.90.49.94","port":"8068"},{"ip":"119.90.49.109","port":"8045"},{"ip":"119.90.49.108","port":"8038"},{"ip":"119.90.49.94","port":"8070"},{"ip":"119.90.49.106","port":"8028"},{"ip":"119.90.49.93","port":"8062"},{"ip":"119.90.49.108","port":"8039"},{"ip":"119.90.49.93","port":"8064"}]
+         * use_p2p : 0
+         * room_dm_delay : 90
+         * black : []
+         * show_details : 扣群：374186230
+         * owner_avatar : https://apic.douyucdn.cn/upload/avatar/face/201608/31/7717fb9606c2df4ffd1f4690e454fd20_big.jpg
+         * cdns : ["ws","tct","ws2"]
+         * cdnsWithName : [{"name":"主线路","cdn":"ws"},{"name":"备用线路5","cdn":"tct"},{"name":"备用线路2","cdn":"ws2"}]
+         * is_pass_player : 0
+         * open_full_screen : 0
+         * multirates : [{"type":0,"name":"超清"},{"type":2,"name":"高清"},{"type":1,"name":"普清"}]
+         * column_id : 15
+         * cate_limit : {"limit_type":0,"limit_num":0,"limit_threshold":0,"limit_time":0}
+         * is_high_game : 0
+         * room_idle : {"active":1,"minute_limit":40}
+         * coverSrc :
+         * defaultSrc : https://staticlive.douyucdn.cn/common/douyu/images/dbg1.jpg
+         * p2p_settings : {"plan_id":0,"name_id":0,"w_dm":0,"m_dm":0,"player":0,"online_limit":0}
+         * isDefaultAvatar : 0
+         * wsproxy : [{"domain":"dy2.8686c.com","port":"10010"},{"domain":"dy2.8686c.com","port":"10011"},{"domain":"dy2.8686c.com","port":"10012"},{"domain":"dy2.8686c.com","port":"10013"},{"domain":"dy2.8686c.com","port":"10014"}]
+         */
+
+        private String room_id;
+        private String room_src;
+        private String vertical_src;
+        private int isVertical;
+        private String cate_id;
+        private String room_name;
+        private String vod_quality;
+        private String show_status;
+        private String show_time;
+        private String owner_uid;
+        private String specific_catalog;
+        private String specific_status;
+        private String credit_illegal;
+        private String is_white_list;
+        private String cur_credit;
+        private String low_credit;
+        private int online;
+        private String nickname;
+        private String url;
+        private String game_url;
+        private String game_name;
+        private String game_icon_url;
+        private String rtmp_url;
+        private String rtmp_live;
+        private String rtmp_cdn;
+        private RtmpMultiBitrateBean rtmp_multi_bitrate;
+        private String use_p2p;
+        private int room_dm_delay;
+        private String show_details;
+        private String owner_avatar;
+        private int is_pass_player;
+        private int open_full_screen;
+        private String column_id;
+        private CateLimitBean cate_limit;
+        private int is_high_game;
+        private RoomIdleBean room_idle;
+        private String coverSrc;
+        private String defaultSrc;
+        private P2pSettingsBean p2p_settings;
+        private int isDefaultAvatar;
+        private List<ServersBean> servers;
+        private List<?> black;
+        private List<String> cdns;
+        private List<CdnsWithNameBean> cdnsWithName;
+        private List<MultiratesBean> multirates;
+        private List<WsproxyBean> wsproxy;
+
+        public String getRoom_id()
+        {
+            return room_id;
         }
 
-        public void setLimit_type(int limit_type) {
-            this.limit_type = limit_type;
+        public void setRoom_id(String room_id)
+        {
+            this.room_id = room_id;
         }
 
-        public int getLimit_num() {
-            return this.limit_num;
+        public String getRoom_src()
+        {
+            return room_src;
         }
 
-        public void setLimit_num(int limit_num) {
-            this.limit_num = limit_num;
+        public void setRoom_src(String room_src)
+        {
+            this.room_src = room_src;
         }
 
-        public int getLimit_threshold() {
-            return this.limit_threshold;
+        public String getVertical_src()
+        {
+            return vertical_src;
         }
 
-        public void setLimit_threshold(int limit_threshold) {
-            this.limit_threshold = limit_threshold;
+        public void setVertical_src(String vertical_src)
+        {
+            this.vertical_src = vertical_src;
         }
 
-        public int getLimit_time() {
-            return this.limit_time;
+        public int getIsVertical()
+        {
+            return isVertical;
         }
 
-        public void setLimit_time(int limit_time) {
-            this.limit_time = limit_time;
-        }
-    }
-
-    public static class CdnsWithNameBean {
-        private String cdn;
-        private String name;
-
-        public String getName() {
-            return this.name;
+        public void setIsVertical(int isVertical)
+        {
+            this.isVertical = isVertical;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public String getCate_id()
+        {
+            return cate_id;
         }
 
-        public String getCdn() {
-            return this.cdn;
+        public void setCate_id(String cate_id)
+        {
+            this.cate_id = cate_id;
         }
 
-        public void setCdn(String cdn) {
-            this.cdn = cdn;
-        }
-    }
-
-    public static class MultiratesBean {
-        private String name;
-        private int type;
-
-        public int getType() {
-            return this.type;
+        public String getRoom_name()
+        {
+            return room_name;
         }
 
-        public void setType(int type) {
-            this.type = type;
+        public void setRoom_name(String room_name)
+        {
+            this.room_name = room_name;
         }
 
-        public String getName() {
-            return this.name;
+        public String getVod_quality()
+        {
+            return vod_quality;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class P2pSettingsBean {
-        private int m_dm;
-        private int name_id;
-        private int online_limit;
-        private int plan_id;
-        private int player;
-        private int w_dm;
-
-        public int getPlan_id() {
-            return this.plan_id;
+        public void setVod_quality(String vod_quality)
+        {
+            this.vod_quality = vod_quality;
         }
 
-        public void setPlan_id(int plan_id) {
-            this.plan_id = plan_id;
+        public String getShow_status()
+        {
+            return show_status;
         }
 
-        public int getW_dm() {
-            return this.w_dm;
+        public void setShow_status(String show_status)
+        {
+            this.show_status = show_status;
         }
 
-        public void setW_dm(int w_dm) {
-            this.w_dm = w_dm;
+        public String getShow_time()
+        {
+            return show_time;
         }
 
-        public int getM_dm() {
-            return this.m_dm;
+        public void setShow_time(String show_time)
+        {
+            this.show_time = show_time;
         }
 
-        public void setM_dm(int m_dm) {
-            this.m_dm = m_dm;
+        public String getOwner_uid()
+        {
+            return owner_uid;
         }
 
-        public int getPlayer() {
-            return this.player;
+        public void setOwner_uid(String owner_uid)
+        {
+            this.owner_uid = owner_uid;
         }
 
-        public void setPlayer(int player) {
-            this.player = player;
+        public String getSpecific_catalog()
+        {
+            return specific_catalog;
         }
 
-        public int getName_id() {
-            return this.name_id;
+        public void setSpecific_catalog(String specific_catalog)
+        {
+            this.specific_catalog = specific_catalog;
         }
 
-        public void setName_id(int name_id) {
-            this.name_id = name_id;
+        public String getSpecific_status()
+        {
+            return specific_status;
         }
 
-        public int getOnline_limit() {
-            return this.online_limit;
+        public void setSpecific_status(String specific_status)
+        {
+            this.specific_status = specific_status;
         }
 
-        public void setOnline_limit(int online_limit) {
-            this.online_limit = online_limit;
-        }
-    }
-
-    public static class RoomIdleBean {
-        private int active;
-        private int minute_limit;
-
-        public int getActive() {
-            return this.active;
+        public String getCredit_illegal()
+        {
+            return credit_illegal;
         }
 
-        public void setActive(int active) {
-            this.active = active;
+        public void setCredit_illegal(String credit_illegal)
+        {
+            this.credit_illegal = credit_illegal;
         }
 
-        public int getMinute_limit() {
-            return this.minute_limit;
+        public String getIs_white_list()
+        {
+            return is_white_list;
         }
 
-        public void setMinute_limit(int minute_limit) {
-            this.minute_limit = minute_limit;
-        }
-    }
-
-    public static class ServersBean {
-        private String ip;
-        private String port;
-
-        public String getIp() {
-            return this.ip;
+        public void setIs_white_list(String is_white_list)
+        {
+            this.is_white_list = is_white_list;
         }
 
-        public void setIp(String ip) {
-            this.ip = ip;
+        public String getCur_credit()
+        {
+            return cur_credit;
         }
 
-        public String getPort() {
-            return this.port;
+        public void setCur_credit(String cur_credit)
+        {
+            this.cur_credit = cur_credit;
         }
 
-        public void setPort(String port) {
-            this.port = port;
-        }
-    }
-
-    public static class WsproxyBean {
-        private String domain;
-        private String port;
-
-        public String getDomain() {
-            return this.domain;
+        public String getLow_credit()
+        {
+            return low_credit;
         }
 
-        public void setDomain(String domain) {
-            this.domain = domain;
+        public void setLow_credit(String low_credit)
+        {
+            this.low_credit = low_credit;
         }
 
-        public String getPort() {
-            return this.port;
+        public int getOnline()
+        {
+            return online;
         }
 
-        public void setPort(String port) {
-            this.port = port;
+        public void setOnline(int online)
+        {
+            this.online = online;
         }
-    }
-
-    public String getRoom_id() {
-        return this.room_id;
-    }
-
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id;
-    }
-
-    public String getRoom_src() {
-        return this.room_src;
-    }
-
-    public void setRoom_src(String room_src) {
-        this.room_src = room_src;
-    }
-
-    public String getVertical_src() {
-        return this.vertical_src;
-    }
-
-    public void setVertical_src(String vertical_src) {
-        this.vertical_src = vertical_src;
-    }
-
-    public int getIsVertical() {
-        return this.isVertical;
-    }
-
-    public void setIsVertical(int isVertical) {
-        this.isVertical = isVertical;
-    }
-
-    public String getCate_id() {
-        return this.cate_id;
-    }
-
-    public void setCate_id(String cate_id) {
-        this.cate_id = cate_id;
-    }
-
-    public String getRoom_name() {
-        return this.room_name;
-    }
-
-    public void setRoom_name(String room_name) {
-        this.room_name = room_name;
-    }
-
-    public String getVod_quality() {
-        return this.vod_quality;
-    }
-
-    public void setVod_quality(String vod_quality) {
-        this.vod_quality = vod_quality;
-    }
-
-    public String getShow_status() {
-        return this.show_status;
-    }
-
-    public void setShow_status(String show_status) {
-        this.show_status = show_status;
-    }
-
-    public String getShow_time() {
-        return this.show_time;
-    }
-
-    public void setShow_time(String show_time) {
-        this.show_time = show_time;
-    }
-
-    public String getOwner_uid() {
-        return this.owner_uid;
-    }
-
-    public void setOwner_uid(String owner_uid) {
-        this.owner_uid = owner_uid;
-    }
-
-    public String getSpecific_catalog() {
-        return this.specific_catalog;
-    }
-
-    public void setSpecific_catalog(String specific_catalog) {
-        this.specific_catalog = specific_catalog;
-    }
-
-    public String getSpecific_status() {
-        return this.specific_status;
-    }
-
-    public void setSpecific_status(String specific_status) {
-        this.specific_status = specific_status;
-    }
-
-    public String getCredit_illegal() {
-        return this.credit_illegal;
-    }
-
-    public void setCredit_illegal(String credit_illegal) {
-        this.credit_illegal = credit_illegal;
-    }
-
-    public String getIs_white_list() {
-        return this.is_white_list;
-    }
-
-    public void setIs_white_list(String is_white_list) {
-        this.is_white_list = is_white_list;
-    }
-
-    public String getCur_credit() {
-        return this.cur_credit;
-    }
-
-    public void setCur_credit(String cur_credit) {
-        this.cur_credit = cur_credit;
-    }
-
-    public String getLow_credit() {
-        return this.low_credit;
-    }
-
-    public void setLow_credit(String low_credit) {
-        this.low_credit = low_credit;
-    }
-
-    public int getOnline() {
-        return this.online;
-    }
-
-    public void setOnline(int online) {
-        this.online = online;
-    }
-
-    public String getNickname() {
-        return this.nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getGame_url() {
-        return this.game_url;
-    }
-
-    public void setGame_url(String game_url) {
-        this.game_url = game_url;
-    }
-
-    public String getGame_name() {
-        return this.game_name;
-    }
-
-    public void setGame_name(String game_name) {
-        this.game_name = game_name;
-    }
-
-    public String getGame_icon_url() {
-        return this.game_icon_url;
-    }
-
-    public void setGame_icon_url(String game_icon_url) {
-        this.game_icon_url = game_icon_url;
-    }
-
-    public String getRtmp_url() {
-        return this.rtmp_url;
-    }
-
-    public void setRtmp_url(String rtmp_url) {
-        this.rtmp_url = rtmp_url;
-    }
-
-    public String getRtmp_live() {
-        return this.rtmp_live;
-    }
-
-    public void setRtmp_live(String rtmp_live) {
-        this.rtmp_live = rtmp_live;
-    }
-
-    public String getRtmp_cdn() {
-        return this.rtmp_cdn;
-    }
-
-    public void setRtmp_cdn(String rtmp_cdn) {
-        this.rtmp_cdn = rtmp_cdn;
-    }
-
-    public String getUse_p2p() {
-        return this.use_p2p;
-    }
-
-    public void setUse_p2p(String use_p2p) {
-        this.use_p2p = use_p2p;
-    }
-
-    public int getRoom_dm_delay() {
-        return this.room_dm_delay;
-    }
-
-    public void setRoom_dm_delay(int room_dm_delay) {
-        this.room_dm_delay = room_dm_delay;
-    }
-
-    public String getShow_details() {
-        return this.show_details;
-    }
-
-    public void setShow_details(String show_details) {
-        this.show_details = show_details;
-    }
-
-    public String getOwner_avatar() {
-        return this.owner_avatar;
-    }
-
-    public void setOwner_avatar(String owner_avatar) {
-        this.owner_avatar = owner_avatar;
-    }
-
-    public int getIs_pass_player() {
-        return this.is_pass_player;
-    }
-
-    public void setIs_pass_player(int is_pass_player) {
-        this.is_pass_player = is_pass_player;
-    }
-
-    public int getOpen_full_screen() {
-        return this.open_full_screen;
-    }
-
-    public void setOpen_full_screen(int open_full_screen) {
-        this.open_full_screen = open_full_screen;
-    }
-
-    public String getColumn_id() {
-        return this.column_id;
-    }
-
-    public void setColumn_id(String column_id) {
-        this.column_id = column_id;
-    }
-
-    public CateLimitBean getCate_limit() {
-        return this.cate_limit;
-    }
 
-    public void setCate_limit(CateLimitBean cate_limit) {
-        this.cate_limit = cate_limit;
-    }
-
-    public int getIs_high_game() {
-        return this.is_high_game;
-    }
-
-    public void setIs_high_game(int is_high_game) {
-        this.is_high_game = is_high_game;
-    }
-
-    public RoomIdleBean getRoom_idle() {
-        return this.room_idle;
-    }
-
-    public void setRoom_idle(RoomIdleBean room_idle) {
-        this.room_idle = room_idle;
-    }
-
-    public String getCoverSrc() {
-        return this.coverSrc;
-    }
-
-    public void setCoverSrc(String coverSrc) {
-        this.coverSrc = coverSrc;
-    }
-
-    public String getDefaultSrc() {
-        return this.defaultSrc;
-    }
-
-    public void setDefaultSrc(String defaultSrc) {
-        this.defaultSrc = defaultSrc;
-    }
-
-    public P2pSettingsBean getP2p_settings() {
-        return this.p2p_settings;
-    }
-
-    public void setP2p_settings(P2pSettingsBean p2p_settings) {
-        this.p2p_settings = p2p_settings;
-    }
-
-    public int getIsDefaultAvatar() {
-        return this.isDefaultAvatar;
-    }
-
-    public void setIsDefaultAvatar(int isDefaultAvatar) {
-        this.isDefaultAvatar = isDefaultAvatar;
-    }
-
-    public List<ServersBean> getServers() {
-        return this.servers;
-    }
-
-    public void setServers(List<ServersBean> servers) {
-        this.servers = servers;
-    }
-
-    public List<?> getBlack() {
-        return this.black;
-    }
-
-    public void setBlack(List<?> black) {
-        this.black = black;
-    }
-
-    public List<String> getCdns() {
-        return this.cdns;
-    }
-
-    public void setCdns(List<String> cdns) {
-        this.cdns = cdns;
-    }
-
-    public List<CdnsWithNameBean> getCdnsWithName() {
-        return this.cdnsWithName;
-    }
-
-    public void setCdnsWithName(List<CdnsWithNameBean> cdnsWithName) {
-        this.cdnsWithName = cdnsWithName;
-    }
-
-    public List<MultiratesBean> getMultirates() {
-        return this.multirates;
-    }
-
-    public void setMultirates(List<MultiratesBean> multirates) {
-        this.multirates = multirates;
-    }
-
-    public List<WsproxyBean> getWsproxy() {
-        return this.wsproxy;
-    }
-
-    public void setWsproxy(List<WsproxyBean> wsproxy) {
-        this.wsproxy = wsproxy;
+        public String getNickname()
+        {
+            return nickname;
+        }
+
+        public void setNickname(String nickname)
+        {
+            this.nickname = nickname;
+        }
+
+        public String getUrl()
+        {
+            return url;
+        }
+
+        public void setUrl(String url)
+        {
+            this.url = url;
+        }
+
+        public String getGame_url()
+        {
+            return game_url;
+        }
+
+        public void setGame_url(String game_url)
+        {
+            this.game_url = game_url;
+        }
+
+        public String getGame_name()
+        {
+            return game_name;
+        }
+
+        public void setGame_name(String game_name)
+        {
+            this.game_name = game_name;
+        }
+
+        public String getGame_icon_url()
+        {
+            return game_icon_url;
+        }
+
+        public void setGame_icon_url(String game_icon_url)
+        {
+            this.game_icon_url = game_icon_url;
+        }
+
+        public String getRtmp_url()
+        {
+            return rtmp_url;
+        }
+
+        public void setRtmp_url(String rtmp_url)
+        {
+            this.rtmp_url = rtmp_url;
+        }
+
+        public String getRtmp_live()
+        {
+            return rtmp_live;
+        }
+
+        public void setRtmp_live(String rtmp_live)
+        {
+            this.rtmp_live = rtmp_live;
+        }
+
+        public String getRtmp_cdn()
+        {
+            return rtmp_cdn;
+        }
+
+        public void setRtmp_cdn(String rtmp_cdn)
+        {
+            this.rtmp_cdn = rtmp_cdn;
+        }
+
+        public RtmpMultiBitrateBean getRtmp_multi_bitrate()
+        {
+            return rtmp_multi_bitrate;
+        }
+
+        public void setRtmp_multi_bitrate(RtmpMultiBitrateBean rtmp_multi_bitrate)
+        {
+            this.rtmp_multi_bitrate = rtmp_multi_bitrate;
+        }
+
+        public String getUse_p2p()
+        {
+            return use_p2p;
+        }
+
+        public void setUse_p2p(String use_p2p)
+        {
+            this.use_p2p = use_p2p;
+        }
+
+        public int getRoom_dm_delay()
+        {
+            return room_dm_delay;
+        }
+
+        public void setRoom_dm_delay(int room_dm_delay)
+        {
+            this.room_dm_delay = room_dm_delay;
+        }
+
+        public String getShow_details()
+        {
+            return show_details;
+        }
+
+        public void setShow_details(String show_details)
+        {
+            this.show_details = show_details;
+        }
+
+        public String getOwner_avatar()
+        {
+            return owner_avatar;
+        }
+
+        public void setOwner_avatar(String owner_avatar)
+        {
+            this.owner_avatar = owner_avatar;
+        }
+
+        public int getIs_pass_player()
+        {
+            return is_pass_player;
+        }
+
+        public void setIs_pass_player(int is_pass_player)
+        {
+            this.is_pass_player = is_pass_player;
+        }
+
+        public int getOpen_full_screen()
+        {
+            return open_full_screen;
+        }
+
+        public void setOpen_full_screen(int open_full_screen)
+        {
+            this.open_full_screen = open_full_screen;
+        }
+
+        public String getColumn_id()
+        {
+            return column_id;
+        }
+
+        public void setColumn_id(String column_id)
+        {
+            this.column_id = column_id;
+        }
+
+        public CateLimitBean getCate_limit()
+        {
+            return cate_limit;
+        }
+
+        public void setCate_limit(CateLimitBean cate_limit)
+        {
+            this.cate_limit = cate_limit;
+        }
+
+        public int getIs_high_game()
+        {
+            return is_high_game;
+        }
+
+        public void setIs_high_game(int is_high_game)
+        {
+            this.is_high_game = is_high_game;
+        }
+
+        public RoomIdleBean getRoom_idle()
+        {
+            return room_idle;
+        }
+
+        public void setRoom_idle(RoomIdleBean room_idle)
+        {
+            this.room_idle = room_idle;
+        }
+
+        public String getCoverSrc()
+        {
+            return coverSrc;
+        }
+
+        public void setCoverSrc(String coverSrc)
+        {
+            this.coverSrc = coverSrc;
+        }
+
+        public String getDefaultSrc()
+        {
+            return defaultSrc;
+        }
+
+        public void setDefaultSrc(String defaultSrc)
+        {
+            this.defaultSrc = defaultSrc;
+        }
+
+        public P2pSettingsBean getP2p_settings()
+        {
+            return p2p_settings;
+        }
+
+        public void setP2p_settings(P2pSettingsBean p2p_settings)
+        {
+            this.p2p_settings = p2p_settings;
+        }
+
+        public int getIsDefaultAvatar()
+        {
+            return isDefaultAvatar;
+        }
+
+        public void setIsDefaultAvatar(int isDefaultAvatar)
+        {
+            this.isDefaultAvatar = isDefaultAvatar;
+        }
+
+        public List<ServersBean> getServers()
+        {
+            return servers;
+        }
+
+        public void setServers(List<ServersBean> servers)
+        {
+            this.servers = servers;
+        }
+
+        public List<?> getBlack()
+        {
+            return black;
+        }
+
+        public void setBlack(List<?> black)
+        {
+            this.black = black;
+        }
+
+        public List<String> getCdns()
+        {
+            return cdns;
+        }
+
+        public void setCdns(List<String> cdns)
+        {
+            this.cdns = cdns;
+        }
+
+        public List<CdnsWithNameBean> getCdnsWithName()
+        {
+            return cdnsWithName;
+        }
+
+        public void setCdnsWithName(List<CdnsWithNameBean> cdnsWithName)
+        {
+            this.cdnsWithName = cdnsWithName;
+        }
+
+        public List<MultiratesBean> getMultirates()
+        {
+            return multirates;
+        }
+
+        public void setMultirates(List<MultiratesBean> multirates)
+        {
+            this.multirates = multirates;
+        }
+
+        public List<WsproxyBean> getWsproxy()
+        {
+            return wsproxy;
+        }
+
+        public void setWsproxy(List<WsproxyBean> wsproxy)
+        {
+            this.wsproxy = wsproxy;
+        }
+
+        public static class RtmpMultiBitrateBean
+        {
+            /**
+             * middle : _550
+             * middle2 : _900
+             */
+
+            private String middle;
+            private String middle2;
+
+            public String getMiddle()
+            {
+                return middle;
+            }
+
+            public void setMiddle(String middle)
+            {
+                this.middle = middle;
+            }
+
+            public String getMiddle2()
+            {
+                return middle2;
+            }
+
+            public void setMiddle2(String middle2)
+            {
+                this.middle2 = middle2;
+            }
+        }
+
+        public static class CateLimitBean
+        {
+            /**
+             * limit_type : 0
+             * limit_num : 0
+             * limit_threshold : 0
+             * limit_time : 0
+             */
+
+            private int limit_type;
+            private int limit_num;
+            private int limit_threshold;
+            private int limit_time;
+
+            public int getLimit_type()
+            {
+                return limit_type;
+            }
+
+            public void setLimit_type(int limit_type)
+            {
+                this.limit_type = limit_type;
+            }
+
+            public int getLimit_num()
+            {
+                return limit_num;
+            }
+
+            public void setLimit_num(int limit_num)
+            {
+                this.limit_num = limit_num;
+            }
+
+            public int getLimit_threshold()
+            {
+                return limit_threshold;
+            }
+
+            public void setLimit_threshold(int limit_threshold)
+            {
+                this.limit_threshold = limit_threshold;
+            }
+
+            public int getLimit_time()
+            {
+                return limit_time;
+            }
+
+            public void setLimit_time(int limit_time)
+            {
+                this.limit_time = limit_time;
+            }
+        }
+
+        public static class RoomIdleBean
+        {
+            /**
+             * active : 1
+             * minute_limit : 40
+             */
+
+            private int active;
+            private int minute_limit;
+
+            public int getActive()
+            {
+                return active;
+            }
+
+            public void setActive(int active)
+            {
+                this.active = active;
+            }
+
+            public int getMinute_limit()
+            {
+                return minute_limit;
+            }
+
+            public void setMinute_limit(int minute_limit)
+            {
+                this.minute_limit = minute_limit;
+            }
+        }
+
+        public static class P2pSettingsBean
+        {
+            /**
+             * plan_id : 0
+             * name_id : 0
+             * w_dm : 0
+             * m_dm : 0
+             * player : 0
+             * online_limit : 0
+             */
+
+            private int plan_id;
+            private int name_id;
+            private int w_dm;
+            private int m_dm;
+            private int player;
+            private int online_limit;
+
+            public int getPlan_id()
+            {
+                return plan_id;
+            }
+
+            public void setPlan_id(int plan_id)
+            {
+                this.plan_id = plan_id;
+            }
+
+            public int getName_id()
+            {
+                return name_id;
+            }
+
+            public void setName_id(int name_id)
+            {
+                this.name_id = name_id;
+            }
+
+            public int getW_dm()
+            {
+                return w_dm;
+            }
+
+            public void setW_dm(int w_dm)
+            {
+                this.w_dm = w_dm;
+            }
+
+            public int getM_dm()
+            {
+                return m_dm;
+            }
+
+            public void setM_dm(int m_dm)
+            {
+                this.m_dm = m_dm;
+            }
+
+            public int getPlayer()
+            {
+                return player;
+            }
+
+            public void setPlayer(int player)
+            {
+                this.player = player;
+            }
+
+            public int getOnline_limit()
+            {
+                return online_limit;
+            }
+
+            public void setOnline_limit(int online_limit)
+            {
+                this.online_limit = online_limit;
+            }
+        }
+
+        public static class ServersBean
+        {
+            /**
+             * ip : 119.90.49.88
+             * port : 8088
+             */
+
+            private String ip;
+            private String port;
+
+            public String getIp()
+            {
+                return ip;
+            }
+
+            public void setIp(String ip)
+            {
+                this.ip = ip;
+            }
+
+            public String getPort()
+            {
+                return port;
+            }
+
+            public void setPort(String port)
+            {
+                this.port = port;
+            }
+        }
+
+        public static class CdnsWithNameBean
+        {
+            /**
+             * name : 主线路
+             * cdn : ws
+             */
+
+            private String name;
+            private String cdn;
+
+            public String getName()
+            {
+                return name;
+            }
+
+            public void setName(String name)
+            {
+                this.name = name;
+            }
+
+            public String getCdn()
+            {
+                return cdn;
+            }
+
+            public void setCdn(String cdn)
+            {
+                this.cdn = cdn;
+            }
+        }
+
+        public static class MultiratesBean
+        {
+            /**
+             * type : 0
+             * name : 超清
+             */
+
+            private int type;
+            private String name;
+
+            public int getType()
+            {
+                return type;
+            }
+
+            public void setType(int type)
+            {
+                this.type = type;
+            }
+
+            public String getName()
+            {
+                return name;
+            }
+
+            public void setName(String name)
+            {
+                this.name = name;
+            }
+        }
+
+        public static class WsproxyBean
+        {
+            /**
+             * domain : dy2.8686c.com
+             * port : 10010
+             */
+
+            private String domain;
+            private String port;
+
+            public String getDomain()
+            {
+                return domain;
+            }
+
+            public void setDomain(String domain)
+            {
+                this.domain = domain;
+            }
+
+            public String getPort()
+            {
+                return port;
+            }
+
+            public void setPort(String port)
+            {
+                this.port = port;
+            }
+        }
     }
 }

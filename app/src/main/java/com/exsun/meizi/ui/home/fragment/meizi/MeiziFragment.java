@@ -11,7 +11,7 @@ import com.exsun.meizi.R;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
 import com.exsun.meizi.ui.home.adapter.MzRvAdapter;
-import com.exsun.meizi.widge.OffsetDecoration;
+import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 
 import java.util.ArrayList;

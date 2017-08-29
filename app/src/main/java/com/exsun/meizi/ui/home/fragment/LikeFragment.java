@@ -25,7 +25,7 @@ import com.exsun.meizi.helper.Toasts;
 import com.exsun.meizi.network.Api;
 import com.exsun.meizi.network.ApiService;
 import com.exsun.meizi.ui.web.BaseWebActivity;
-import com.exsun.meizi.widge.OffsetDecoration;
+import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

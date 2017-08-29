@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.home.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.FrameLayout;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
+import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
 import com.exsun.meizi.ui.home.fragment.GankFragment;
 import com.exsun.meizi.ui.home.fragment.LikeFragment;
 import com.yuyh.library.Base.BaseActivity;
@@ -82,7 +84,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         navView.setNavigationItemSelectedListener(this);
     }
 
-
     private void initFragment(String showFragment, boolean isFirst)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -140,7 +141,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         initFragment("gank", false);
                         break;
                     case R.id.nav_douyu:
-
+//                        startActivity(DyMainActivity.class);
+                        startActivity(new Intent(HomeActivity.this, DyMainActivity.class));
                         break;
                     case R.id.night_day_mode:
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
