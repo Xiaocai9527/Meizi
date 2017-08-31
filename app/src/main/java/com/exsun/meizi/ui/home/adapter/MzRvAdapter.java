@@ -43,6 +43,12 @@ public class MzRvAdapter extends CommonAdapter<HomeMixEntity>
         CardView cv = holder.getView(R.id.home_cv);
 
         ImageLoaderUtils.display(mContext, img, homeMixEntity.getUrl());
+//        Glide.with(mContext)
+//                .load(homeMixEntity.getUrl())
+//                .crossFade(500)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .into(img);
+
         tv.setText(text);
 
         img.setOnClickListener(new View.OnClickListener()

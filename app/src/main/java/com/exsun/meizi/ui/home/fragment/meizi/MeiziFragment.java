@@ -98,7 +98,11 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     @Override
     public void doBusiness(Context context)
     {
-        mPresenter.getMixDataFormDB();
+        datas = new ArrayList<>();
+        adapter = new MzRvAdapter(context, R.layout.item_category, datas);
+        homeRv.setAdapter(adapter);
+        getData(Constant.WELFARE, Constant.VIDEO, count, page);
+//        mPresenter.getMixDataFormDB();
     }
 
     @Override
@@ -114,7 +118,10 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     @Override
     public void getMixSuccess(List<HomeMixEntity> homeMixEntities)
     {
-        homeSr.setRefreshing(false);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(false);
+        }
         if (isClearData)
         {
             datas.clear();
@@ -126,7 +133,10 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
 
     public void getData(String query1, String query2, int count, int page)
     {
-        homeSr.setRefreshing(true);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(true);
+        }
         mPresenter.getMixData(query1, query2, count, page);
     }
 
