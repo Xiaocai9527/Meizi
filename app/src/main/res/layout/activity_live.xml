@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     android:orientation="vertical">
 
-    <com.xiao.nicevideoplayer.NiceVideoPlayer
+    <com.allen.playerview.VideoPlayerView
         android:id="@+id/player_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="match_parent"
+        app:player_aspectRatio="fit_parent"
+        app:player_isShowFullScreenBtn="true"
+        app:player_isShowPlayerBottomBar="true"
+        app:player_isStart="false"
+        app:player_isTouchForPause="false"
+        app:player_repeatPlay="false"/>
 
     <Button
         android:id="@+id/cdn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="线路"/>
+        android:text="线路"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="超清"/>
+        android:text="超清"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="全屏"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="276dp"/>
 

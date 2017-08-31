@@ -2,7 +2,6 @@ package com.yuyh.library.Base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -67,7 +66,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         // 无标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toastUtils = new ToastUtils();
     }
 

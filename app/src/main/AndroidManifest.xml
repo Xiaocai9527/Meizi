@@ -23,7 +23,7 @@
         <activity android:name=".ui.douyu.activity.DyMainActivity"/>
         <activity
             android:name=".ui.douyu.activity.LiveActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="screenSize|orientation|keyboard|keyboardHidden"/>
 
         <meta-data
             android:name="AA_DB_NAME"
