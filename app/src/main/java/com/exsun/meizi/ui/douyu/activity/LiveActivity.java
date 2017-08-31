@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.douyu.activity;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -78,16 +79,16 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 防止锁屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     @Override
     public void initView()
     {
         mPlayerView.setOnFullScreenClickListener(this);
-//        mPlayerView.isShowPlayerBottomBar(true);
+        mPlayerView.isShowPlayerBottomBar(true);
 //        mPlayerView.isShowFullScreenBtn(true);
-//        mPlayerView.isOnlyShowFullBtn(true);
+        mPlayerView.isOnlyShowFullBtn(true);
         mCDN = new RoomInfoEntity.DataBean.CdnsWithNameBean();
         mRate = new RoomInfoEntity.DataBean.MultiratesBean();
         mCDN.setCdn("ws");
@@ -181,6 +182,17 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return;
+        }
+        super.onBackPressed();
     }
 
     /**

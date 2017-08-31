@@ -799,11 +799,11 @@ public class VideoPlayerView extends LinearLayout
         if (isShowFullScreenBtn)
         {
             mFullScreenBtnIv.setVisibility(VISIBLE);
-            mPlayControllerIv.setVisibility(GONE);
+            mPlayControllerIv.setVisibility(INVISIBLE);
             mCenterPlayerBtnIv.setVisibility(GONE);
-            mCurrentTimeTv.setVisibility(GONE);
-            mTotalTimeTv.setVisibility(GONE);
-            mSeekBar.setVisibility(GONE);
+            mCurrentTimeTv.setVisibility(INVISIBLE);
+            mTotalTimeTv.setVisibility(INVISIBLE);
+            mSeekBar.setVisibility(INVISIBLE);
         } else
         {
             mFullScreenBtnIv.setVisibility(GONE);

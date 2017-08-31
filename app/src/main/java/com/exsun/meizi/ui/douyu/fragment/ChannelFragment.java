@@ -51,7 +51,10 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     private View headView;
     private ViewPager banner;
     private ChannelAdapter channelAdapter;
+    private ChannelAdapter channelWithSliderAdapter;
+
     private List<RoomsEntity.DataBean> mData;
+    private List<RoomsEntity.DataBean> mDataWithSlider;
     private boolean isClearData = true;//首次进来或者触发刷新
 
     @Override
@@ -100,7 +103,7 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     @Override
     public void doBusiness(Context context)
     {
-        mData = new ArrayList<>();
+
         if (recyclerView != null)
         {
             recyclerView.setAdapter(channelAdapter);
@@ -112,11 +115,15 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
         recyclerView.addOnScrollListener(getOnButtomListener(manager));
         if (cateId.equals("0"))
         {
-            channelAdapter = new ChannelAdapter(context, R.layout.item_room, mData);
+            mDataWithSlider = new ArrayList<>();
+            channelWithSliderAdapter = new ChannelAdapter(context, R.layout.item_room, mDataWithSlider);
+            recyclerView.setAdapter(channelWithSliderAdapter);
             mPresenter.getRoomsWithSliders(cateId, mLimit, mOffset);
         } else
         {
+            mData = new ArrayList<>();
             channelAdapter = new ChannelAdapter(context, R.layout.item_room, mData);
+            recyclerView.setAdapter(channelAdapter);
             mPresenter.getRooms(cateId, mLimit, mOffset);
         }
     }
@@ -149,12 +156,12 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
         refreshLayout.setRefreshing(false);
         if (isClearData)
         {
-            mData.clear();
-            mData.addAll(roomsWithSlidersEntity.getRoomData());
+            mDataWithSlider.clear();
+            mDataWithSlider.addAll(roomsWithSlidersEntity.getRoomData());
             List<SlidersEntity.DataBean> sliderData = roomsWithSlidersEntity.getSliderData();
             List<String> imgs = new ArrayList<>();
             List<String> titles = new ArrayList<>();
-            wrapper = new HeaderAndFooterWrapper(channelAdapter);
+            wrapper = new HeaderAndFooterWrapper(channelWithSliderAdapter);
             Banner banner = new Banner(mActivity);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(
                     DimenUtils.getScreenWidth(), (int) DimenUtils.dpToPx(200));
@@ -181,8 +188,10 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
             banner.start();
             wrapper.addHeaderView(banner);
             recyclerView.setAdapter(wrapper);
+            isClearData = false;
+            return;
         }
-        mData.addAll(roomsWithSlidersEntity.getRoomData());
+        mDataWithSlider.addAll(roomsWithSlidersEntity.getRoomData());
         wrapper.notifyDataSetChanged();
         isClearData = false;
     }
@@ -200,12 +209,22 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     {
         return new RecyclerView.OnScrollListener()
         {
+
+            private boolean isBottom;
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
             {
                 super.onScrolled(recyclerView, dx, dy);
                 int positions = layoutManager.findLastCompletelyVisibleItemPosition();
-                boolean isBottom = positions >= (channelAdapter.getItemCount() - PRELOAD_SIZE);
+                if (cateId.equals("0"))
+                {
+                    isBottom = positions >= (channelWithSliderAdapter.getItemCount() - PRELOAD_SIZE);
+                } else
+                {
+                    isBottom = positions >= (channelAdapter.getItemCount() - PRELOAD_SIZE);
+                }
+
                 if (!refreshLayout.isRefreshing() && isBottom)
                 {
                     if (!mIsFirstTimeTouchBottom)

@@ -56,6 +56,7 @@ public class DyMainActivity extends BaseActivity<DyMainPresenter, DyMainModel> i
         tabLayoutHome.setTabMode(TabLayout.MODE_SCROLLABLE);
         pageAdapter = new ChannelPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
+        viewPager.setOffscreenPageLimit(4);
         tabLayoutHome.setupWithViewPager(viewPager);
     }
 
@@ -69,6 +70,7 @@ public class DyMainActivity extends BaseActivity<DyMainPresenter, DyMainModel> i
     public void getChannelsSuccess(List<ChannelsEntity.DataBean> channelEntities)
     {
         pageAdapter.updateData(channelEntities);
+
     }
 
     @Override

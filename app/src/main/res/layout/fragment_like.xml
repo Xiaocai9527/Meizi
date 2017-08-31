@@ -23,5 +23,12 @@
             android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--<ViewStub-->
+    <!--android:id="@+id/stub_empty_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginTop="@dimen/gank_header_height"-->
+    <!--android:layout="@layout/view_empty"/>-->
 </LinearLayout>
 
