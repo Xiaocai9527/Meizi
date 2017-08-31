@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
+import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
 import com.exsun.meizi.ui.home.fragment.GankFragment;
@@ -49,6 +51,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initData(Bundle bundle)
     {
+        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         MPermissions.requestPermissions(this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE);
     }
 
@@ -162,7 +171,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         startActivity(new Intent(HomeActivity.this, DyMainActivity.class));
                         break;
                     case R.id.night_day_mode:
-                        setDayNightMode(false);
+                        boolean b = MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true);
+                        MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, !b);
+                        setDayNightMode(!b);
 //                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 ////                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 //                        StatusBarUtil.setColorNoTranslucent(HomeActivity.this, Color.parseColor("#3F3F3F"));
@@ -184,9 +195,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void setDayNightMode(boolean day)
     {
         if (day)
+        {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        else
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, true);
+        } else
+        {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, false);
+        }
 //        getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         startActivity(new Intent(this, HomeActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
