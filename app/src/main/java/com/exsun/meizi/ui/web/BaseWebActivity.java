@@ -4,20 +4,24 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.helper.Shares;
@@ -261,8 +265,8 @@ public class BaseWebActivity extends BaseActivity
                 .setIndicatorColor(R.color.colorPrimary)
 //                .defaultProgressBarColor()// 使用默认进度条颜色
                 .setReceivedTitleCallback(mCallback)//设置 Web 页面的 title 回调
-//                .setWebChromeClient(mWebChromeClient)
-//                .setWebViewClient(mWebViewClient)
+                .setWebChromeClient(mWebChromeClient)
+                .setWebViewClient(mWebViewClient)
                 .setSecutityType(AgentWeb.SecurityType.strict)
 //                .setWebLayout(new WebLayout(this))
                 .createAgentWeb()//
@@ -285,4 +289,32 @@ public class BaseWebActivity extends BaseActivity
                 toolbarTitle.setText(title);
         }
     };
+
+    private WebViewClient mWebViewClient = new WebViewClient()
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon)
+        {
+
+        }
+    };
+    private WebChromeClient mWebChromeClient = new WebChromeClient()
+    {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress)
+        {
+
+        }
+    };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+
+        if (mAgentWeb.handleKeyEvent(keyCode, event))
+        {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

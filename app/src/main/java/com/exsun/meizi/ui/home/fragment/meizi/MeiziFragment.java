@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
 import com.exsun.meizi.ui.home.adapter.MzRvAdapter;
@@ -98,23 +99,34 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     @Override
     public void doBusiness(Context context)
     {
-        mPresenter.getMixDataFormDB();
+        datas = new ArrayList<>();
+        adapter = new MzRvAdapter(context, R.layout.item_category, datas);
+        homeRv.setAdapter(adapter);
+        boolean b = MzApplication.mPref.get(Constant.IS_FIRST_OPEN_APP, true);
+        if (b)
+        {
+            getData(Constant.WELFARE, Constant.VIDEO, count, page);
+        } else
+        {
+            mPresenter.getMixDataFormDB();
+        }
     }
 
     @Override
     public void getDataFromDBSuccess(List<HomeMixEntity> homeMixEntities)
     {
-        datas = new ArrayList<>();
         datas.addAll(homeMixEntities);
-        adapter = new MzRvAdapter(mActivity, R.layout.item_category, datas);
-        homeRv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         getData(Constant.WELFARE, Constant.VIDEO, count, page);
     }
 
     @Override
     public void getMixSuccess(List<HomeMixEntity> homeMixEntities)
     {
-        homeSr.setRefreshing(false);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(false);
+        }
         if (isClearData)
         {
             datas.clear();
@@ -122,11 +134,15 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         datas.addAll(homeMixEntities);
         adapter.notifyDataSetChanged();
         isClearData = false;
+        MzApplication.mPref.put(Constant.IS_FIRST_OPEN_APP, false);
     }
 
     public void getData(String query1, String query2, int count, int page)
     {
-        homeSr.setRefreshing(true);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(true);
+        }
         mPresenter.getMixData(query1, query2, count, page);
     }
 

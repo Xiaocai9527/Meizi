@@ -12,6 +12,9 @@ import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.ACache;
 import com.yuyh.library.utils.data.PrefsUtils;
 
+import me.drakeet.library.CrashWoodpecker;
+import me.drakeet.library.PatchMode;
+
 /**
  * Created by xiaokun on 2017/7/26.
  */
@@ -40,6 +43,12 @@ public class MzApplication extends Application
             BlockCanary.install(this, new AppContext()).start();
             LeakCanary.install(this);
         }
+        CrashWoodpecker.instance()
+                .withKeys("widget", "me.drakeet")
+                .setPatchMode(PatchMode.SHOW_LOG_PAGE)
+//                .setPatchDialogUrlToOpen("https://drakeet.me")
+                .setPassToOriginalDefaultHandler(true)
+                .flyTo(this);
     }
 
     public static Context getAppContext()

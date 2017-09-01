@@ -1,22 +1,23 @@
 package com.exsun.meizi.ui.douyu.activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.MediaController;
 import android.widget.PopupMenu;
 
+import com.allen.playerview.VideoPlayerView;
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.douyu.RoomInfoEntity;
 import com.exsun.meizi.ui.douyu.contract.LiveContract;
 import com.exsun.meizi.ui.douyu.model.LiveModel;
 import com.exsun.meizi.ui.douyu.presenter.LivePresenter;
-import com.exsun.meizi.widget.media.IMediaController;
-import com.xiao.nicevideoplayer.NiceVideoPlayer;
-import com.xiao.nicevideoplayer.TxVideoPlayerController;
 import com.yuyh.library.Base.BaseActivity;
 
 import java.util.List;
@@ -28,12 +29,12 @@ import butterknife.OnClick;
  * Created by xiaokun on 2017/8/28.
  */
 
-public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> implements IMediaController, LiveContract.View
+public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> implements LiveContract.View
 {
     public static final String ROOM_ID = "room_id";
     public static final String ROOM_TITLE = "room_title";
     @Bind(R.id.player_view)
-    NiceVideoPlayer mPlayerView;
+    VideoPlayerView mPlayerView;
     @Bind(R.id.button)
     Button button;
     @Bind(R.id.cdn)
@@ -70,26 +71,30 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
         mPresenter.setVM(this, mModel);
     }
 
+    public void doBeforeSetcontentView()
+    {
+        super.doBeforeSetcontentView();
+        /*set it to be full screen*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 防止锁屏
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
     @Override
     public void initView()
     {
-        mPlayerView.setPlayerType(NiceVideoPlayer.TYPE_IJK);
-//        initIjkPlayer();
-    }
-
-    private void initIjkPlayer()
-    {
-//        IjkMediaPlayer.loadLibrariesOnce(null);
-//        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-//        videoView.setMediaController(this);
-//        videoView.setOnPreparedListener(new IMediaPlayer.OnPreparedListener()
-//        {
-//            @Override
-//            public void onPrepared(IMediaPlayer iMediaPlayer)
-//            {
-//
-//            }
-//        });
+        mPlayerView.setOnFullScreenClickListener(this);
+        mPlayerView.isShowPlayerBottomBar(true);
+//        mPlayerView.isShowFullScreenBtn(true);
+        mPlayerView.isOnlyShowFullBtn(true);
+        mCDN = new RoomInfoEntity.DataBean.CdnsWithNameBean();
+        mRate = new RoomInfoEntity.DataBean.MultiratesBean();
+        mCDN.setCdn("ws");
+        mCDN.setName("主线路");
+        mRate.setName("超清");
+        mRate.setType(0);
     }
 
     @Override
@@ -124,31 +129,13 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
     @Override
     public void setMediaCodec(boolean b)
     {
-//        if (mPlayerView != null)
-//        {
-//            Setting.setUsingMediaCodec(b);
-//            Setting.setMediaCodecHandleResolutionChange(b);
-//            if (mPlayerView.isPlaying())
-//            {
-//                preparePlay();
-//            }
-//        }
+        preparePlay();
     }
 
     @Override
     public void updateHLSUrl(String url)
     {
-        mPlayerView.setUp(url, null);
-        TxVideoPlayerController controller = new TxVideoPlayerController(this);
-        controller.setTitle(roomTitle);
-        mPlayerView.setController(controller);
-//        mPlayerView.init()
-//                .setTitle("hahaha")
-////                .setSkipTip(1000 * 60 * 1)
-//                .enableOrientation()
-//                .setVideoPath(url)
-//                .start();
-//        videoView.setVideoURI(Uri.parse(url));
+        mPlayerView.setPlayerPath(url).start();
     }
 
     @Override
@@ -197,8 +184,19 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return;
+        }
+        super.onBackPressed();
+    }
+
     /**
-     * zhunbei bofang
+     * 准备播放
      */
     @Override
     public void preparePlay()
@@ -214,6 +212,7 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
     {
         this.mCDN = cdnsWithNameBean;
         cdn.setText(cdnsWithNameBean.getName());
+        preparePlay();
     }
 
     @Override
@@ -221,54 +220,30 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
     {
         this.mRate = multiratesBean;
         rate.setText(multiratesBean.getName());
-    }
-
-
-    @Override
-    public void hide()
-    {
-
+        preparePlay();
     }
 
     @Override
-    public boolean isShowing()
+    protected void onResume()
     {
-        return false;
+        super.onResume();
+        mPlayerView.onResume();
     }
 
     @Override
-    public void setAnchorView(View view)
+    protected void onPause()
     {
-
+        super.onPause();
+        mPlayerView.onPause();
     }
 
     @Override
-    public void setEnabled(boolean z)
+    protected void onDestroy()
     {
-
-    }
-
-    @Override
-    public void setMediaPlayer(MediaController.MediaPlayerControl mediaPlayerControl)
-    {
-
-    }
-
-    @Override
-    public void show()
-    {
-
-    }
-
-    @Override
-    public void show(int i)
-    {
-
-    }
-
-    @Override
-    public void showOnce(View view)
-    {
-
+        super.onDestroy();
+        if (mPlayerView != null)
+        {
+            mPlayerView.onDestroy();
+        }
     }
 }

@@ -57,6 +57,8 @@ dependencies {
     compile 'com.zhy:base-rvadapter:3.0.3'
     //显示加载图片框架
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    //捕捉异常
+    compile 'me.drakeet.library:crashwoodpecker:2.1.1'
     compile files('libs/lite-orm-1.9.2.jar')
     //检测内存泄漏工具
     compile 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -75,5 +77,7 @@ dependencies {
 
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
-    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
+//    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
+
+    compile project(':playerview')
 }

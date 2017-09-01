@@ -188,7 +188,7 @@ public class LivePresenter extends LiveContract.Presenter
         if (!nameBean.getCdn().equals(MzApplication.mPref.get(Constant.CDN_CODE, "ws")))
         {
             mView.upDateCDN(nameBean);
-            mView.preparePlay();
+//            mView.preparePlay();
         }
     }
 
@@ -200,6 +200,6 @@ public class LivePresenter extends LiveContract.Presenter
     public void onRateChange(RoomInfoEntity.DataBean.MultiratesBean rate)
     {
         mView.upDateRate(rate);
-        mView.preparePlay();
+//        mView.preparePlay();
     }
 }

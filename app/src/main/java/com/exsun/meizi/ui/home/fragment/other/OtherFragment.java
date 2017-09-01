@@ -144,7 +144,10 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
 
     public void getData(String query1, String query2, int count, int page)
     {
-        homeSr.setRefreshing(true);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(false);
+        }
 //        mPresenter.getMixData(query1, query2, count, page);
         mPresenter.getAndroidMix(query1, query2, count, page);
     }
@@ -161,7 +164,10 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
                     , (int) DimenUtils.dpToPx(200));
             isRefresh = false;
         }
-        homeSr.setRefreshing(false);
+        if (homeSr != null)
+        {
+            homeSr.setRefreshing(false);
+        }
         if (isClearData)
         {
             datas.clear();

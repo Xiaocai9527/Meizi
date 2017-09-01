@@ -23,11 +23,25 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url).placeholder(placeholder)
+        Glide.with(MzApplication.getAppContext()).load(url).placeholder(placeholder)
                 .error(error).crossFade().into(imageView);
     }
 
     public static void display(Context context, ImageView imageView, String url)
+    {
+        if (imageView == null)
+        {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(MzApplication.getAppContext()).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .centerCrop()
+                .placeholder(R.drawable.ic_image_loading)
+                .error(R.drawable.ic_empty_picture)
+                .crossFade().into(imageView);
+    }
+
+    public static void display(Context context, ImageView imageView, File url)
     {
         if (imageView == null)
         {
@@ -41,27 +55,13 @@ public class ImageLoaderUtils
                 .crossFade().into(imageView);
     }
 
-    public static void display(Context context, ImageView imageView, File url)
-    {
-        if (imageView == null)
-        {
-            throw new IllegalArgumentException("argument error");
-        }
-        Glide.with(context).load(url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .placeholder(R.drawable.ic_image_loading)
-                .error(R.drawable.ic_empty_picture)
-                .crossFade().into(imageView);
-    }
-
     public static void displaySmallPhoto(Context context, ImageView imageView, String url)
     {
         if (imageView == null)
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url).asBitmap()
+        Glide.with(MzApplication.getAppContext()).load(url).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
@@ -75,7 +75,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url).asBitmap()
+        Glide.with(MzApplication.getAppContext()).load(url).asBitmap()
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
@@ -89,7 +89,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url)
+        Glide.with(MzApplication.getAppContext()).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
@@ -103,7 +103,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url)
+        Glide.with(MzApplication.getAppContext()).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.toux2)
                 .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
@@ -115,7 +115,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url)
+        Glide.with(MzApplication.getAppContext()).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)

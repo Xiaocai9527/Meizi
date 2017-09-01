@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.entity.gank.RadomMzEntity;
@@ -54,6 +54,8 @@ public class LikeFragment extends BaseFragment
     SwipeRefreshLayout likeRefresh;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    //    @Bind(R.id.stub_empty_view)
+//    ViewStub stubEmptyView;
     private CommonAdapter<MyLikeEntity> adapter;
 
     public static LikeFragment getInstance()
@@ -151,6 +153,10 @@ public class LikeFragment extends BaseFragment
         final int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         likeRv.addItemDecoration(new OffsetDecoration(spacing));
         setAdapter(myLikeEntities);
+        if (myLikeEntities.isEmpty())
+        {
+//            stubEmptyView.inflate();
+        }
     }
 
     /**
@@ -166,6 +172,10 @@ public class LikeFragment extends BaseFragment
         }
         likeRefresh.setRefreshing(false);
         setAdapter(myLikeEntities);
+//        if (myLikeEntities.size() == 0)
+//        {
+//            stubEmptyView.inflate();
+//        }
 //        likeRv.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();data数据源变化，无法使用notifyDataChange
     }

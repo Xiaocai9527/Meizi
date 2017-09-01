@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CommenLibrary/CommenLibrary.iml" filepath="$PROJECT_DIR$/CommenLibrary/CommenLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/Meizi.iml" filepath="$PROJECT_DIR$/Meizi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/playerview/playerview.iml" filepath="$PROJECT_DIR$/playerview/playerview.iml" />
     </modules>
   </component>
 </project>

@@ -25,6 +25,9 @@ public class Constant
     public static final java.lang.String CDN_CODE = "cdn_code";
     public static final java.lang.String RATE_CODE = "rate_code";
     public static final java.lang.String USING_MEDIA_CODEC = "using_media_codec";
+    public static final java.lang.String TEN_MEIZI = "ten_meizi";
+    public static final java.lang.String IS_FIRST_OPEN_APP ="is_first_open_app" ;
+    public static final String DAY_NIGHT_STYLE = "day_night_style";
 
     public static boolean IS_CLEAR = false;
     public static String MY_LIKE_URL = "my_like_url";

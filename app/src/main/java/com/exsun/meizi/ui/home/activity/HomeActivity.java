@@ -3,7 +3,6 @@ package com.exsun.meizi.ui.home.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -18,12 +17,13 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
+import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
 import com.exsun.meizi.ui.home.fragment.GankFragment;
 import com.exsun.meizi.ui.home.fragment.LikeFragment;
 import com.yuyh.library.Base.BaseActivity;
-import com.yuyh.library.utils.StatusBarUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -37,6 +37,7 @@ import butterknife.Bind;
 public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     private static final int REQUECT_CODE_SDCARD = 0;
+    private static final int REQUEST_CODE_READ_PHONE_STATE = 1;
     @Bind(R.id.nav_view)
     NavigationView navView;
     @Bind(R.id.drawer_layout)
@@ -50,7 +51,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initData(Bundle bundle)
     {
-        MPermissions.requestPermissions(this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        MPermissions.requestPermissions(this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE);
     }
 
     @Override
@@ -71,6 +79,16 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void initView()
     {
         initDrawLayout();
+        if (gankFragment == null)
+        {
+            gankFragment = new GankFragment();
+
+        }
+        if (likeFragment == null)
+        {
+            likeFragment = new LikeFragment();
+
+        }
         initFragment("gank", true);
         doubleClickExitHelper = new DoubleClickExitHelper(this);
     }
@@ -87,8 +105,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private void initFragment(String showFragment, boolean isFirst)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        gankFragment = GankFragment.getInstance();
-        likeFragment = LikeFragment.getInstance();
+//        gankFragment = GankFragment.getInstance();//单例模式会在recreat失效，因为onCreate不会重新调用
+//        likeFragment = LikeFragment.getInstance();
         Fragment mFragment = null;
         switch (showFragment)
         {
@@ -135,9 +153,17 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 switch (item.getItemId())
                 {
                     case R.id.my_like:
+                        if (likeFragment == null)
+                        {
+                            likeFragment = new LikeFragment();
+                        }
                         initFragment("like", false);
                         break;
                     case R.id.nav_meizi:
+                        if (gankFragment == null)
+                        {
+                            gankFragment = new GankFragment();
+                        }
                         initFragment("gank", false);
                         break;
                     case R.id.nav_douyu:
@@ -145,12 +171,15 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         startActivity(new Intent(HomeActivity.this, DyMainActivity.class));
                         break;
                     case R.id.night_day_mode:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        StatusBarUtil.setColorNoTranslucent(HomeActivity.this, Color.parseColor("#3F3F3F"));
-                        navView.findViewById(R.id.nav_header).setBackgroundResource(R.drawable.night_bg);
-                        gankFragment.setNight();
-                        likeFragment.setNight();
+                        boolean b = MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true);
+                        MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, !b);
+                        setDayNightMode(!b);
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+////                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                        StatusBarUtil.setColorNoTranslucent(HomeActivity.this, Color.parseColor("#3F3F3F"));
+//                        navView.findViewById(R.id.nav_header).setBackgroundResource(R.drawable.night_bg);
+//                        gankFragment.setNight();
+//                        likeFragment.setNight();
 //                        recreate();
                         break;
                     default:
@@ -161,6 +190,31 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         }, 200);
 
         return true;
+    }
+
+    public void setDayNightMode(boolean day)
+    {
+        if (day)
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, true);
+        } else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, false);
+        }
+//        getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
+        startActivity(new Intent(this, HomeActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//        recreate();
+        finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+//        outState.putParcelableArrayList();
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -194,9 +248,22 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    @PermissionGrant(REQUEST_CODE_READ_PHONE_STATE)
+    public void setRequestCodeReadPhoneStateSuccess()
+    {
+
+    }
+
+    @PermissionDenied(REQUEST_CODE_READ_PHONE_STATE)
+    public void setRequestCodeReadPhoneStateFailed()
+    {
+
+    }
+
     @Override
     public void setStatusBar()
     {
+
     }
 
     @Override
