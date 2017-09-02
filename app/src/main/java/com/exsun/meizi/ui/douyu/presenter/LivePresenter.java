@@ -35,7 +35,10 @@ public class LivePresenter extends LiveContract.Presenter
                 tempCdn.setName("临时线路");
                 tempCdn.setCdn("temp");
                 value.getCdnsWithName().add(tempCdn);
-                mView.updateCDNandRateInfo(value.getCdnsWithName(), value.getMultirates());
+                if (mView != null)
+                {
+                    mView.updateCDNandRateInfo(value.getCdnsWithName(), value.getMultirates());
+                }
                 restoreCDN(value.getCdnsWithName());
                 restoreRate(value.getMultirates());
             }
