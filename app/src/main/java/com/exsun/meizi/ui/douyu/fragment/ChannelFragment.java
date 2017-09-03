@@ -147,7 +147,8 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     @Override
     public void getRoomsFailed(Throwable throwable)
     {
-        refreshLayout.setRefreshing(false);
+        if (refreshLayout != null)
+            refreshLayout.setRefreshing(false);
     }
 
     @Override

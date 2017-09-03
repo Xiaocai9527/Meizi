@@ -52,13 +52,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initData(Bundle bundle)
     {
-        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
+//        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
+//        {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        } else
+//        {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        }
         MPermissions.requestPermissions(this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE);
     }
 
