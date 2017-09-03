@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     card_view:cardCornerRadius="@dimen/margin_3"
-    card_view:cardElevation="@dimen/dimen_2_dp"
+    card_view:cardElevation="@dimen/margin_3"
     card_view:cardPreventCornerOverlap="true"
     card_view:cardUseCompatPadding="true">
 
