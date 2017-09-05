@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
 import android.widget.LinearLayout;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
+import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.ui.home.activity.HomeActivity;
 import com.yuyh.library.Base.BaseActivity;
 
@@ -43,6 +46,19 @@ public class SplashActivity extends BaseActivity
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void initData(Bundle bundle)
     {
 
@@ -63,7 +79,10 @@ public class SplashActivity extends BaseActivity
     @Override
     public void initView()
     {
-        activitySplash.setBackgroundResource(R.mipmap.splash);
+        if (activitySplash != null)
+        {
+            activitySplash.setBackgroundResource(R.mipmap.splash);
+        }
     }
 
     @Override
