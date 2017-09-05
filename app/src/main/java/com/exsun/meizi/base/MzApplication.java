@@ -4,13 +4,16 @@ import android.app.Application;
 import android.content.Context;
 
 import com.exsun.meizi.BuildConfig;
+import com.exsun.meizi.entity.gank.GankDayEntity;
 import com.exsun.meizi.helper.Toasts;
+import com.exsun.meizi.helper.utils;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.litesuits.orm.LiteOrm;
 import com.squareup.leakcanary.LeakCanary;
 import com.yuyh.library.AppUtils;
 import com.yuyh.library.utils.ACache;
 import com.yuyh.library.utils.data.PrefsUtils;
+import com.yuyh.library.utils.log.LogUtils;
 
 import me.drakeet.library.CrashWoodpecker;
 import me.drakeet.library.PatchMode;
@@ -49,6 +52,8 @@ public class MzApplication extends Application
 //                .setPatchDialogUrlToOpen("https://drakeet.me")
                 .setPassToOriginalDefaultHandler(true)
                 .flyTo(this);
+        String s = utils.obj2json(new GankDayEntity());
+        LogUtils.e(s);
     }
 
     public static Context getAppContext()
