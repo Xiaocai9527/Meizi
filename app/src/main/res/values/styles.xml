@@ -8,6 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--日间主题-->
+    <style name="AppDayTheme" parent="AppTheme">
+        <item name="root_view_bg">@color/day_bg_color</item>
+        <item name="text_color">@color/day_tx_color</item>
+        <item name="primary_color">@color/day_primary_color</item>
+    </style>
+
+    <!--夜间主题-->
+    <style name="AppNightTheme" parent="AppTheme">
+        <item name="root_view_bg">@color/night_bg_color</item>
+        <item name="text_color">@color/night_tx_color</item>
+        <item name="primary_color">@color/night_primary_color</item>
+    </style>
+
     <style name="toolBar_with_cha">
         <item name="colorControlNormal">#ffffff</item>
         <item name="android:homeAsUpIndicator">@mipmap/cha</item>

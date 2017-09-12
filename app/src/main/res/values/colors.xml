@@ -5,4 +5,16 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="colorTextDark">#212121</color>
+
+
+    <!-- 日间模式 -->
+    <color name="day_bg_color">#F0F7EF</color>
+    <color name="day_tx_color">#212121</color>
+    <color name="day_primary_color">#3F51B5</color>
+
+    <!-- 夜间模式 -->
+    <color name="night_bg_color">#3b3838</color>
+    <color name="night_tx_color">#BEBBBB</color>
+    <color name="night_primary_color">#3b3838</color>
+
 </resources>
