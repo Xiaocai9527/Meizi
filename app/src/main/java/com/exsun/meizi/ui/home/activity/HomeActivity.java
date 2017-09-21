@@ -137,6 +137,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             ft.hide(likeFragment).show(gankFragment).commit();
         } else
         {
+            //给fragment切换增加淡入淡出的动画
+            ft.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//
             ft.hide(currentFragment).show(mFragment).commit();
         }
         currentFragment = mFragment;

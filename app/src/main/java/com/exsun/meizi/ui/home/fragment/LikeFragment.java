@@ -280,4 +280,10 @@ public class LikeFragment extends BaseFragment
         likeRv.setBackgroundColor(Color.parseColor("#3F3F3F"));
     }
 
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
