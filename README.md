@@ -1,5 +1,7 @@
 利用gank的Api做的一款练习。
 
+APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/app-debug.apk
+
 ------
 
 本项目你会学习到什么：
