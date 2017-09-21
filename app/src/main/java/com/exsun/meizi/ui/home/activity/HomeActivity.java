@@ -273,6 +273,11 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     {
         if (keyCode == KeyEvent.KEYCODE_BACK)
         {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
             return doubleClickExitHelper.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);

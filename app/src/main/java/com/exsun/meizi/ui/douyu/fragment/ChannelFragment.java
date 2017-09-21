@@ -131,7 +131,10 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     @Override
     public void getRoomsSuccess(List<RoomsEntity.DataBean> roomEntities)
     {
-        refreshLayout.setRefreshing(false);
+        if (refreshLayout != null)
+        {
+            refreshLayout.setRefreshing(false);
+        }
         if (isClearData)
         {
             mData.clear();
@@ -154,7 +157,10 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     @Override
     public void getMixSuccess(RoomsWithSlidersEntity roomsWithSlidersEntity)
     {
-        refreshLayout.setRefreshing(false);
+        if (refreshLayout != null)
+        {
+            refreshLayout.setRefreshing(false);
+        }
         if (isClearData)
         {
             mDataWithSlider.clear();
@@ -200,7 +206,10 @@ public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel
     @Override
     public void getMixFailed(Throwable throwable)
     {
-        refreshLayout.setRefreshing(false);
+        if (refreshLayout != null)
+        {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     public static final int PRELOAD_SIZE = 6;

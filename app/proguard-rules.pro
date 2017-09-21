@@ -17,10 +17,6 @@
 #}
 -ignorewarnings
 
--keep class com.yuyh.library.** {
-    *;
-}
-
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -157,34 +153,34 @@
 }
 
 # b.对内嵌类的混淆处理,例如假若HomeActivity里有内嵌类，那么处理如下
-#-keep class com.exsun.meizi.ui.home.activity.HomeActivity$* {*;}
+-keep class com.exsun.meizi.ui.home.activity.HomeActivity$* {*;}
 
 # c.对webview的混淆处理，如果项目中用到了WebView的复杂操作,加入如下混淆代码
-#-keepclasseswithmembers class * extends android.webkit.webViewClient{
-#    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
-#    public boolean *(android.webkit.WebView, java.lang.String);
-#}
-#-keepclasseswithmembers class * extends android.webkit.webViewClient {
-#    public void *(android.webkit.webView, java.lang.String);
-#}
+-keepclasseswithmembers class * extends android.webkit.webViewClient{
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclasseswithmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, java.lang.String);
+}
 
 # d.对JavaScript的混淆处理,对所有添加addJavascriptInterface注解类混淆
 # 假若JSInterface是HomeActivity的子类，要保留js调用原生的方法不被混淆
-#-keepclasseswithmembers class com.exsun.meizi.ui.home.activity.HomeActivity$JSInterface{
-#    <methods>;
-#}
+-keepclasseswithmembers class com.exsun.meizi.ui.home.activity.HomeActivity$JSInterface{
+    <methods>;
+}
 
 # 使用注解
 -keepattributes *Annotation*,Signature
-
+#
 # 保持混淆时类的实名及行号(——————— 调试时打开 ———————)
 -keepattributes SourceFile,LineNumberTable
-
+#
 # For using GSON @Expose annotation
 -keepattributes *Annotation*
-
+#
 -keepattributes EnclosingMethod
-
+#
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }

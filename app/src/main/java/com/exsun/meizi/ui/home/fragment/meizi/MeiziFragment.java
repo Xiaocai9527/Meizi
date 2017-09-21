@@ -103,6 +103,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         adapter = new MzRvAdapter(context, R.layout.item_category, datas);
         homeRv.setAdapter(adapter);
         boolean b = MzApplication.mPref.get(Constant.IS_FIRST_OPEN_APP, true);
+//        List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
         if (b)
         {
             getData(Constant.WELFARE, Constant.VIDEO, count, page);

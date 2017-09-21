@@ -234,13 +234,21 @@ public class VideoPlayerView extends LinearLayout
 
                     if (mActivity != null)
                     {
-                        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable()
                         {
-                            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        } else
-                        {
-                            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        }
+                            @Override
+                            public void run()
+                            {
+                                if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                                {
+                                    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                                } else
+                                {
+                                    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                                }
+                            }
+                        }, 10);
                     }
                 }
             });

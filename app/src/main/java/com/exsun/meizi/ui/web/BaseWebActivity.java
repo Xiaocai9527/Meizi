@@ -31,6 +31,8 @@ import com.just.library.AgentWebUtils;
 import com.just.library.ChromeClientCallbackManager;
 import com.yuyh.library.Base.BaseActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,8 +194,10 @@ public class BaseWebActivity extends BaseActivity
                 entities.remove(entity);
             }
         }
+
 //        myLikeEntities.remove(myLikeEntity);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) entities);
+        EventBus.getDefault().post(entities);
         Toasts.showSingleShort(R.string.cancel_success);
     }
 
@@ -218,7 +222,9 @@ public class BaseWebActivity extends BaseActivity
                 return;
             }
         }
+
         myLikeEntities.add(myLikeEntity);
+        EventBus.getDefault().post(myLikeEntities);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
         Toasts.showSingleShort(R.string.save_success);
     }

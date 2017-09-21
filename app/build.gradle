@@ -80,4 +80,5 @@ dependencies {
 //    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
 
     compile project(':playerview')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

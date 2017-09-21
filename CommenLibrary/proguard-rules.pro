@@ -161,6 +161,7 @@
 #    @com.squareup.otto.Subscribe public *;
 #    @com.squareup.otto.Produce public *;
 #}
+
 #
 #-keep public class * implements com.bumptech.glide.module.GlideModule
 #-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -172,7 +173,7 @@
 #-keep class android.support.** { *; }
 #-keep interface android.support.** { *; }
 #
-## For RxJava:
+# For RxJava:
 #-dontwarn rx.**
 #-dontwarn org.mockito.**
 #-dontwarn org.junit.**

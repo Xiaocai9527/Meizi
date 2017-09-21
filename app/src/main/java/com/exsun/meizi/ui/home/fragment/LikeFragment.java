@@ -30,11 +30,14 @@ import com.yuyh.library.Base.BaseFragment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -54,6 +57,8 @@ public class LikeFragment extends BaseFragment
     SwipeRefreshLayout likeRefresh;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    //    @Bind(R.id.empty_textview)
+//    TextView emptyTextview;
     //    @Bind(R.id.stub_empty_view)
 //    ViewStub stubEmptyView;
     private CommonAdapter<MyLikeEntity> adapter;
@@ -142,6 +147,7 @@ public class LikeFragment extends BaseFragment
     @Override
     public void doBusiness(final Context context)
     {
+        EventBus.getDefault().register(this);
         likeRefresh.setRefreshing(true);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
@@ -155,8 +161,13 @@ public class LikeFragment extends BaseFragment
         setAdapter(myLikeEntities);
         if (myLikeEntities.isEmpty())
         {
+//            likeRefresh.removeView(likeRv);
+//            View inflate = View.inflate(mActivity, R.layout.empty_layout, null);
+//            likeRefresh.addView(inflate);
 //            stubEmptyView.inflate();
         }
+
+
     }
 
     /**
@@ -172,10 +183,12 @@ public class LikeFragment extends BaseFragment
         }
         likeRefresh.setRefreshing(false);
         setAdapter(myLikeEntities);
-//        if (myLikeEntities.size() == 0)
-//        {
-//            stubEmptyView.inflate();
-//        }
+        if (myLikeEntities.size() == 0)
+        {
+//            likeRefresh.removeView(likeRv);
+//            View inflate = View.inflate(mActivity, R.layout.empty_layout, null);
+//            likeRefresh.addView(inflate);
+        }
 //        likeRv.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();data数据源变化，无法使用notifyDataChange
     }
@@ -249,8 +262,16 @@ public class LikeFragment extends BaseFragment
         likeRv.setAdapter(adapter);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(List<MyLikeEntity> likeEntities)
+    {
+
+        setAdapter(likeEntities);
+    }
+
     public void setNight()
     {
+
         if (toolbar == null)
         {
             return;
@@ -259,10 +280,4 @@ public class LikeFragment extends BaseFragment
         likeRv.setBackgroundColor(Color.parseColor("#3F3F3F"));
     }
 
-    @Override
-    public void onDestroyView()
-    {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }
