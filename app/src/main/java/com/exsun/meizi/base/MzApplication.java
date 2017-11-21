@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.exsun.meizi.BuildConfig;
 import com.exsun.meizi.helper.Toasts;
+import com.facebook.stetho.Stetho;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.litesuits.orm.LiteOrm;
 import com.squareup.leakcanary.LeakCanary;
@@ -42,6 +43,7 @@ public class MzApplication extends Application
             sDb.setDebugged(true);
             BlockCanary.install(this, new AppContext()).start();
             LeakCanary.install(this);
+            Stetho.initializeWithDefaults(this);
         }
         CrashWoodpecker.instance()
                 .withKeys("widget", "me.drakeet")

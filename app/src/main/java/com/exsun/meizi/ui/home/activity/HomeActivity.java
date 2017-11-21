@@ -83,12 +83,10 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         if (gankFragment == null)
         {
             gankFragment = new GankFragment();
-
         }
         if (likeFragment == null)
         {
             likeFragment = new LikeFragment();
-
         }
         initFragment("gank", true);
         doubleClickExitHelper = new DoubleClickExitHelper(this);

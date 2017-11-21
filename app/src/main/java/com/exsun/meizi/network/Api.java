@@ -2,7 +2,9 @@ package com.exsun.meizi.network;
 
 import android.util.SparseArray;
 
+import com.exsun.meizi.BuildConfig;
 import com.exsun.meizi.config.Constant;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -34,14 +36,19 @@ public class Api
 
     private Api(int hostType)
     {
-        //开启Log
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor logInterceptor = null;
+        if (BuildConfig.DEBUG)
+        {
+            //开启Log
+            logInterceptor = new HttpLoggingInterceptor();
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        }
 
         this.okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(READ_TIME_OUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .addInterceptor(logInterceptor)
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         String baseUrl = "";
         if (hostType == GANK)

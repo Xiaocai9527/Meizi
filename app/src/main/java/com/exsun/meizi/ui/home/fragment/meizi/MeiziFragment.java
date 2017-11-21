@@ -91,7 +91,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
             {
                 isClearData = true;
                 page = 1;
-                getData(query1, query2, count, page);
+                getData(query1, query2, count, page, true);
             }
         });
     }
@@ -106,7 +106,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
 //        List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
         if (b)
         {
-            getData(Constant.WELFARE, Constant.VIDEO, count, page);
+            getData(Constant.WELFARE, Constant.VIDEO, count, page, true);
         } else
         {
             mPresenter.getMixDataFormDB();
@@ -118,7 +118,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     {
         datas.addAll(homeMixEntities);
         adapter.notifyDataSetChanged();
-        getData(Constant.WELFARE, Constant.VIDEO, count, page);
+        getData(Constant.WELFARE, Constant.VIDEO, count, page, false);
     }
 
     @Override
@@ -138,13 +138,13 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         MzApplication.mPref.put(Constant.IS_FIRST_OPEN_APP, false);
     }
 
-    public void getData(String query1, String query2, int count, int page)
+    public void getData(String query1, String query2, int count, int page, boolean isSaveToDataBase)
     {
         if (homeSr != null)
         {
             homeSr.setRefreshing(true);
         }
-        mPresenter.getMixData(query1, query2, count, page);
+        mPresenter.getMixData(query1, query2, count, page, isSaveToDataBase);
     }
 
     private RecyclerView.OnScrollListener getOnButtomListener(final StaggeredGridLayoutManager layoutManager)
@@ -163,7 +163,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
                     {
                         page++;
                         homeSr.setRefreshing(true);
-                        getData(Constant.WELFARE, Constant.VIDEO, count, page);
+                        getData(Constant.WELFARE, Constant.VIDEO, count, page, false);
                     } else
                     {
                         mIsFirstTimeTouchBottom = false;

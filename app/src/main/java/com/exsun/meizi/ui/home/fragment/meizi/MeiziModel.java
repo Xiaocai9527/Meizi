@@ -4,8 +4,6 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
-import com.litesuits.orm.db.assit.QueryBuilder;
-import com.litesuits.orm.db.model.ConflictAlgorithm;
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,10 +39,16 @@ public class MeiziModel implements MeiziContract.Model
     }
 
     @Override
-    public void saveMeizhis(List<HomeMixEntity> homeMixEntities)
+    public void saveMeizhis(List<HomeMixEntity> homeMixEntities, boolean isSaveToDataBase)
     {
-        cache.put(Constant.TEN_MEIZI, (Serializable) homeMixEntities);
-        MzApplication.sDb.insert(homeMixEntities, ConflictAlgorithm.Replace);
+//        cache.put(Constant.TEN_MEIZI, (Serializable) homeMixEntities);
+//        MzApplication.sDb.insert(homeMixEntities, ConflictAlgorithm.Replace);
+        if (isSaveToDataBase)
+        {
+            cache.put(Constant.TEN_MEIZI, (Serializable) homeMixEntities);
+//            MzApplication.sDb.deleteAll(HomeMixEntity.class);
+//            MzApplication.sDb.save(homeMixEntities);
+        }
     }
 
     @Override
@@ -55,10 +59,12 @@ public class MeiziModel implements MeiziContract.Model
             @Override
             public void subscribe(ObservableEmitter<List<HomeMixEntity>> e) throws Exception
             {
-                QueryBuilder query = new QueryBuilder(HomeMixEntity.class);
-                query.limit(0, 10);
-                List<HomeMixEntity> list = MzApplication.sDb.query(query);
-//                List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
+                List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
+//                QueryBuilder query = new QueryBuilder(HomeMixEntity.class);
+////                query.appendOrderDescBy("date");
+//                query.limit(0, 10);
+//                List<HomeMixEntity> list = MzApplication.sDb.query(query);
+////                List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
                 e.onNext(list);
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

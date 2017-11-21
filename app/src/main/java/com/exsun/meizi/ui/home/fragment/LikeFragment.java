@@ -265,7 +265,6 @@ public class LikeFragment extends BaseFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(List<MyLikeEntity> likeEntities)
     {
-
         setAdapter(likeEntities);
     }
 

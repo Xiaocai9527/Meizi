@@ -67,7 +67,7 @@ public class MeiziPresenter extends MeiziContract.Presenter
     //    }
 
     @Override
-    public void getMixData(String welfare, String android, int count, int page)
+    public void getMixData(String welfare, String android, int count, int page, final boolean isSaveToDataBase)
     {
         Observable.zip(mModel.getCategoryData(welfare, count, page), mModel.getCategoryData(android, count, page),
                 new BiFunction<List<GankCategoryEntity.ResultsBean>, List<GankCategoryEntity.ResultsBean>, List<HomeMixEntity>>()
@@ -93,7 +93,7 @@ public class MeiziPresenter extends MeiziContract.Presenter
                     @Override
                     public void accept(List<HomeMixEntity> homeMixEntities) throws Exception
                     {
-                        mModel.saveMeizhis(homeMixEntities);
+                        mModel.saveMeizhis(homeMixEntities, isSaveToDataBase);
                         Log.e("MeiziPresenter", "call(MeiziPresenter.java:76)" + "current thread: " + Thread.currentThread().getName());
                     }
                 }).observeOn(AndroidSchedulers.mainThread())

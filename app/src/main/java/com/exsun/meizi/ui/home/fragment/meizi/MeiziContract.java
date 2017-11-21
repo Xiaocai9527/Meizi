@@ -21,7 +21,7 @@ public interface MeiziContract
     {
         Observable<List<GankCategoryEntity.ResultsBean>> getCategoryData(String category, int count, int page);
 
-        void saveMeizhis(List<HomeMixEntity> homeMixEntities);
+        void saveMeizhis(List<HomeMixEntity> homeMixEntities, boolean isSaveToDataBase);
 
         Observable<List<HomeMixEntity>> getCategoryDataFromDB();
     }
@@ -41,7 +41,7 @@ public interface MeiziContract
     {
 //        public abstract void getCategory(String category, int count, int page);
 
-        public abstract void getMixData(String category1, String category2, int count, int page);
+        public abstract void getMixData(String category1, String category2, int count, int page, boolean isSaveToDataBase);
 
         public abstract void getMixDataFormDB();
     }

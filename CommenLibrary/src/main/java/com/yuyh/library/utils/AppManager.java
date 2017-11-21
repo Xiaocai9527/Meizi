@@ -1,7 +1,6 @@
 package com.yuyh.library.utils;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 
 import java.util.Stack;
@@ -159,6 +158,7 @@ public class AppManager
     public void returnToActivity(Class<?> cls)
     {
         while (activityStack.size() != 0)
+        {
             if (activityStack.peek().getClass() == cls)
             {
                 break;
@@ -166,6 +166,7 @@ public class AppManager
             {
                 finishActivity(activityStack.peek());
             }
+        }
     }
 
 
@@ -225,11 +226,11 @@ public class AppManager
 //            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            context.startActivity(homeIntent);
             finishAllActivity();
-            ActivityManager activityMgr = (ActivityManager) context
-                    .getSystemService(Context.ACTIVITY_SERVICE);
-            activityMgr.restartPackage(context.getPackageName());
-            int pid = android.os.Process.myPid();
-            android.os.Process.killProcess(pid);
+//            ActivityManager activityMgr = (ActivityManager) context
+//                    .getSystemService(Context.ACTIVITY_SERVICE);
+//            activityMgr.restartPackage(context.getPackageName());
+//            int pid = android.os.Process.myPid();
+//            android.os.Process.killProcess(pid);
         } catch (Exception e)
         {
 
