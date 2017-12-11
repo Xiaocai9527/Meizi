@@ -32,5 +32,6 @@ public abstract class BasePresenter<M, V>
         mRxManager.clear();
         mView = null;
         mModel = null;
+        mContext = null;
     }
 }

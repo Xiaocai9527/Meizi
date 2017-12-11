@@ -2,7 +2,6 @@ package com.allen.playerview;
 
 import android.content.Context;
 import android.os.Environment;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -16,7 +15,8 @@ import java.io.InputStream;
  * 处理视频文件工具类
  */
 
-public class VideoFileUtils {
+public class VideoFileUtils
+{
 
 
     /**
@@ -25,11 +25,14 @@ public class VideoFileUtils {
      * @param context Context
      * @return SDCard卡或者手机内存的根路径
      */
-    public static String getRootDir(Context context) {
+    public static String getRootDir(Context context)
+    {
         String rootDir = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+        {
             rootDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        } else {
+        } else
+        {
             rootDir = context.getCacheDir().getAbsolutePath();
         }
         return rootDir;
@@ -42,7 +45,8 @@ public class VideoFileUtils {
      * @param filePath
      * @return
      */
-    public static boolean checkFileExists(String filePath) {
+    public static boolean checkFileExists(String filePath)
+    {
         File file = new File(filePath);
         Log.i("playerView", "checkFileExists      file = " + file.getAbsolutePath());
         return file.exists() && file.isFile();
@@ -52,46 +56,56 @@ public class VideoFileUtils {
     /**
      * 获取raw视频文件拷贝到sd卡后的路径   用于启动页播放本视频
      *
-     * @param context        上下文对象
-     * @param rawResId       R.raw.yourVideo
-     * @param fileSuffix     例如  .mp4
+     * @param context    上下文对象
+     * @param rawResId   R.raw.yourVideo
+     * @param fileSuffix 例如  .mp4
      * @return 返回filePath
      */
-    public static String getCopyRawResToSdcardPath(Context context, int rawResId, String fileSuffix) {
+    public static String getCopyRawResToSdcardPath(Context context, int rawResId, String fileSuffix)
+    {
         String filePath = null;
 
         filePath = getRootDir(context) + "/" + rawResId + fileSuffix;
 
-        if (checkFileExists(filePath)) {
+        if (checkFileExists(filePath))
+        {
             Log.i("playerView", "fileExists");
             return filePath;
         }
         File file = new File(filePath);
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
-        try {
+        try
+        {
             int len;
             byte[] buffer = new byte[1024];
             inputStream = context.getResources().openRawResource(rawResId);
             outputStream = new FileOutputStream(file);
-            while ((len = inputStream.read(buffer)) != -1) {
+            while ((len = inputStream.read(buffer)) != -1)
+            {
                 outputStream.write(buffer, 0, len);
             }
             outputStream.flush();
 
             return filePath;
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             Log.i("playerView", "getCopyRawResToSdcardPath: " + e.toString());
-        } finally {
-            try {
-                if (inputStream != null) {
+        } finally
+        {
+            try
+            {
+                if (inputStream != null)
+                {
                     inputStream.close();
                 }
-                if (outputStream != null) {
+                if (outputStream != null)
+                {
                     outputStream.close();
                 }
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 Log.i("playerView", "getCopyRawResToSdcardPath: " + e.getMessage());
             }
         }

@@ -41,6 +41,10 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         ButterKnife.bind(this);
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
+        if (mPresenter != null)
+        {
+            mPresenter.mContext = this;
+        }
         setStatusBar();
         this.initPresenter();
         this.initView();
@@ -158,7 +162,10 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if (mPresenter != null) mPresenter.detachVM();
+        if (mPresenter != null)
+        {
+            mPresenter.detachVM();
+        }
         AppManager.getAppManager().finishActivity(this);
     }
 }

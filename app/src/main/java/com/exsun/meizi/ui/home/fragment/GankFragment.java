@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.exsun.meizi.R;
-import com.exsun.meizi.network.Api;
-import com.exsun.meizi.network.ApiService;
 import com.exsun.meizi.ui.home.adapter.HomeVpAdapter;
 import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.ui.home.fragment.other.OtherFragment;
@@ -37,23 +35,15 @@ public class GankFragment extends BaseFragment
     @Bind(R.id.view_pager_home)
     ViewPager viewPagerHome;
 
-    private static GankFragment mGankFragment = null;
     @Bind(R.id.tab_layout_home)
     TabLayout tabLayoutHome;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    private ApiService apiService = Api.getDefault(0);
 
     public static GankFragment getInstance()
     {
-        synchronized (GankFragment.class)
-        {
-            if (mGankFragment == null)
-            {
-                mGankFragment = new GankFragment();
-            }
-        }
+        GankFragment mGankFragment = new GankFragment();
         return mGankFragment;
     }
 
@@ -88,7 +78,7 @@ public class GankFragment extends BaseFragment
     private void initToolBar()
     {
         toolbar.setTitle(R.string.follow_your_heart);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(Color.parseColor("#efefef"));
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.inflateMenu(R.menu.menu_gank);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()

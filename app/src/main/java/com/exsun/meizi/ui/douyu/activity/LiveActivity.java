@@ -71,10 +71,10 @@ public class LiveActivity extends BaseActivity<LivePresenter, LiveModel> impleme
         mPresenter.setVM(this, mModel);
     }
 
+    @Override
     public void doBeforeSetcontentView()
     {
         super.doBeforeSetcontentView();
-        /*set it to be full screen*/
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

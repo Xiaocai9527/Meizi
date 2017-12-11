@@ -52,26 +52,15 @@ public class LikeFragment extends BaseFragment
     @Bind(R.id.like_rv)
     RecyclerView likeRv;
 
-    private static LikeFragment mLikeFragment = null;
     @Bind(R.id.like_refresh)
     SwipeRefreshLayout likeRefresh;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    //    @Bind(R.id.empty_textview)
-//    TextView emptyTextview;
-    //    @Bind(R.id.stub_empty_view)
-//    ViewStub stubEmptyView;
     private CommonAdapter<MyLikeEntity> adapter;
 
     public static LikeFragment getInstance()
     {
-        synchronized (LikeFragment.class)
-        {
-            if (mLikeFragment == null)
-            {
-                mLikeFragment = new LikeFragment();
-            }
-        }
+        LikeFragment mLikeFragment = new LikeFragment();
         return mLikeFragment;
     }
 

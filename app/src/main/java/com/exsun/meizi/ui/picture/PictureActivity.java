@@ -1,6 +1,7 @@
 package com.exsun.meizi.ui.picture;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,9 +22,8 @@ import java.io.File;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -70,7 +70,7 @@ public class PictureActivity extends BaseActivity
     public void initView()
     {
         toolbar.setTitle(imgDesc);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(Color.parseColor("#efefef"));
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.inflateMenu(R.menu.menu_picture);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
@@ -114,67 +114,49 @@ public class PictureActivity extends BaseActivity
         }
         RxMeizi.saveImageAndGetPathObservable(this, imgUrl, imgDesc).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Uri>()
-                {
-                    @Override
-                    public void onSubscribe(Disposable d)
-                    {
-
-                    }
-
-                    @Override
-                    public void onNext(Uri value)
-                    {
-                        File appDir = new File(Environment.getExternalStorageDirectory(), "xiaocai_meizi");
-                        String msg = String.format(getString(R.string.picture_has_save_to),
-                                appDir.getAbsolutePath());
-                        Toasts.showSingleShort(msg);
-                    }
-
-                    @Override
-                    public void onError(Throwable e)
-                    {
-                        Toasts.showSingleLong(e.getMessage() + "\n再试试...");
-                    }
-
-                    @Override
-                    public void onComplete()
-                    {
-
-                    }
-                });
+                .subscribe(
+                        new Consumer<Uri>()
+                        {
+                            @Override
+                            public void accept(Uri uri) throws Exception
+                            {
+                                File appDir = new File(Environment.getExternalStorageDirectory(), "xiaocai_meizi");
+                                String msg = String.format(getString(R.string.picture_has_save_to),
+                                        appDir.getAbsolutePath());
+                                Toasts.showSingleShort(msg);
+                            }
+                        }, new Consumer<Throwable>()
+                        {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception
+                            {
+                                Toasts.showSingleLong(throwable.getMessage() + "\n再试试...");
+                            }
+                        }
+                );
     }
 
     private void shareImage()
     {
         RxMeizi.saveImageAndGetPathObservable(this, imgUrl, imgDesc).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Uri>()
-                {
-                    @Override
-                    public void onSubscribe(Disposable d)
-                    {
-
-                    }
-
-                    @Override
-                    public void onNext(Uri value)
-                    {
-                        Shares.shareImage(PictureActivity.this, value, getString(R.string.share_meizhi_to));
-                    }
-
-                    @Override
-                    public void onError(Throwable e)
-                    {
-                        Toasts.showSingleLong(e.getMessage() + "\n再试试...");
-                    }
-
-                    @Override
-                    public void onComplete()
-                    {
-
-                    }
-                });
+                .subscribe(
+                        new Consumer<Uri>()
+                        {
+                            @Override
+                            public void accept(Uri uri) throws Exception
+                            {
+                                Shares.shareImage(PictureActivity.this, uri, getString(R.string.share_meizhi_to));
+                            }
+                        }, new Consumer<Throwable>()
+                        {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception
+                            {
+                                Toasts.showSingleLong(throwable.getMessage() + "\n再试试...");
+                            }
+                        }
+                );
     }
 
     @Override

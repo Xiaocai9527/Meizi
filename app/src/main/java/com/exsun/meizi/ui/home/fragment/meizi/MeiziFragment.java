@@ -29,7 +29,7 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     public static final String COLUMN_RV = "meizi_column_rv";
     public static final int PRELOAD_SIZE = 6;
     private boolean mIsFirstTimeTouchBottom = true;
-    private boolean isClearData = true;
+    private boolean isClearData = false;
     public int column;
 
     @Bind(R.id.home_rv)
@@ -103,7 +103,6 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         adapter = new MzRvAdapter(context, R.layout.item_category, datas);
         homeRv.setAdapter(adapter);
         boolean b = MzApplication.mPref.get(Constant.IS_FIRST_OPEN_APP, true);
-//        List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
         if (b)
         {
             getData(Constant.WELFARE, Constant.VIDEO, count, page, true);
@@ -118,7 +117,8 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
     {
         datas.addAll(homeMixEntities);
         adapter.notifyDataSetChanged();
-        getData(Constant.WELFARE, Constant.VIDEO, count, page, false);
+        //进去不自动刷新,需要手动下拉刷新,数据才会刷新
+        //getData(Constant.WELFARE, Constant.VIDEO, count, page, false);
     }
 
     @Override
@@ -138,6 +138,13 @@ public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> impl
         MzApplication.mPref.put(Constant.IS_FIRST_OPEN_APP, false);
     }
 
+    /**
+     * @param query1           福利
+     * @param query2           休息视频
+     * @param count            每页count
+     * @param page             页码
+     * @param isSaveToDataBase 是否加入缓存
+     */
     public void getData(String query1, String query2, int count, int page, boolean isSaveToDataBase)
     {
         if (homeSr != null)

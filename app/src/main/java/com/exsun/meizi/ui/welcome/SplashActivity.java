@@ -33,12 +33,14 @@ public class SplashActivity extends BaseActivity
         }
     };
 
+    @Override
     protected void onPause()
     {
         super.onPause();
         getWindow().getDecorView().removeCallbacks(this.mGotoMainRunnable);
     }
 
+    @Override
     protected void onResume()
     {
         super.onResume();
@@ -48,12 +50,12 @@ public class SplashActivity extends BaseActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
-        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
-        {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else
+        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, false))
         {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         super.onCreate(savedInstanceState);
     }

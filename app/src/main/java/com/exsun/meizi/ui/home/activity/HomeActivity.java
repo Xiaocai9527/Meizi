@@ -47,18 +47,10 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private GankFragment gankFragment;
     private LikeFragment likeFragment;
     private DoubleClickExitHelper doubleClickExitHelper;
-//    private boolean nightFlag = false;//进来默认白天模式
 
     @Override
     public void initData(Bundle bundle)
     {
-//        if (MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, true))
-//        {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        } else
-//        {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//        }
         MPermissions.requestPermissions(this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE);
     }
 
@@ -82,11 +74,11 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         initDrawLayout();
         if (gankFragment == null)
         {
-            gankFragment = new GankFragment();
+            gankFragment = GankFragment.getInstance();
         }
         if (likeFragment == null)
         {
-            likeFragment = new LikeFragment();
+            likeFragment = LikeFragment.getInstance();
         }
         initFragment("gank", true);
         doubleClickExitHelper = new DoubleClickExitHelper(this);
@@ -105,7 +97,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //        gankFragment = GankFragment.getInstance();//单例模式会在recreat失效，因为onCreate不会重新调用
-//        likeFragment = LikeFragment.getInstance();
         Fragment mFragment = null;
         switch (showFragment)
         {
@@ -169,21 +160,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         initFragment("gank", false);
                         break;
                     case R.id.nav_douyu:
-//                        startActivity(DyMainActivity.class);
                         startActivity(new Intent(HomeActivity.this, DyMainActivity.class));
                         break;
                     case R.id.night_day_mode:
                         boolean b = MzApplication.mPref.get(Constant.DAY_NIGHT_STYLE, false);
-                        MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, !b);
-//                        nightFlag = !nightFlag;//点击后将flag设置为非flag
+                        b = !b;
                         setDayNightMode(b);
-//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-////                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                        StatusBarUtil.setColorNoTranslucent(HomeActivity.this, Color.parseColor("#3F3F3F"));
-//                        navView.findViewById(R.id.nav_header).setBackgroundResource(R.drawable.night_bg);
-//                        gankFragment.setNight();
-//                        likeFragment.setNight();
-//                        recreate();
                         break;
                     default:
 
@@ -200,17 +182,17 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         if (flag)
         {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, false);
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, flag);
         } else
         {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, true);
+            MzApplication.mPref.put(Constant.DAY_NIGHT_STYLE, flag);
         }
+        finish();
 //        getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut);
         startActivity(new Intent(this, HomeActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 //        recreate();
-        finish();
     }
 
     @Override
@@ -218,12 +200,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     {
 //        outState.putParcelableArrayList();
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void initTheme()
-    {
-
     }
 
     @Override

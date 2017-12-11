@@ -60,7 +60,9 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     {
         setRetainInstance(true);
         if (contentView == null)
+        {
             contentView = inflater.inflate(getLayoutId(), null);
+        }
         ButterKnife.bind(this, contentView);
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
@@ -143,8 +145,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     /**
      * 含有Bundle通过Class跳转界面
      **/
-    public void startActivityForResult(Class<?> cls, Bundle bundle,
-                                       int requestCode)
+    public void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode)
     {
         Intent intent = new Intent();
         intent.setClass(mActivity, cls);
@@ -185,6 +186,10 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     public void onDestroy()
     {
         super.onDestroy();
+        if (mPresenter != null)
+        {
+            mPresenter.detachVM();
+        }
         Log.d(TAG, "onDestroy: ");
     }
 

@@ -78,4 +78,10 @@ public class DyMainActivity extends BaseActivity<DyMainPresenter, DyMainModel> i
     {
 
     }
+
+    @Override
+    public void setStatusBar()
+    {
+//        super.setStatusBar();
+    }
 }

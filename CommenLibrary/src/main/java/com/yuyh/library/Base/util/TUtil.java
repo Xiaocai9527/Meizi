@@ -8,6 +8,12 @@ import java.lang.reflect.ParameterizedType;
 
 public class TUtil
 {
+    /**
+     * @param o   对象,一般是类
+     * @param i   position
+     * @param <T>
+     * @return
+     */
     public static <T> T getT(Object o, int i)
     {
         try
