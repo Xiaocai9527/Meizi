@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper;
+package com.exsun.meizi.helper.behavior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,7 +24,6 @@ public class CoverHeaderScrollBehavior extends CoordinatorLayout.Behavior<View>
     {
         super(context, attributeSet);
     }
-
 
     @Override
     public boolean onLayoutChild(CoordinatorLayout parent, View child, int layoutDirection)

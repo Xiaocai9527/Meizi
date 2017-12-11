@@ -9,8 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.AndroidMixEntity;
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
@@ -20,7 +20,6 @@ import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 import com.yuyh.library.utils.DimenUtils;
-import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,8 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     RecyclerView homeRv;
     @Bind(R.id.home_sr)
     SwipeRefreshLayout homeSr;
-//    @Bind(R.id.radom_meizi)
-//    ImageView radomMeizi;
+    @Bind(R.id.header_view)
+    ImageView headerView;
 
     public static final String COLUMN_RV = "meizi_column_rv";
     public static final int PRELOAD_SIZE = 6;
@@ -59,8 +58,8 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     public String android;
     public String ios;
     public String front;
-    private HeaderAndFooterWrapper wrapper;
-    private ImageView img;
+//    private HeaderAndFooterWrapper wrapper;
+//    private ImageView img;
 
     public static OtherFragment getInstance(Bundle bundle)
     {
@@ -134,11 +133,11 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         datas = new ArrayList<>();
 //        datas.addAll(homeMixEntities);
         adapter = new AndroidAdapter(mActivity, R.layout.item_other, datas);
-        wrapper = new HeaderAndFooterWrapper(adapter);
-        View headView = View.inflate(mActivity, R.layout.head_view_img, null);
-        img = (ImageView) headView.findViewById(R.id.head_img);
-        wrapper.addHeaderView(img);
-        homeRv.setAdapter(wrapper);
+//        wrapper = new HeaderAndFooterWrapper(adapter);
+//        View headView = View.inflate(mActivity, R.layout.head_view_img, null);
+//        img = (ImageView) headView.findViewById(R.id.head_img);
+//        wrapper.addHeaderView(img);
+        homeRv.setAdapter(adapter);
         getData(query1, query2, count, page);
     }
 
@@ -160,7 +159,7 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         if (isRefresh)
         {
             MzApplication.mPref.put(Constant.MY_LIKE_URL, androidMixEntity.getUrl());
-            ImageLoaderUtils.displaySize(mActivity, img, androidMixEntity.getUrl(), DimenUtils.getScreenWidth()
+            ImageLoaderUtils.displaySize(mActivity, headerView, androidMixEntity.getUrl(), DimenUtils.getScreenWidth()
                     , (int) DimenUtils.dpToPx(200));
             isRefresh = false;
         }
@@ -173,7 +172,8 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
             datas.clear();
         }
         datas.addAll(androidMixEntity.getResults());
-        wrapper.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+//        wrapper.notifyDataSetChanged();
         isClearData = false;
     }
 
