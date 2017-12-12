@@ -4,6 +4,7 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
+import com.yuyh.library.Base.util.RxTransUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,9 +12,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.exsun.meizi.base.MzApplication.cache;
 
@@ -35,7 +34,8 @@ public class MeiziModel implements MeiziContract.Model
                     {
                         return gankCategoryEntity.getResults();
                     }
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+                })
+                .compose(RxTransUtil.<List<GankCategoryEntity.ResultsBean>>rxSchedulerHelper());
     }
 
     @Override
@@ -67,6 +67,6 @@ public class MeiziModel implements MeiziContract.Model
 ////                List<HomeMixEntity> list = (List<HomeMixEntity>) MzApplication.cache.getAsObject(Constant.TEN_MEIZI);
                 e.onNext(list);
             }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        }).compose(RxTransUtil.<List<HomeMixEntity>>rxSchedulerHelper());
     }
 }

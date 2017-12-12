@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -118,6 +119,12 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
                 {
                     toastUtils.showSingleToast(R.string.please_input_something);
                 }
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                //隐藏软键盘 //
+                imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
+                //显示软键盘
+                //imm.showSoftInputFromInputMethod(searchEdit.getWindowToken(), 0);
+                //切换软键盘的显示与隐藏
                 return false;
             }
         });

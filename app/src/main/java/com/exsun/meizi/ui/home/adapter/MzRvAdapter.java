@@ -43,12 +43,6 @@ public class MzRvAdapter extends CommonAdapter<HomeMixEntity>
         CardView cv = holder.getView(R.id.home_cv);
 
         ImageLoaderUtils.display(mContext, img, homeMixEntity.getUrl());
-//        Glide.with(mContext)
-//                .load(homeMixEntity.getUrl())
-//                .crossFade(500)
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(img);
-
         tv.setText(text);
 
         img.setOnClickListener(new View.OnClickListener()
@@ -65,7 +59,6 @@ public class MzRvAdapter extends CommonAdapter<HomeMixEntity>
                 ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         (BaseActivity) mContext, img, PictureActivity.TRANSIT_PIC);
                 ActivityCompat.startActivity(mContext, intent, compat.toBundle());
-//                ((HomeActivity) mContext).startActivity(PictureActivity.class, bundle);
             }
         });
 

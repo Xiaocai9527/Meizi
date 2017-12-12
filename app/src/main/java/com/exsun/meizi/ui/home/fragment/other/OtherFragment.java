@@ -1,7 +1,10 @@
 package com.exsun.meizi.ui.home.fragment.other;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -17,6 +20,7 @@ import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.home.adapter.AndroidAdapter;
 import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
+import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
 import com.yuyh.library.utils.DimenUtils;
@@ -26,6 +30,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by xiaokun on 2017/8/2.
@@ -58,8 +63,7 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     public String android;
     public String ios;
     public String front;
-//    private HeaderAndFooterWrapper wrapper;
-//    private ImageView img;
+    private AndroidMixEntity mixEntity;
 
     public static OtherFragment getInstance(Bundle bundle)
     {
@@ -131,12 +135,7 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     public void doBusiness(Context context)
     {
         datas = new ArrayList<>();
-//        datas.addAll(homeMixEntities);
         adapter = new AndroidAdapter(mActivity, R.layout.item_other, datas);
-//        wrapper = new HeaderAndFooterWrapper(adapter);
-//        View headView = View.inflate(mActivity, R.layout.head_view_img, null);
-//        img = (ImageView) headView.findViewById(R.id.head_img);
-//        wrapper.addHeaderView(img);
         homeRv.setAdapter(adapter);
         getData(query1, query2, count, page);
     }
@@ -147,7 +146,6 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         {
             homeSr.setRefreshing(false);
         }
-//        mPresenter.getMixData(query1, query2, count, page);
         mPresenter.getAndroidMix(query1, query2, count, page);
     }
 
@@ -156,6 +154,7 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     @Override
     public void getAndroidMixSuccess(AndroidMixEntity androidMixEntity)
     {
+        mixEntity = androidMixEntity;
         if (isRefresh)
         {
             MzApplication.mPref.put(Constant.MY_LIKE_URL, androidMixEntity.getUrl());
@@ -173,7 +172,6 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         }
         datas.addAll(androidMixEntity.getResults());
         adapter.notifyDataSetChanged();
-//        wrapper.notifyDataSetChanged();
         isClearData = false;
     }
 
@@ -209,20 +207,6 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         };
     }
 
-//    @Override
-//    public void getCategorySuccess(List<GankCategoryEntity.ResultsBean> resultsBeanList)
-//    {
-//        homeSr.setRefreshing(false);
-//        if (isClearData)
-//        {
-//            datas.clear();
-//        }
-//        datas.addAll(resultsBeanList);
-//        adapter.notifyDataSetChanged();
-//        isClearData = false;
-//    }
-
-
     @Override
     public void onDestroyView()
     {
@@ -230,5 +214,17 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
         ButterKnife.unbind(this);
     }
 
+    @OnClick(R.id.header_view)
+    public void onViewClicked()
+    {
+        Intent intent = new Intent(mActivity, PictureActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PictureActivity.URL, mixEntity.getUrl());
+        bundle.putString(PictureActivity.DESC, "妹纸");
+        intent.putExtras(bundle);
 
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                mActivity, headerView, PictureActivity.TRANSIT_PIC);
+        ActivityCompat.startActivity(mActivity, intent, compat.toBundle());
+    }
 }

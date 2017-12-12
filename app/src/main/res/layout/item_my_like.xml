@@ -5,7 +5,6 @@
     android:id="@+id/like_cv"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@color/white"
     android:foreground="?attr/selectableItemBackground"
     card_view:cardCornerRadius="@dimen/margin_3"
     card_view:cardElevation="@dimen/dimen_2_dp"
@@ -14,7 +13,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/card_bg_color">
 
         <ImageView
             android:id="@+id/img_like"

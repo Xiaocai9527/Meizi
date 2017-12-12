@@ -14,15 +14,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_10"
-        android:padding="5dp">
+        android:background="@color/card_bg_color"
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/category_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="hhahah"
-            android:textColor="#616161"
+            android:textColor="@color/tv_color"
             android:textSize="16sp"/>
 
         <TextView
@@ -31,7 +31,8 @@
             android:layout_below="@+id/category_desc"
             android:layout_marginTop="15dp"
             android:drawableLeft="@mipmap/account"
-            android:text="肖坤"/>
+            android:text="肖坤"
+            android:textColor="@color/sec_tv_color"/>
 
         <TextView
             android:id="@+id/category_date"
@@ -39,7 +40,8 @@
             android:layout_alignBaseline="@+id/category_author"
             android:layout_alignParentRight="true"
             android:drawableLeft="@mipmap/clock"
-            android:text="2017-17-17"/>
+            android:text="2017-17-17"
+            android:textColor="@color/sec_tv_color"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

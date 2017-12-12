@@ -95,7 +95,7 @@ public class LikeFragment extends BaseFragment
         });
         toolbar.setTitle("我中意的");
         toolbar.setContentInsetStartWithNavigation(0);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(Color.parseColor("#efefef"));
         toolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
         toolbar.inflateMenu(R.menu.menu_like);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()

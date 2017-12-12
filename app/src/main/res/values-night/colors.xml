@@ -3,5 +3,8 @@
     <color name="colorPrimary">#3F3F3F</color>
     <color name="colorPrimaryDark">#3F3F3F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="white">#3b3838</color>
+    <color name="white">#3F3F3F</color>
+    <color name="card_bg_color">#3b3838</color>
+    <color name="tv_color">#BEBBBB</color>
+    <color name="sec_tv_color">#9e9e9e</color>
 </resources>
