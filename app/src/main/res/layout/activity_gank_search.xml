@@ -5,33 +5,88 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <!--
-        EditText不自动获取焦点
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/search_toobar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        toolbar:navigationIcon="@mipmap/back">
-
-        <EditText
-            android:id="@+id/search_edit"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--
+            EditText不自动获取焦点
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/search_toobar"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginRight="@dimen/dimen_10_dp"
-            android:background="@drawable/search_edit_bg"
-            android:hint="@string/input_you_want"
-            android:paddingLeft="@dimen/dimen_10_dp"
-            android:textColor="@color/bgColor_overlay"
-            android:textColorHint="@color/night_one_text_color"
-            android:textSize="16sp"/>
-    </android.support.v7.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            toolbar:navigationIcon="@mipmap/back">
 
+            <EditText
+                android:id="@+id/search_edit"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginRight="@dimen/dimen_10_dp"
+                android:background="@drawable/search_edit_bg"
+                android:hint="@string/input_you_want"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="@dimen/dimen_10_dp"
+                android:singleLine="true"
+                android:textColor="@color/bgColor_overlay"
+                android:textColorHint="@color/night_one_text_color"
+                android:textSize="14sp"/>
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/rl_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_search_history"
+                    style="@style/common_tv_style"
+                    android:layout_centerVertical="true"
+                    android:text="@string/search_history"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_10_dp"
+                    android:layout_toRightOf="@id/tv_search_history"
+                    android:text="@string/history_detail"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimen_10sp"/>
+
+                <ImageView
+                    android:id="@+id/img_search_clear"
+                    style="@style/both_wrap_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/search_clear"/>
+            </RelativeLayout>
+
+            <com.exsun.meizi.widget.WordWrapView
+                android:id="@+id/wv_search_history"
+                style="@style/lmatch_hwrap_style"
+                android:layout_below="@+id/tv_search_history"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"/>
+        </LinearLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/search_swipe"

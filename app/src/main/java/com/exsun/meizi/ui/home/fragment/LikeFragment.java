@@ -24,8 +24,10 @@ import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.helper.Toasts;
 import com.exsun.meizi.network.Api;
 import com.exsun.meizi.network.ApiService;
+import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.ui.web.BaseWebActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
+import com.yuyh.library.Base.BaseActivity;
 import com.yuyh.library.Base.BaseFragment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -34,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,9 @@ public class LikeFragment extends BaseFragment
     SwipeRefreshLayout likeRefresh;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.empty_tv)
+    TextView emptyTv;
+
     private CommonAdapter<MyLikeEntity> adapter;
 
     public static LikeFragment getInstance()
@@ -93,7 +99,7 @@ public class LikeFragment extends BaseFragment
                 refresh();
             }
         });
-        toolbar.setTitle("我中意的");
+        toolbar.setTitle("我的收藏");
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.setTitleTextColor(Color.parseColor("#efefef"));
         toolbar.setOverflowIcon(getResources().getDrawable(R.mipmap.more));
@@ -115,12 +121,23 @@ public class LikeFragment extends BaseFragment
                 switch (item.getItemId())
                 {
                     case R.id.clear_cache:
-                        MzApplication.cache.clear();
-                        MzApplication.mPref.clear();
+                        List<MyLikeEntity> myLikeEntities = new ArrayList<>();
+                        MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
+                        if (myLikeEntities != null && !myLikeEntities.isEmpty())
+                        {
+                            int size = myLikeEntities.size();
+                            for (int i = 0; i < size; i++)
+                            {
+                                MyLikeEntity myLikeEntity = myLikeEntities.get(i);
+                                String url = myLikeEntity.getUrl();
+                                MzApplication.mPref.put(url, false);
+                            }
+                        }
+                        refresh();
                         Toasts.showSingleShort(R.string.clear_success);
                         break;
                     case R.id.action_change_skin:
-
+                        Toasts.showSingleShort("请在侧边栏操作,谢谢!");
                         break;
                     default:
 
@@ -147,16 +164,16 @@ public class LikeFragment extends BaseFragment
         likeRv.setLayoutManager(new LinearLayoutManager(mActivity));
         final int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
         likeRv.addItemDecoration(new OffsetDecoration(spacing));
-        setAdapter(myLikeEntities);
         if (myLikeEntities.isEmpty())
         {
-//            likeRefresh.removeView(likeRv);
-//            View inflate = View.inflate(mActivity, R.layout.empty_layout, null);
-//            likeRefresh.addView(inflate);
-//            stubEmptyView.inflate();
+            likeRefresh.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+        } else
+        {
+            likeRefresh.setVisibility(View.VISIBLE);
+            emptyTv.setVisibility(View.GONE);
+            setAdapter(myLikeEntities);
         }
-
-
     }
 
     /**
@@ -171,15 +188,16 @@ public class LikeFragment extends BaseFragment
             myLikeEntities = new ArrayList<>();
         }
         likeRefresh.setRefreshing(false);
-        setAdapter(myLikeEntities);
-        if (myLikeEntities.size() == 0)
+        if (myLikeEntities.isEmpty())
         {
-//            likeRefresh.removeView(likeRv);
-//            View inflate = View.inflate(mActivity, R.layout.empty_layout, null);
-//            likeRefresh.addView(inflate);
+            likeRefresh.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+        } else
+        {
+            likeRefresh.setVisibility(View.VISIBLE);
+            emptyTv.setVisibility(View.GONE);
+            setAdapter(myLikeEntities);
         }
-//        likeRv.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();data数据源变化，无法使用notifyDataChange
     }
 
     /**
@@ -208,11 +226,19 @@ public class LikeFragment extends BaseFragment
                             @Override
                             public void onNext(RadomMzEntity value)
                             {
-//                                String imgUrl = MzApplication.mPref.get(Constant.MY_LIKE_URL, "");
-                                String imgUrl = value.getResults().get(0).getUrl();
-                                ImageView imgView = holder.getView(R.id.img_like);
+                                final RadomMzEntity.ResultsBean resultsBean = value.getResults().get(0);
+                                final String imgUrl = resultsBean.getUrl();
+                                final ImageView imgView = holder.getView(R.id.img_like);
                                 ImageLoaderUtils.display(mActivity, imgView, imgUrl);
-                                value.getResults().get(0).getUrl();
+
+                                imgView.setOnClickListener(new View.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(View v)
+                                    {
+                                        PictureActivity.jumpToPictureActivity((BaseActivity) mContext, imgUrl, resultsBean.getDesc(), imgView);
+                                    }
+                                });
                             }
 
                             @Override
@@ -254,18 +280,16 @@ public class LikeFragment extends BaseFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(List<MyLikeEntity> likeEntities)
     {
-        setAdapter(likeEntities);
-    }
-
-    public void setNight()
-    {
-
-        if (toolbar == null)
+        if (likeEntities == null || likeEntities.isEmpty())
         {
-            return;
+            likeRefresh.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+        } else
+        {
+            likeRefresh.setVisibility(View.VISIBLE);
+            emptyTv.setVisibility(View.GONE);
         }
-        toolbar.setBackgroundColor(Color.parseColor("#3F3F3F"));
-        likeRv.setBackgroundColor(Color.parseColor("#3F3F3F"));
+        setAdapter(likeEntities);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.exsun.meizi.ui.home.fragment.other;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -217,14 +214,6 @@ public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> impl
     @OnClick(R.id.header_view)
     public void onViewClicked()
     {
-        Intent intent = new Intent(mActivity, PictureActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(PictureActivity.URL, mixEntity.getUrl());
-        bundle.putString(PictureActivity.DESC, "妹纸");
-        intent.putExtras(bundle);
-
-        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                mActivity, headerView, PictureActivity.TRANSIT_PIC);
-        ActivityCompat.startActivity(mActivity, intent, compat.toBundle());
+        PictureActivity.jumpToPictureActivity(mActivity, mixEntity.getUrl(), "妹纸", headerView);
     }
 }

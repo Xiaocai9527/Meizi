@@ -1,10 +1,14 @@
 package com.exsun.meizi.ui.picture;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -42,6 +46,19 @@ public class PictureActivity extends BaseActivity
     Toolbar toolbar;
     private String imgDesc;
     private String imgUrl;
+
+    public static void jumpToPictureActivity(Activity activity, String url, String desc, View shareView)
+    {
+        Intent intent = new Intent(activity, PictureActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PictureActivity.URL, url);
+        bundle.putString(PictureActivity.DESC, desc);
+        intent.putExtras(bundle);
+
+        ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity, shareView, PictureActivity.TRANSIT_PIC);
+        ActivityCompat.startActivity(activity, intent, compat.toBundle());
+    }
 
     @Override
     public void initData(Bundle bundle)

@@ -1,32 +1,42 @@
 package com.exsun.meizi.ui.search;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.SearchEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
+import com.exsun.meizi.widget.WordWrapView;
 import com.yuyh.library.Base.BaseActivity;
 import com.yuyh.library.utils.DimenUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/8/12.
@@ -35,6 +45,7 @@ import butterknife.Bind;
 public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSearchModel>
         implements GankSearchContract.View
 {
+    private static final String SEARCH_HISTORY = "search_history";
     @Bind(R.id.search_edit)
     EditText searchEdit;
     @Bind(R.id.search_toobar)
@@ -43,10 +54,17 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
     RecyclerView searchRecyclerView;
     @Bind(R.id.search_swipe)
     SwipeRefreshLayout searchSwipe;
+    @Bind(R.id.rl_history)
+    LinearLayout linearLayout;
+    @Bind(R.id.wv_search_history)
+    WordWrapView wordWrapView;
+    @Bind(R.id.img_search_clear)
+    ImageView imageView;
+
 
     private int page = 1;
     private String trim;
-    private String type;
+    private String type = "Android";
     private int count = 20;
 
     public SearchAdapter adapter;
@@ -57,6 +75,7 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
     private ImageView img;
     private boolean isClearData = true;
     private int IMAGE_HEIGHT = 200;//DP
+    private List<HashMap<String, String>> searchHistory;
 
     @Override
     public void initData(Bundle bundle)
@@ -87,7 +106,7 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
             @Override
             public void onClick(View v)
             {
-                finish();
+                back();
             }
         });
 
@@ -100,45 +119,109 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
                 {
                     case R.id.android_search:
                         type = "Android";
-                        trim = searchEdit.getText().toString().trim();
                         break;
                     case R.id.ios_search:
                         type = "IOS";
-                        trim = searchEdit.getText().toString().trim();
                         break;
                     case R.id.front_search:
                         type = "前端";
-                        trim = searchEdit.getText().toString().trim();
                         break;
                 }
-                if (!TextUtils.isEmpty(searchEdit.getText().toString().trim()))
+                trim = searchEdit.getText().toString().trim();
+                editSearch(trim, type);
+                return false;
+            }
+        });
+
+        //监听editText  软键盘回车键
+        searchEdit.setOnKeyListener(new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    searchSwipe.setRefreshing(true);
-                    mPresenter.getSearchData(trim, type, count, page);
-                } else
-                {
-                    toastUtils.showSingleToast(R.string.please_input_something);
+                    type = "Android";
+                    trim = searchEdit.getText().toString().trim();
+                    editSearch(trim, type);
                 }
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                //隐藏软键盘 //
-                imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
-                //显示软键盘
-                //imm.showSoftInputFromInputMethod(searchEdit.getWindowToken(), 0);
-                //切换软键盘的显示与隐藏
                 return false;
             }
         });
     }
 
+    private void back()
+    {
+        trim = searchEdit.getText().toString().trim();
+        if (!TextUtils.isEmpty(trim))
+        {
+            searchEdit.setText("");
+            linearLayout.setVisibility(View.VISIBLE);
+            searchRecyclerView.setVisibility(View.GONE);
+            addHistoryView();
+        } else
+        {
+            finish();
+        }
+    }
+
+    /**
+     * 监听edittext  软键盘回车键
+     *
+     * @param trim
+     * @param type
+     */
+    private void editSearch(String trim, String type)
+    {
+        if (!TextUtils.isEmpty(trim))
+        {
+            isClearData = true;
+            searchSwipe.setRefreshing(true);
+            mPresenter.getSearchData(trim, type, count, page);
+            if (!searchHistory.toString().contains(trim))
+            {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(trim, type);
+                searchHistory.add(map);
+            }
+            MzApplication.cache.put(SEARCH_HISTORY, (Serializable) searchHistory);
+        } else
+        {
+            toastUtils.showSingleToast(R.string.please_input_something);
+        }
+        hideSoftInput();
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    private void hideSoftInput()
+    {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //隐藏软键盘 //
+        imm.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
+        //显示软键盘
+        //imm.showSoftInputFromInputMethod(searchEdit.getWindowToken(), 0);
+        //切换软键盘的显示与隐藏
+    }
 
     @Override
     public void doBusiness(Context context)
     {
+        addHistoryView();
+
         searchSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
         {
             @Override
             public void onRefresh()
             {
+                trim = searchEdit.getText().toString().trim();
+                if (TextUtils.isEmpty(trim))
+                {
+                    searchSwipe.setRefreshing(false);
+                    toastUtils.showSingleToast(R.string.please_input_something);
+                    return;
+                }
                 isClearData = true;
                 page = 1;
                 mPresenter.getSearchData(trim, type, count, page);
@@ -157,13 +240,73 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
         wrapper = new HeaderAndFooterWrapper(adapter);
         View headView = View.inflate(this, R.layout.head_view_img, null);
         img = (ImageView) headView.findViewById(R.id.head_img);
+        img.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                PictureActivity.jumpToPictureActivity(GankSearchActivity.this, MzApplication.mPref.get(Constant.MY_LIKE_URL, ""),
+                        "妹纸", img);
+            }
+        });
         wrapper.addHeaderView(img);
         searchRecyclerView.setAdapter(wrapper);
+    }
+
+    private void addHistoryView()
+    {
+        searchHistory = (List<HashMap<String, String>>) MzApplication.cache.getAsObject(SEARCH_HISTORY);
+        if (searchHistory == null || searchHistory.isEmpty())
+        {
+            searchHistory = new ArrayList<>();
+            linearLayout.setVisibility(View.GONE);
+        } else
+        {
+            wordWrapView.removeAllViews();
+            int size = searchHistory.size();
+            for (int i = 0; i < size; i++)
+            {
+                final HashMap<String, String> map = searchHistory.get(i);
+                Set<String> keys = map.keySet();
+                for (final String key : keys)
+                {
+                    final String type = map.get(key);
+                    final TextView textView = new TextView(GankSearchActivity.this);
+                    textView.setTextColor(Color.parseColor("#efefef"));
+                    textView.setText(key);
+                    textView.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View view)
+                        {
+                            searchEdit.setText(key);
+                            editSearch(key, type);
+                        }
+                    });
+
+                    textView.setOnLongClickListener(new View.OnLongClickListener()
+                    {
+                        @Override
+                        public boolean onLongClick(View v)
+                        {
+                            searchHistory.remove(map);
+                            MzApplication.cache.put(SEARCH_HISTORY, (Serializable) searchHistory);
+                            wordWrapView.removeView(textView);
+                            return true;
+                        }
+                    });
+                    wordWrapView.addView(textView);
+                }
+
+            }
+        }
     }
 
     @Override
     public void getSearchSuccess(List<SearchEntity.ResultsBean> resultsBeanList)
     {
+        searchRecyclerView.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.GONE);
         String url = MzApplication.mPref.get(Constant.MY_LIKE_URL, "");
         ImageLoaderUtils.displaySize(this, img, url, DimenUtils.getScreenWidth()
                 , (int) DimenUtils.dpToPx(IMAGE_HEIGHT));
@@ -213,5 +356,22 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
                 }
             }
         };
+    }
+
+    @OnClick(R.id.img_search_clear)
+    public void onViewClicked()
+    {
+        if (searchHistory != null)
+        {
+            searchHistory.clear();
+            MzApplication.cache.put(SEARCH_HISTORY, (Serializable) searchHistory);
+            linearLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        back();
     }
 }

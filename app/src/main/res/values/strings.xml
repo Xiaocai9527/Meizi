@@ -23,7 +23,7 @@
     <string name="action_change_skin">换肤</string>
     <string name="like">喜欢</string>
     <string name="option">选项</string>
-    <string name="my_like">我中意的</string>
+    <string name="my_like">我的收藏</string>
     <string name="save_success">收藏成功</string>
     <string name="cancel_success">取消收藏</string>
     <string name="tip_double_click_exit">再按一次，退出程序</string>
@@ -35,6 +35,8 @@
     <string name="search_types">类型选择</string>
     <string name="please_input_something">搜索内容不能为空</string>
     <string name="tip_empty_gank">没有数据,尝试下拉刷新！</string>
-    <string name="input_you_want">搜你想搜的</string>
+    <string name="input_you_want">默认为Android搜索,键盘回车键搜索</string>
+    <string name="search_history">搜索记录</string>
+    <string name="history_detail">单击搜索,长按删除记录</string>
 
 </resources>

@@ -1,10 +1,6 @@
 package com.exsun.meizi.ui.home.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,15 +46,7 @@ public class MzRvAdapter extends CommonAdapter<HomeMixEntity>
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(mContext, PictureActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(PictureActivity.URL, homeMixEntity.getUrl());
-                bundle.putString(PictureActivity.DESC, homeMixEntity.getDesc());
-                intent.putExtras(bundle);
-
-                ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        (BaseActivity) mContext, img, PictureActivity.TRANSIT_PIC);
-                ActivityCompat.startActivity(mContext, intent, compat.toBundle());
+                PictureActivity.jumpToPictureActivity((BaseActivity) mContext, homeMixEntity.getUrl(), homeMixEntity.getDesc(), img);
             }
         });
 
