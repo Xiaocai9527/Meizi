@@ -10,6 +10,10 @@
             android:title="@string/nav_meizi_view"/>
 
         <item
+            android:id="@+id/guolin_bolg"
+            android:title="郭霖公众号"/>
+
+        <item
             android:id="@+id/my_like"
             android:icon="@mipmap/pre_like1"
             android:title="@string/my_like"/>

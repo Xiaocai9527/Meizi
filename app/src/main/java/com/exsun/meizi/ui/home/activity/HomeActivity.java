@@ -21,8 +21,9 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
-import com.exsun.meizi.ui.home.fragment.GankFragment;
-import com.exsun.meizi.ui.home.fragment.LikeFragment;
+import com.exsun.meizi.ui.home.fragment.gank.GankFragment;
+import com.exsun.meizi.ui.home.fragment.guolin.GuolinFragment;
+import com.exsun.meizi.ui.home.fragment.like.LikeFragment;
 import com.yuyh.library.Base.BaseActivity;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
@@ -46,6 +47,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     FrameLayout homeFl;
     private GankFragment gankFragment;
     private LikeFragment likeFragment;
+    private GuolinFragment guolinFragment;
     private DoubleClickExitHelper doubleClickExitHelper;
 
     @Override
@@ -76,11 +78,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         {
             gankFragment = GankFragment.getInstance();
         }
-        if (likeFragment == null)
-        {
-            likeFragment = LikeFragment.getInstance();
-        }
-        initFragment("gank", true);
+//        if (likeFragment == null)
+//        {
+//            likeFragment = LikeFragment.getInstance();
+//        }
+
+//        initFragment("gank", true);
+        showFragment(gankFragment);
         doubleClickExitHelper = new DoubleClickExitHelper(this);
     }
 
@@ -93,46 +97,66 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         navView.setNavigationItemSelectedListener(this);
     }
 
-    private void initFragment(String showFragment, boolean isFirst)
+    private void showFragment(Fragment fragment)
     {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        gankFragment = GankFragment.getInstance();//单例模式会在recreat失效，因为onCreate不会重新调用
-        Fragment mFragment = null;
-        switch (showFragment)
+        if (currentFragment == null)
         {
-            case "gank":
-                mFragment = gankFragment;
-                break;
-            case "like":
-                mFragment = likeFragment;
-                break;
-            default:
-
-                break;
-        }
-
-        if (isFirst)
-        {
-            if (gankFragment.isAdded())
-            {
-                ft.remove(gankFragment);
-            }
-            if (likeFragment.isAdded())
-            {
-                ft.remove(likeFragment);
-            }
-            ft.add(R.id.home_fl, gankFragment);
-            ft.add(R.id.home_fl, likeFragment);
-            ft.hide(likeFragment).show(gankFragment).commit();
+            ft.add(R.id.home_fl, fragment).show(fragment).commit();
         } else
         {
+            if (!fragment.isAdded())
+            {
+                ft.add(R.id.home_fl, fragment);
+            }
             //给fragment切换增加淡入淡出的动画
             ft.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
-//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//
-            ft.hide(currentFragment).show(mFragment).commit();
+            //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.hide(currentFragment).show(fragment).commit();
         }
-        currentFragment = mFragment;
+        currentFragment = fragment;
     }
+
+//    private void initFragment(String showFragment, boolean isFirst)
+//    {
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+////        gankFragment = GankFragment.getInstance();//单例模式会在recreat失效，因为onCreate不会重新调用
+//        Fragment mFragment = null;
+//        switch (showFragment)
+//        {
+//            case "gank":
+//                mFragment = gankFragment;
+//                break;
+//            case "like":
+//                mFragment = likeFragment;
+//                break;
+//            default:
+//
+//                break;
+//        }
+//
+//        if (isFirst)
+//        {
+//            if (gankFragment.isAdded())
+//            {
+//                ft.remove(gankFragment);
+//            }
+//            if (likeFragment.isAdded())
+//            {
+//                ft.remove(likeFragment);
+//            }
+//            ft.add(R.id.home_fl, gankFragment);
+//            ft.add(R.id.home_fl, likeFragment);
+//            ft.hide(likeFragment).show(gankFragment).commit();
+//        } else
+//        {
+//            //给fragment切换增加淡入淡出的动画
+//            ft.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
+////            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//
+//            ft.hide(currentFragment).show(mFragment).commit();
+//        }
+//        currentFragment = mFragment;
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item)
@@ -150,14 +174,23 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                         {
                             likeFragment = new LikeFragment();
                         }
-                        initFragment("like", false);
+                        showFragment(likeFragment);
+//                        initFragment("like", false);
+                        break;
+                    case R.id.guolin_bolg:
+                        if (guolinFragment == null)
+                        {
+                            guolinFragment = GuolinFragment.getInstance();
+                        }
+                        showFragment(guolinFragment);
                         break;
                     case R.id.nav_meizi:
                         if (gankFragment == null)
                         {
                             gankFragment = new GankFragment();
                         }
-                        initFragment("gank", false);
+                        showFragment(gankFragment);
+//                        initFragment("gank", false);
                         break;
                     case R.id.nav_douyu:
                         startActivity(new Intent(HomeActivity.this, DyMainActivity.class));

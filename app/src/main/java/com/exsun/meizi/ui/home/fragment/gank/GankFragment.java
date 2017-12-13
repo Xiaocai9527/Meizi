@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.home.fragment;
+package com.exsun.meizi.ui.home.fragment.gank;
 
 import android.content.Context;
 import android.content.Intent;
@@ -68,11 +68,13 @@ public class GankFragment extends BaseFragment
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
-        if (savedInstanceState == null)
-        {
-            initToolBar();
-            initViewPager();
-        }
+        initToolBar();
+        initViewPager();
+//        if (savedInstanceState == null)
+//        {
+//            initToolBar();
+//            initViewPager();
+//        }
     }
 
     private void initToolBar()

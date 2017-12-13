@@ -1,4 +1,4 @@
-package com.exsun.meizi.ui.home.fragment;
+package com.exsun.meizi.ui.home.fragment.like;
 
 import android.content.Context;
 import android.content.Intent;
