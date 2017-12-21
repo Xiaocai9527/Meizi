@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'view-inspector'
+
+//viewInspector {
+//    excludePackages = ['android.widget.Space', 'com.squareup.leakcanary.internal','com.github.moduth.blockcanary.ui']
+//}
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion

@@ -40,7 +40,6 @@ public class GankFragment extends BaseFragment
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-
     public static GankFragment getInstance()
     {
         GankFragment mGankFragment = new GankFragment();

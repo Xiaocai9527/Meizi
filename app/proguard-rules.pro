@@ -184,3 +184,46 @@
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
+
+# glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+# MPermission
+-dontwarn com.zhy.m.**
+-keep class com.zhy.m.** {*;}
+-keep interface com.zhy.m.** { *; }
+-keep class **$$PermissionProxy { *; }
+
+# AgentWeb
+-keep class com.just.library.** {
+    *;
+}
+-dontwarn com.just.library.**
+
+# glide 的混淆代码
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }
+
+# eventbus
+ -keepattributes *Annotation*
+ -keepclassmembers class ** {
+     @org.greenrobot.eventbus.Subscribe <methods>;
+ }
+ -keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+ # Only required if you use AsyncExecutor
+ -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+     <init>(java.lang.Throwable);
+ }

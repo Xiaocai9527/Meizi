@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends Fragment
 {
     private static final String TAG = "BaseFragment";

@@ -1,6 +1,7 @@
 package com.yuyh.library.Base.util;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import com.yuyh.library.Base.BaseEntity;
 
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author xiaokun
  * @date 2017/12/12
  */
-
+@Keep
 public class RxTransUtil
 {
     /**

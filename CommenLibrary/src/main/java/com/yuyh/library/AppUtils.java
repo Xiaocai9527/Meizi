@@ -34,7 +34,9 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Keep;
 
+@Keep
 public class AppUtils
 {
 

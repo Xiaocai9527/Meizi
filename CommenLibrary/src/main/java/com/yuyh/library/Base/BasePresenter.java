@@ -7,7 +7,6 @@ import com.yuyh.library.Base.rx.RxManager;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public abstract class BasePresenter<M, V>
 {
     public M mModel;

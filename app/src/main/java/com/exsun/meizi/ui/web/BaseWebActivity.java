@@ -78,6 +78,7 @@ public class BaseWebActivity extends BaseActivity
     private boolean isPat;
     protected AgentWeb mAgentWeb;
     private List<MyLikeEntity> myLikeEntities;
+    private WebView webView;
 
     public static void jumpToBaseWebActivity(Activity activity, String url, String desc, String author, View shareView, boolean isPattern)
     {
@@ -336,7 +337,7 @@ public class BaseWebActivity extends BaseActivity
                             String css2 = "\n" +
                                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://chuansong.me/static/css/article_improve.css\"/>";
                             String body = "<head><style>img{max-width:100%}table{width:100%;}" + css1 + css2 + "</style></head>" + "<body>" + s + "</body>";
-                            WebView webView = new WebView(BaseWebActivity.this);
+                            webView = new WebView(BaseWebActivity.this);
                             webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.MATCH_PARENT);
@@ -441,10 +442,16 @@ public class BaseWebActivity extends BaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-
-        if (mAgentWeb.handleKeyEvent(keyCode, event))
+        if (mAgentWeb != null)
         {
-            return true;
+            if (mAgentWeb.handleKeyEvent(keyCode, event))
+            {
+                return true;
+            }
+        }
+        if (webView != null && webView.canGoBack())
+        {
+            webView.goBack();
         }
         return super.onKeyDown(keyCode, event);
     }

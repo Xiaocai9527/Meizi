@@ -1,5 +1,7 @@
 package com.yuyh.library.Base.rx;
 
+import android.support.annotation.Keep;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by Administrator on 2016/12/31.
  */
-
+@Keep
 public class RxManager
 {
 

@@ -1,12 +1,14 @@
 package com.exsun.meizi.helper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.exsun.meizi.R;
+import com.exsun.meizi.ui.dummy.DummyActivity;
 import com.yuyh.library.utils.AppManager;
 
 /**
@@ -43,7 +45,8 @@ public class DoubleClickExitHelper
             {
                 mBackToast.cancel();
             }
-            AppManager.getAppManager().AppExit(mActivity, false);
+            mActivity.startActivity(new Intent(mActivity, DummyActivity.class));
+            AppManager.getAppManager().AppExit(mActivity, true);
             return true;
         } else
         {

@@ -1,11 +1,13 @@
 package com.exsun.meizi.entity.gongzhonghao;
 
+import java.io.Serializable;
+
 /**
  * @author xiaokun
  * @date 2017/12/13
  */
 
-public class BlogEntity
+public class BlogEntity implements Serializable
 {
     private String title;
     private String time;
