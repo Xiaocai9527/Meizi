@@ -6,6 +6,14 @@
 
 添加behavior功能；
 
+添加splash动画；
+
+​				闪屏页gif
+
+![](screenshots/meizi_splash.gif)
+
+
+
 
 
 利用gank的Api做的一款练习。

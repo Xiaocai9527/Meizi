@@ -14,8 +14,8 @@ import android.view.animation.Interpolator;
 
 import com.eftimoff.mylibrary.R;
 import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.ArrayList;
 import java.util.List;
