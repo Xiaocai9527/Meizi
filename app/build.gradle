@@ -102,4 +102,6 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.2'
     //数据库调试
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    //svg path
+    compile 'com.eftimoff:android-pathview:1.0.5@aar'
 }
