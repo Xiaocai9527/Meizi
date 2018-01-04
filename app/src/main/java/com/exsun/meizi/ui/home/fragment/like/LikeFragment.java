@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -49,7 +50,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by xiaokun on 2017/8/8.
  */
-
+@Keep
 public class LikeFragment extends BaseFragment
 {
     @Bind(R.id.like_rv)

@@ -1,5 +1,7 @@
 package com.exsun.meizi.ui.home.fragment.meizi;
 
+import android.support.annotation.Keep;
+
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
@@ -20,7 +22,7 @@ import static com.exsun.meizi.base.MzApplication.cache;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public class MeiziModel implements MeiziContract.Model
 {
     @Override

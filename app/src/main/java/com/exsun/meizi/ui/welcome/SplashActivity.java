@@ -25,10 +25,12 @@ public class SplashActivity extends BaseActivity
 
     private Runnable mGotoMainRunnable = new Runnable()
     {
+        @Override
         public void run()
         {
             Intent localIntent = new Intent(SplashActivity.this, HomeActivity.class);
             SplashActivity.this.startActivity(localIntent);
+            overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
             SplashActivity.this.finish();
         }
     };

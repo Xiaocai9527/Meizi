@@ -1,6 +1,7 @@
 package com.yuyh.library.utils.toast;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 import android.widget.Toast;
 
 import com.yuyh.library.AppUtils;
@@ -11,6 +12,7 @@ import com.yuyh.library.AppUtils;
  * @author yuyh.
  * @date 16/4/9.
  */
+@Keep
 public class ToastUtils
 {
 

@@ -78,7 +78,7 @@
 
 # 所有继承自Activity/Application/Service/BroadcastReceiver
 # /ContentProvider/Throwable/Exception 不要被混淆
--keep public class * extends android.app.Activity
+#-keep public class * extends com.yuyh.library.Base.BaseActivity
 -keep public class * extends android.support.v4.app.Fragment
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -227,3 +227,35 @@
  -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
      <init>(java.lang.Throwable);
  }
+ #jsoup
+ -dontwarn org.jsoup.**
+ -keep class org.jsoup.**{*;}
+
+
+
+ -dontwarn okio.**
+
+ #okhttp
+ -dontwarn com.squareup.okhttp3.**
+ -keep class com.squareup.okhttp3.** { *;}
+ -dontwarn okio.**
+ # Retrofit
+ -dontwarn retrofit2.**
+ -keep class retrofit2.** { *; }
+ -keepattributes Exceptions
+ # Retrolambda
+ -dontwarn java.lang.invoke.*
+ # RxJava RxAndroid
+ -dontwarn sun.misc.**
+ -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+     long producerIndex;
+     long consumerIndex;
+ }
+ -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+     rx.internal.util.atomic.LinkedQueueNode producerNode;
+ }
+ -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+     rx.internal.util.atomic.LinkedQueueNode consumerNode;
+ }
+ ###rxandroid-1.2.1
+ -keepclassmembers class rx.android.**{*;}

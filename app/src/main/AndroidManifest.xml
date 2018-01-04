@@ -16,10 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.activity.HomeActivity"/>
+        <activity
+            android:name=".ui.home.activity.HomeActivity"/>
         <activity android:name=".ui.picture.PictureActivity"/>
-        <activity android:name=".ui.web.BaseWebActivity"/>
-        <activity android:name=".ui.search.GankSearchActivity"/>
+        <activity
+            android:name=".ui.web.BaseWebActivity"
+            android:theme="@style/AppTheme.Back"/>
+        <activity
+            android:name=".ui.search.GankSearchActivity"
+            android:theme="@style/AppTheme.Back"/>
         <activity
             android:name=".ui.dummy.DummyActivity"
             android:screenOrientation="portrait"

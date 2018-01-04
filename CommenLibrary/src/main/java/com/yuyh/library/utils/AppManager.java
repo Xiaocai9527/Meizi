@@ -2,12 +2,14 @@ package com.yuyh.library.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import java.util.Stack;
 
 /**
  * activity管理
  */
+@Keep
 public class AppManager
 {
     private Stack<Activity> activityStack;

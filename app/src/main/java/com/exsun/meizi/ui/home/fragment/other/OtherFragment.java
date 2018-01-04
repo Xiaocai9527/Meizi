@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.home.fragment.other;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 /**
  * Created by xiaokun on 2017/8/2.
  */
-
+@Keep
 public class OtherFragment extends BaseFragment<OtherPresenter, OtherModel> implements OtherContract.View
 {
     public static final String ANDROID_CETOGARY = "android_cetogary";

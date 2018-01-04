@@ -14,6 +14,8 @@ import java.io.Serializable;
 public class HomeMixEntity implements Serializable
 {
 
+//    private static final long serialVersionUID = 2711720190926523247L;
+
     // 指定自增，每个对象需要有一个主键
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     @Column("_id")

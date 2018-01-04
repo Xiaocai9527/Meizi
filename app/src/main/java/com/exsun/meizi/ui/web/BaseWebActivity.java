@@ -34,7 +34,7 @@ import com.exsun.meizi.ui.picture.PictureActivity;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebUtils;
 import com.just.library.ChromeClientCallbackManager;
-import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.Base.BaseBackActicity;
 import com.yuyh.library.Base.util.RxTransUtil;
 import com.yuyh.library.utils.log.LogUtils;
 
@@ -59,7 +59,7 @@ import io.reactivex.functions.Consumer;
  * Created by xiaokun on 2017/8/3.
  */
 
-public class BaseWebActivity extends BaseActivity
+public class BaseWebActivity extends BaseBackActicity
 {
     public static final String WEB_URL = "web_url";
     public static final String WEB_DESC = "web_desc";

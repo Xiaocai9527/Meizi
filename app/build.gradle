@@ -42,6 +42,15 @@ android {
         }
     }
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi'//, 'x86'//只打包armeabi平台的，就算有其他文件夹也不管
+//                include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86', 'x86_64'
+        }
+    }
+
     productFlavors {
     }
 }
@@ -89,5 +98,8 @@ dependencies {
     //调试工具
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    //java 爬虫
     compile 'org.jsoup:jsoup:1.10.2'
+    //数据库调试
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
 }

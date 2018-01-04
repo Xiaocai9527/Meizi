@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by xiaokun on 2017/8/8.
  */
-
+@Keep
 public class GankFragment extends BaseFragment
 {
     @Bind(R.id.view_pager_home)

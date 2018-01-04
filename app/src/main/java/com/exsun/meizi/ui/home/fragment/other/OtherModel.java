@@ -1,5 +1,7 @@
 package com.exsun.meizi.ui.home.fragment.other;
 
+import android.support.annotation.Keep;
+
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.entity.gank.RadomMzEntity;
 
@@ -13,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by xiaokun on 2017/8/4.
  */
-
+@Keep
 public class OtherModel implements OtherContract.Model
 {
     @Override

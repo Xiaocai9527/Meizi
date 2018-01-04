@@ -2,6 +2,7 @@ package com.yuyh.library.utils.log;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.Keep;
 import android.util.Log;
 
 import com.yuyh.library.AppUtils;
@@ -20,6 +21,7 @@ import java.util.Date;
  * @author yuyh.
  * @date 16/4/9.
  */
+@Keep
 public class LogUtils
 {
     private static Boolean LOG_SWITCH = true; // 日志文件总开关

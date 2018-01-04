@@ -23,7 +23,6 @@ import butterknife.Bind;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public class MeiziFragment extends BaseFragment<MeiziPresenter, MeiziModel> implements MeiziContract.View
 {
     public static final String COLUMN_RV = "meizi_column_rv";

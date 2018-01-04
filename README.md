@@ -1,3 +1,13 @@
+更新：
+
+添加郭霖公众号文章，利用jsoup爬虫；
+
+添加右滑回退功能;
+
+添加behavior功能；
+
+
+
 利用gank的Api做的一款练习。
 
 APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/app-debug.apk

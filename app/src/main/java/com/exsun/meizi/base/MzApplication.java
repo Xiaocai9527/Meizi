@@ -2,6 +2,7 @@ package com.exsun.meizi.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import com.exsun.meizi.BuildConfig;
 import com.exsun.meizi.helper.Toasts;
@@ -19,7 +20,7 @@ import me.drakeet.library.PatchMode;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public class MzApplication extends Application
 {
     private static final String DB_NAME = "meizhi.db";

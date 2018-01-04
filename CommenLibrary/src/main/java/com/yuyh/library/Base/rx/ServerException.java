@@ -1,16 +1,30 @@
 package com.yuyh.library.Base.rx;
 
-/**
- * des:服务器请求异常
- * Created by xsf
- * on 2016.09.10:16
- */
-public class ServerException extends Exception
-{
+import java.io.IOException;
 
-    public ServerException(String msg)
+/**
+ * @author xiaokun
+ * @date 2017/12/26
+ */
+
+public class ServerException extends IOException
+{
+    private int code;
+    private String msg;
+
+    public ServerException(int code, String msg)
     {
-        super(msg);
+        this.code = code;
+        this.msg = msg;
     }
 
+    public int getCode()
+    {
+        return code;
+    }
+
+    public String getMsg()
+    {
+        return msg;
+    }
 }

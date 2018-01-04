@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.home.fragment.guolin;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -48,7 +49,7 @@ import static com.exsun.meizi.base.MzApplication.cache;
  * @author xiaokun
  * @date 2017/12/13
  */
-
+@Keep
 public class GuolinFragment extends BaseFragment
 {
     private static final String GUO_LIN = "郭霖";

@@ -12,7 +12,6 @@ import io.reactivex.Observable;
 /**
  * Created by Administrator on 2017/8/12.
  */
-
 public interface GankSearchContract
 {
     interface Model extends AppBaseModel

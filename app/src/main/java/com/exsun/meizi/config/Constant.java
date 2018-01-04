@@ -1,9 +1,11 @@
 package com.exsun.meizi.config;
 
+import android.support.annotation.Keep;
+
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public class Constant
 {
     public static final String ROOT_PATH = "http://gank.io/api/";

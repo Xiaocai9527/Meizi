@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Keep;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,6 +52,7 @@ ACache.get(AppApplication.getAppContext()).get(AppConstant.CHANNEL_MINE);
 /**
  * @author Michael Yang（www.yangfuhai.com） update at 2013.08.07
  */
+@Keep
 public class ACache
 {
     public static final int TIME_HOUR = 60 * 60;
@@ -117,6 +119,7 @@ public class ACache
      * update cache! stream.close(); } catch(FileNotFoundException e){
      * e.printStackTrace() }
      */
+    @Keep
     class xFileOutputStream extends FileOutputStream
     {
         File file;
@@ -713,6 +716,7 @@ public class ACache
      * @author 杨福海（michael） www.yangfuhai.com
      * @version 1.0
      */
+    @Keep
     public class ACacheManager
     {
         private final AtomicLong cacheSize;
@@ -875,6 +879,7 @@ public class ACache
      * @author 杨福海（michael） www.yangfuhai.com
      * @version 1.0
      */
+    @Keep
     private static class Utils
     {
 
