@@ -94,6 +94,18 @@ public class FadeInTextView extends android.support.v7.widget.AppCompatTextView
         canvas.drawText(textString, getPaddingLeft(), baseline, getPaint());
     }
 
+    public interface IntervalDrawlistener
+    {
+        void setText(String text);
+    }
+
+    private IntervalDrawlistener intervalDrawListener;
+
+    public void setIntervalDrawListener(IntervalDrawlistener intervalDrawListener)
+    {
+        this.intervalDrawListener = intervalDrawListener;
+    }
+
     /**
      * 文字逐个显示动画  通过插值的方式改变数据源
      */
@@ -116,6 +128,8 @@ public class FadeInTextView extends android.support.v7.widget.AppCompatTextView
                 {
                     //直接用这个貌似更好点
                     append(arr[index]);
+
+//                    intervalDrawListener.setText(stringBuffer.toString());
 //                    stringBuffer.append(arr[index]);
                     currentIndex = index;
                     //所有文字都显示完成之后进度回调结束动画

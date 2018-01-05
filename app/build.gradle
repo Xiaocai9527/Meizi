@@ -5,7 +5,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 //viewInspector {
 //    excludePackages = ['android.widget.Space', 'com.squareup.leakcanary.internal','com.github.moduth.blockcanary.ui']
 //}
-
+def htextview_version = "0.1.2"
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -104,4 +104,9 @@ dependencies {
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
     //svg path
     compile 'com.eftimoff:android-pathview:1.0.5@aar'
+    // base library textview效果
+    compile "com.hanks:htextview-base:$htextview_version"
+    compile "com.hanks:htextview-typer:$htextview_version"
+    //倒计时控件
+    compile 'cn.yc:YCCountDownViewLib:1.0'
 }

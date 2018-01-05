@@ -10,7 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.eftimoff.androipathview.PathView;
 import com.exsun.meizi.R;
@@ -18,32 +18,40 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.ui.home.activity.HomeActivity;
 import com.exsun.meizi.widget.FadeInTextView;
-import com.exsun.meizi.widget.GraduallyTextView;
+import com.hanks.htextview.base.AnimationListener;
+import com.hanks.htextview.base.HTextView;
+import com.hanks.htextview.typer.TyperTextView;
+import com.ns.yc.yccountdownviewlib.CountDownView;
 import com.yuyh.library.Base.BaseActivity;
 import com.yuyh.library.utils.DimenUtils;
 
 import java.util.Random;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 import static com.exsun.meizi.R.array.imgs;
+import static java.lang.Thread.sleep;
 
 public class SplashActivity extends BaseActivity
 {
     @Nullable
     @Bind(R.id.activity_splash)
-    LinearLayout activitySplash;
+    RelativeLayout activitySplash;
     @Bind(R.id.pathView)
     PathView pathView;
-    //    @Bind(R.id.textview)
-//    TextView textview;
     @Bind(R.id.textview)
     FadeInTextView textview;
+    @Bind(R.id.typer_tv)
+    TyperTextView typerTv;
+    @Bind(R.id.cdv_time)
+    CountDownView countDownView;
 
     private int mDelayTime = 1600;
     private char[] charArrays;
     private String len = "";
     private int position = 0;
+    private boolean clickFlag = false;
 
     private Runnable mGotoMainRunnable = new Runnable()
     {
@@ -56,6 +64,7 @@ public class SplashActivity extends BaseActivity
             SplashActivity.this.finish();
         }
     };
+    private String randomStr;
 
     @Override
     protected void onPause()
@@ -122,30 +131,50 @@ public class SplashActivity extends BaseActivity
 
         String[] rhesis = getResources().getStringArray(R.array.rhesis);
         int randomNumber = randomInt(rhesis.length - 1, 0);
-        final String randomStr = rhesis[randomNumber];
-//      另一种textview逐字打印效果实现
-//        new Thread(new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                try
-//                {
-//                    charArrays = randomStr.toCharArray();
-//                    for (int i = 0; i < charArrays.length; i++)
-//                    {
-//                        position = i;
-//                        sleep(200);
-//                        len = charArrays[i] + "";
-//                        handler.sendEmptyMessage(0);
-//                    }
-//                } catch (InterruptedException e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
+        randomStr = rhesis[randomNumber];
 
+        method2();
+    }
+
+    /**
+     * 方法1
+     */
+    private void method1()
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    charArrays = randomStr.toCharArray();
+                    for (int i = 0; i < charArrays.length; i++)
+                    {
+                        position = i;
+                        sleep(200);
+                        len = charArrays[i] + "";
+                        handler.sendEmptyMessage(0);
+                    }
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * 方法2
+     */
+    private void method2()
+    {
+        int textTime = 200 * randomStr.length();
+        int totalTime = textTime + mDelayTime;
+        totalTime = totalTime / 1000;
+        countDownView.setTime(totalTime);
+        countDownView.start();
+        textview.animate().alpha(1).setDuration(textTime).start();
         textview.setTextString("\u3000\u3000" + randomStr)
                 .startFadeInAnimation()
                 .setTextAnimationListener(new FadeInTextView.TextAnimationListener()
@@ -153,10 +182,31 @@ public class SplashActivity extends BaseActivity
                     @Override
                     public void animationFinish()
                     {
+                        if (clickFlag)
+                        {
+                            return;
+                        }
                         pathView.getPathAnimator().delay(100).duration(1500).interpolator(new AccelerateDecelerateInterpolator())
                                 .listenerEnd(listenerEnd).start();
                     }
                 });
+    }
+
+    /**
+     * 方法3
+     */
+    private void method3()
+    {
+        typerTv.setAnimationListener(new AnimationListener()
+        {
+            @Override
+            public void onAnimationEnd(HTextView hTextView)
+            {
+                pathView.getPathAnimator().delay(100).duration(1500).interpolator(new AccelerateDecelerateInterpolator())
+                        .listenerEnd(listenerEnd).start();
+            }
+        });
+        typerTv.animateText("\u3000\u3000" + randomStr);
     }
 
     /**
@@ -203,23 +253,18 @@ public class SplashActivity extends BaseActivity
         @Override
         public void onAnimationEnd()
         {
-            Intent localIntent = new Intent(SplashActivity.this, HomeActivity.class);
-            SplashActivity.this.startActivity(localIntent);
-            overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
-            SplashActivity.this.finish();
+            JumpToHomeActivity();
         }
     };
 
-    GraduallyTextView.OnceAnimListener onceAnimListener = new GraduallyTextView.OnceAnimListener()
+    private void JumpToHomeActivity()
     {
-        @Override
-        public void onlyOnceStop()
-        {
-//            textview.stopLoading();
-            pathView.getPathAnimator().delay(100).duration(1500).interpolator(new AccelerateDecelerateInterpolator())
-                    .listenerEnd(listenerEnd).start();
-        }
-    };
+        clickFlag = true;
+        Intent localIntent = new Intent(SplashActivity.this, HomeActivity.class);
+        SplashActivity.this.startActivity(localIntent);
+        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
+        SplashActivity.this.finish();
+    }
 
     @Override
     public void doBusiness(Context context)
@@ -230,5 +275,22 @@ public class SplashActivity extends BaseActivity
     @Override
     public void onBackPressed()
     {
+    }
+
+    @OnClick(R.id.cdv_time)
+    public void onViewClicked()
+    {
+        countDownView.stop();
+        JumpToHomeActivity();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if (countDownView != null && countDownView.isShown())
+        {
+            countDownView.stop();
+        }
     }
 }
