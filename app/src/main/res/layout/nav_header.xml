@@ -4,6 +4,24 @@
               android:layout_width="match_parent"
               android:layout_height="160dp"
               android:background="@color/colorPrimary"
-              android:orientation="vertical">
+              android:gravity="bottom"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageView_nav_header"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/nick_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="点击登录"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_14sp"/>
 
 </LinearLayout>

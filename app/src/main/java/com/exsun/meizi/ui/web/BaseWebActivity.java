@@ -30,6 +30,7 @@ import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.helper.Shares;
 import com.exsun.meizi.helper.Toasts;
+import com.exsun.meizi.ui.home.activity.LoginActivity;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebUtils;
@@ -123,7 +124,7 @@ public class BaseWebActivity extends BaseBackActicity
     @Override
     public void initView()
     {
-        boolean isLike = MzApplication.mPref.get(url, false);
+        final boolean isLike = MzApplication.mPref.get(url, false);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
         toolbar.setContentInsetStartWithNavigation(0);
@@ -174,6 +175,13 @@ public class BaseWebActivity extends BaseBackActicity
                         }
                         break;
                     case R.id.like:
+                        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+                        if (!isLogin)
+                        {
+                            Toasts.showSingleShort("你还未登录,请先登录");
+                            startActivity(LoginActivity.class);
+                            break;
+                        }
                         boolean isLike = MzApplication.mPref.get(url, false);
                         if (isLike)
                         {
@@ -217,6 +225,7 @@ public class BaseWebActivity extends BaseBackActicity
         myLikeEntity.setUrl(url);
         myLikeEntity.setDesc(descTitle);
         myLikeEntity.setAuthor(author);
+        myLikeEntity.setCancel(true);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
         {
@@ -234,8 +243,8 @@ public class BaseWebActivity extends BaseBackActicity
 
 //        myLikeEntities.remove(myLikeEntity);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) entities);
-        EventBus.getDefault().post(entities);
-        Toasts.showSingleShort(R.string.cancel_success);
+        EventBus.getDefault().postSticky(myLikeEntity);
+//        Toasts.showSingleShort(R.string.cancel_success);
     }
 
     /**
@@ -247,6 +256,7 @@ public class BaseWebActivity extends BaseBackActicity
         myLikeEntity.setUrl(url);
         myLikeEntity.setDesc(descTitle);
         myLikeEntity.setAuthor(author);
+        myLikeEntity.setCancel(false);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
         {
@@ -261,9 +271,9 @@ public class BaseWebActivity extends BaseBackActicity
         }
 
         myLikeEntities.add(myLikeEntity);
-        EventBus.getDefault().post(myLikeEntities);
+        EventBus.getDefault().postSticky(myLikeEntity);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
-        Toasts.showSingleShort(R.string.save_success);
+//        Toasts.showSingleShort(R.string.save_success);
     }
 
     /**

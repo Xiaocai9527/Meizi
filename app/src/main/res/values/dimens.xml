@@ -38,5 +38,6 @@
     <dimen name="dimen_12sp">12sp</dimen>
     <dimen name="gank_header_height">224dp</dimen>
     <dimen name="dimen_10sp">10sp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
 
 </resources>
