@@ -1,10 +1,12 @@
 package com.yuyh.library.Base.util;
 
+import android.support.annotation.Keep;
+
 /**
  * Created by xiaokun on 2017/7/26.
  * 快速点击判断
  */
-
+@Keep
 public class FastClickHelper
 {
     /**

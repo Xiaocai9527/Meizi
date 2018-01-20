@@ -2,6 +2,7 @@ package com.yuyh.library.utils.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.Keep;
 
 import com.yuyh.library.utils.data.cipher.Base64Cipher;
 import com.yuyh.library.utils.data.cipher.Cipher;
@@ -10,6 +11,7 @@ import com.yuyh.library.utils.data.cipher.Cipher;
  * @author yuyh.
  * @date 16/4/9.
  */
+@Keep
 public class PrefsUtils
 {
 

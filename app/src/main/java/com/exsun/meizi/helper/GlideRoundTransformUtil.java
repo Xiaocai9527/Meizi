@@ -10,10 +10,10 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
- * description:glide转换圆角图片
- * Created by xsf
- * on 2016.04.15:17
+ * Created by xiaokun on 2017/9/12.
+ * glide转换圆角图片
  */
+
 public class GlideRoundTransformUtil extends BitmapTransformation
 {
     public GlideRoundTransformUtil(Context context)
@@ -35,7 +35,6 @@ public class GlideRoundTransformUtil extends BitmapTransformation
         int x = (source.getWidth() - size) / 2;
         int y = (source.getHeight() - size) / 2;
 
-        // TODO this could be acquired from the pool too
         Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
 
         Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);

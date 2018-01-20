@@ -3,6 +3,7 @@ package com.yuyh.library.Base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends Fragment
 {
     private static final String TAG = "BaseFragment";

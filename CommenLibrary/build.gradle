@@ -12,7 +12,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,11 +40,13 @@ dependencies {
     //retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     //Gson converter
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile('com.squareup.retrofit2:converter-gson:2.1.0', {
+        exclude group: 'com.google.code.gson', module: 'gson'
+    })
     //RxJava2 Adapter
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     //okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
 }

@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'view-inspector'
 
+//viewInspector {
+//    excludePackages = ['android.widget.Space', 'com.squareup.leakcanary.internal','com.github.moduth.blockcanary.ui']
+//}
+def htextview_version = "0.1.2"
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -37,8 +42,31 @@ android {
         }
     }
 
+    android {
+        sourceSets {
+            main.jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi'//, 'x86'//只打包armeabi平台的，就算有其他文件夹也不管
+//                include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86', 'x86_64'
+        }
+    }
+
     productFlavors {
     }
+    //兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
+    useLibrary 'org.apache.http.legacy'
+
+    //解决rxjava包重复的问题
+    packagingOptions{
+        exclude 'META-INF/rxjava.properties'
+    }
+
 }
 
 dependencies {
@@ -72,17 +100,29 @@ dependencies {
     //轮播图
     compile 'com.youth.banner:banner:1.4.9'
     //视频
-//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.2'
-//    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.2'
-
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.2'
+    //    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-
-//    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
-
+    //    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.1'
     compile project(':playerview')
     compile 'org.greenrobot:eventbus:3.0.0'
     //调试工具
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    //java 爬虫
     compile 'org.jsoup:jsoup:1.10.2'
+    //数据库调试
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    //svg path
+    compile 'com.eftimoff:android-pathview:1.0.5@aar'
+    // base library textview效果
+    compile "com.hanks:htextview-base:$htextview_version"
+    compile "com.hanks:htextview-typer:$htextview_version"
+    //倒计时控件
+    compile 'cn.yc:YCCountDownViewLib:1.0'
+    //bmob
+    compile files('libs/BmobSDK_3.5.9_20180102.jar')
+    compile files('libs/rxandroid-1.2.0.jar')
+    compile files('libs/rxjava-1.1.6.jar')
+    compile files('libs/org.apache.http.legacy.jar')
 }

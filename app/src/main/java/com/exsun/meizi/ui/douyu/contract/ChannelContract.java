@@ -1,5 +1,7 @@
 package com.exsun.meizi.ui.douyu.contract;
 
+import android.support.annotation.Keep;
+
 import com.exsun.meizi.base.AppBaseModel;
 import com.exsun.meizi.entity.douyu.RoomsEntity;
 import com.exsun.meizi.entity.douyu.RoomsWithSlidersEntity;
@@ -14,7 +16,7 @@ import io.reactivex.Observable;
 /**
  * Created by xiaokun on 2017/8/28.
  */
-
+@Keep
 public interface ChannelContract
 {
     interface Model extends AppBaseModel

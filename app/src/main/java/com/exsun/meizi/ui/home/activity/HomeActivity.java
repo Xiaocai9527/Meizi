@@ -14,27 +14,36 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
+import com.exsun.meizi.entity.MyUser;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
+import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
 import com.exsun.meizi.ui.home.fragment.gank.GankFragment;
 import com.exsun.meizi.ui.home.fragment.guolin.GuolinFragment;
 import com.exsun.meizi.ui.home.fragment.like.LikeFragment;
+import com.yuyh.library.AppUtils;
 import com.yuyh.library.Base.BaseActivity;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     private static final int REQUECT_CODE_SDCARD = 0;
@@ -49,6 +58,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private LikeFragment likeFragment;
     private GuolinFragment guolinFragment;
     private DoubleClickExitHelper doubleClickExitHelper;
+    private TextView nickName;
+    private View headView;
 
     @Override
     public void initData(Bundle bundle)
@@ -73,19 +84,55 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initView()
     {
+        initNavHeadView();
         initDrawLayout();
+        EventBus.getDefault().register(this);
         if (gankFragment == null)
         {
             gankFragment = GankFragment.getInstance();
         }
-//        if (likeFragment == null)
-//        {
-//            likeFragment = LikeFragment.getInstance();
-//        }
-
-//        initFragment("gank", true);
         showFragment(gankFragment);
         doubleClickExitHelper = new DoubleClickExitHelper(this);
+    }
+
+    private void initNavHeadView()
+    {
+        View headerView = navView.getHeaderView(0);
+        headView = headerView.findViewById(R.id.nav_header);
+        ImageView headImg = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
+        nickName = (TextView) headerView.findViewById(R.id.nick_name);
+        ImageLoaderUtils.displayRound(this, headImg, R.mipmap.ic_launcher);
+        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+        String nick = MzApplication.mPref.get(Constant.APP_NICKNAME, "");
+        String location = MzApplication.mPref.get(Constant.APP_LOCATION, "");
+        if (isLogin)
+        {
+            headerView.setEnabled(false);
+            nickName.setText(nick + "-" + location);
+        } else
+        {
+            headerView.setEnabled(true);
+            nickName.setText("点击登录");
+        }
+        headView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //登录或注册
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+                AppUtils.runOnUIDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                }, 200);
+            }
+        });
     }
 
     private void initDrawLayout()
@@ -117,46 +164,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         currentFragment = fragment;
     }
 
-//    private void initFragment(String showFragment, boolean isFirst)
-//    {
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-////        gankFragment = GankFragment.getInstance();//单例模式会在recreat失效，因为onCreate不会重新调用
-//        Fragment mFragment = null;
-//        switch (showFragment)
-//        {
-//            case "gank":
-//                mFragment = gankFragment;
-//                break;
-//            case "like":
-//                mFragment = likeFragment;
-//                break;
-//            default:
-//
-//                break;
-//        }
-//
-//        if (isFirst)
-//        {
-//            if (gankFragment.isAdded())
-//            {
-//                ft.remove(gankFragment);
-//            }
-//            if (likeFragment.isAdded())
-//            {
-//                ft.remove(likeFragment);
-//            }
-//            ft.add(R.id.home_fl, gankFragment);
-//            ft.add(R.id.home_fl, likeFragment);
-//            ft.hide(likeFragment).show(gankFragment).commit();
-//        } else
-//        {
-//            //给fragment切换增加淡入淡出的动画
-//            ft.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out);
-////            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);//
-//            ft.hide(currentFragment).show(mFragment).commit();
-//        }
-//        currentFragment = mFragment;
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item)
@@ -172,7 +179,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     case R.id.my_like:
                         if (likeFragment == null)
                         {
-                            likeFragment = new LikeFragment();
+                            likeFragment = LikeFragment.getInstance();
                         }
                         showFragment(likeFragment);
 //                        initFragment("like", false);
@@ -187,7 +194,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     case R.id.nav_meizi:
                         if (gankFragment == null)
                         {
-                            gankFragment = new GankFragment();
+                            gankFragment = GankFragment.getInstance();
                         }
                         showFragment(gankFragment);
 //                        initFragment("gank", false);
@@ -239,6 +246,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void doBusiness(Context context)
     {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(MyUser myUser)
+    {
+        nickName.setText(myUser.getNickName() + "-" + myUser.getLocation());
+        headView.setEnabled(false);
     }
 
     @Override
@@ -298,6 +312,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     {
         gankFragment = null;
         likeFragment = null;
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 }

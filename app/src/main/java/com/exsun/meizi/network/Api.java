@@ -7,10 +7,19 @@ import com.exsun.meizi.config.Constant;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.BufferedSink;
+import okio.GzipSink;
+import okio.Okio;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -48,6 +57,7 @@ public class Api
                 .readTimeout(READ_TIME_OUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .addInterceptor(logInterceptor)
+//                .addInterceptor(new GzipRequsetInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         String baseUrl = "";
@@ -89,4 +99,52 @@ public class Api
         }
         return api.douyuApiService;
     }
+
+    /**
+     * 添加gzip压缩拦截器
+     */
+    private static class GzipRequsetInterceptor implements Interceptor
+    {
+        @Override
+        public Response intercept(Chain chain) throws IOException
+        {
+            Request originalRequest = chain.request();
+            if (originalRequest.body() == null || originalRequest.header("Content-Encoding") != null)
+            {
+                return chain.proceed(originalRequest);
+            }
+            Request compressedRequest = originalRequest.newBuilder()
+                    .header("Content-Encoding", "gzip")
+                    .method(originalRequest.method(), gzip(originalRequest.body()))
+                    .build();
+            return chain.proceed(compressedRequest);
+        }
+
+        private RequestBody gzip(final RequestBody body)
+        {
+            return new RequestBody()
+            {
+                @Override
+                public MediaType contentType()
+                {
+                    return body.contentType();
+                }
+
+                @Override
+                public long contentLength() throws IOException
+                {
+                    return -1;
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException
+                {
+                    BufferedSink gzipSink = Okio.buffer(new GzipSink(sink));
+                    body.writeTo(gzipSink);
+                    gzipSink.close();
+                }
+            };
+        }
+    }
+
 }

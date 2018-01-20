@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +13,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.ui.home.adapter.HomeVpAdapter;
 import com.exsun.meizi.ui.home.fragment.meizi.MeiziFragment;
 import com.exsun.meizi.ui.home.fragment.other.OtherFragment;
 import com.exsun.meizi.ui.search.GankSearchActivity;
+import com.exsun.meizi.widget.FixedScroller;
+import com.exsun.meizi.widget.FlipTransformer;
 import com.yuyh.library.Base.BaseFragment;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +35,7 @@ import butterknife.ButterKnife;
 /**
  * Created by xiaokun on 2017/8/8.
  */
-
+@Keep
 public class GankFragment extends BaseFragment
 {
     @Bind(R.id.view_pager_home)
@@ -39,7 +45,6 @@ public class GankFragment extends BaseFragment
     TabLayout tabLayoutHome;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-
 
     public static GankFragment getInstance()
     {
@@ -149,11 +154,36 @@ public class GankFragment extends BaseFragment
         fBundle.putString(OtherFragment.FRONT_CETOGARY, "前端");
         fragments.add(OtherFragment.getInstance(fBundle));
 
+        changViewpagerTime();
         viewPagerHome.setOffscreenPageLimit(3);
+        viewPagerHome.setPageTransformer(true, new FlipTransformer());
         HomeVpAdapter homeVpAdapter = new HomeVpAdapter(getChildFragmentManager(), fragments, titles);
         viewPagerHome.setAdapter(homeVpAdapter);
         tabLayoutHome.setupWithViewPager(viewPagerHome);
-        tabLayoutHome.setTabsFromPagerAdapter(homeVpAdapter);
+//        tabLayoutHome.setTabsFromPagerAdapter(homeVpAdapter);
+
+    }
+
+    /**
+     * 改变viewpager自动播放的滑动时间为500ms 默认是250ms
+     */
+    private void changViewpagerTime()
+    {
+        try
+        {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            Interpolator sInterpolator = new AccelerateDecelerateInterpolator();
+            FixedScroller scroller = new FixedScroller(viewPagerHome.getContext(), sInterpolator);
+            mScroller.set(viewPagerHome, scroller);
+        } catch (NoSuchFieldException e)
+        {
+        } catch (IllegalArgumentException e)
+        {
+        } catch (IllegalAccessException e)
+        {
+        }
     }
 
     public void setNight()

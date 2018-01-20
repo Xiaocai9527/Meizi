@@ -2,6 +2,8 @@ package com.exsun.meizi.ui.home.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.exsun.meizi.R;
@@ -11,6 +13,7 @@ import com.yuyh.library.Base.BaseActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +21,20 @@ import java.util.List;
  * @date 2017/12/13
  */
 
-public class BlogAdapter extends CommonAdapter<BlogEntity>
+public class BlogAdapter extends CommonAdapter<BlogEntity> implements Filterable
 {
+    private List<BlogEntity> mFilteredList;
+
     public BlogAdapter(Context context, int layoutId, List<BlogEntity> datas)
     {
         super(context, layoutId, datas);
+    }
+
+    public void setNewData(List<BlogEntity> list)
+    {
+        mDatas = list;
+        notifyDataSetChanged();
+        mFilteredList = list;
     }
 
     @Override
@@ -46,5 +58,63 @@ public class BlogAdapter extends CommonAdapter<BlogEntity>
                         string, blogEntity.getAuthor(), desc, true);
             }
         });
+    }
+
+    @Override
+    public Filter getFilter()
+    {
+        return new Filter()
+        {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence)
+            {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty())
+                {
+                    mDatas = mFilteredList;
+                } else
+                {
+                    List<BlogEntity> filteredList = new ArrayList<>();
+
+                    for (BlogEntity blogEntity : mFilteredList)
+                    {
+                        String desc = blogEntity.getTitle();
+                        String publishedAt = blogEntity.getTime();
+                        String who = blogEntity.getAuthor();
+                        if (desc == null)
+                        {
+                            desc = "";
+                        }
+                        if (publishedAt == null)
+                        {
+                            publishedAt = "";
+                        }
+                        if (who == null)
+                        {
+                            who = "";
+                        }
+                        if (desc.contains(charString) || publishedAt.contains(charString) || who.contains(charString))
+                        {
+                            filteredList.add(blogEntity);
+                        }
+                    }
+
+                    mDatas = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mDatas;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults)
+            {
+                mDatas = (List<BlogEntity>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

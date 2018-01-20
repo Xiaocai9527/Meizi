@@ -3,6 +3,7 @@ package com.exsun.meizi.ui.search;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -25,7 +26,7 @@ import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
 import com.exsun.meizi.widget.WordWrapView;
-import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.Base.BaseBackActicity;
 import com.yuyh.library.utils.DimenUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
@@ -42,7 +43,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/8/12.
  */
 
-public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSearchModel>
+public class GankSearchActivity extends BaseBackActicity<GankSearchPresenter, GankSearchModel>
         implements GankSearchContract.View
 {
     private static final String SEARCH_HISTORY = "search_history";
@@ -80,7 +81,6 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
     @Override
     public void initData(Bundle bundle)
     {
-
     }
 
     @Override
@@ -148,6 +148,12 @@ public class GankSearchActivity extends BaseActivity<GankSearchPresenter, GankSe
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
     }
 
     private void back()

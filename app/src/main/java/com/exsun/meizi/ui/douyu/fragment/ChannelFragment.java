@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.douyu.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,7 +36,7 @@ import butterknife.Bind;
 /**
  * Created by xiaokun on 2017/8/25.
  */
-
+@Keep
 public class ChannelFragment extends BaseFragment<ChannelPresenter, ChannelModel> implements ChannelContract.View
 {
     public static final String CATE_ID = "cate_id";

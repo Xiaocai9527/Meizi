@@ -1,8 +1,8 @@
 package com.exsun.meizi.ui.home.fragment.meizi;
 
+import com.exsun.meizi.base.AppBaseModel;
 import com.exsun.meizi.entity.gank.GankCategoryEntity;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
-import com.exsun.meizi.base.AppBaseModel;
 import com.yuyh.library.Base.BasePresenter;
 import com.yuyh.library.Base.BaseView;
 
@@ -14,7 +14,6 @@ import io.reactivex.Observable;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public interface MeiziContract
 {
     interface Model extends AppBaseModel

@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
 public class MeiziPresenter extends MeiziContract.Presenter
 {
     //    @Override

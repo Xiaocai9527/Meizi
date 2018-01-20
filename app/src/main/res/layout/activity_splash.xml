@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
@@ -8,4 +9,59 @@
     android:orientation="vertical"
     tools:context="com.exsun.meizi.ui.welcome.SplashActivity">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <com.exsun.meizi.widget.FadeInTextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.3"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <com.hanks.htextview.typer.TyperTextView
+            android:id="@+id/typer_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:charIncrease="1"
+            app:typerSpeed="200"/>
+
+        <com.eftimoff.androipathview.PathView
+            android:id="@+id/pathView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textview"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            app:pathColor="@android:color/black"
+            app:svg="@raw/kun"/>
+    </RelativeLayout>
+
+    <com.ns.yc.yccountdownviewlib.CountDownView
+        android:id="@+id/cdv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        app:cd_animator_time="3"
+        app:cd_animator_time_unit="秒"
+        app:cd_arc_color="#000000"
+        app:cd_arc_width="2dp"
+        app:cd_bg_color="#f5f5f7"
+        app:cd_circle_radius="20dp"
+        app:cd_location="top"
+        app:cd_retreat_type="forward"
+        app:cd_text_color="#000000"
+        app:cd_text_size="9sp"/>
+
+</RelativeLayout>

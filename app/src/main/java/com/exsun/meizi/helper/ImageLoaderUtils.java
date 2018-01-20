@@ -6,24 +6,25 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.R;
+import com.exsun.meizi.base.MzApplication;
 
 import java.io.File;
 
 /**
- * Description : 图片加载工具类 使用glide框架封装
+ * Created by xiaokun on 2017/9/12.
+ * 图片加载工具类 使用glide框架封装
  */
+
 public class ImageLoaderUtils
 {
-
     public static void display(Context context, ImageView imageView, String url, int placeholder, int error)
     {
         if (imageView == null)
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url).placeholder(placeholder)
+        Glide.with(context).load(url).placeholder(placeholder)
                 .error(error).crossFade().into(imageView);
     }
 
@@ -33,9 +34,9 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url)
+        Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .centerCrop()
+                .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
                 .crossFade().into(imageView);
@@ -47,7 +48,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url)
+        Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
@@ -61,7 +62,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url).asBitmap()
+        Glide.with(context).load(url).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
@@ -75,7 +76,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url).asBitmap()
+        Glide.with(context).load(url).asBitmap()
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
@@ -89,7 +90,7 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url)
+        Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
@@ -103,7 +104,43 @@ public class ImageLoaderUtils
         {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(MzApplication.getAppContext()).load(url)
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.toux2)
+                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+    }
+
+    public static void displayRound(Context context, ImageView imageView, int url)
+    {
+        if (imageView == null)
+        {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.toux2)
+                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+    }
+
+    public static void displayRound(Context context, ImageView imageView, File file)
+    {
+        if (imageView == null)
+        {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(file)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.toux2)
+                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+    }
+
+    public static void displayRound(Context context, ImageView imageView, byte[] bytes)
+    {
+        if (imageView == null)
+        {
+            throw new IllegalArgumentException("argument error");
+        }
+        Glide.with(context).load(bytes)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.toux2)
                 .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);

@@ -1,5 +1,6 @@
 package com.yuyh.library.Base.rx;
 
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import io.reactivex.subjects.Subject;
 /**
  * Created by Administrator on 2016/12/31.
  */
-
+@Keep
 public class RxBus {
 
     private static RxBus instance;

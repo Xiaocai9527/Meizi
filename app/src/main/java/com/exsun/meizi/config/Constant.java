@@ -1,9 +1,11 @@
 package com.exsun.meizi.config;
 
+import android.support.annotation.Keep;
+
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public class Constant
 {
     public static final String ROOT_PATH = "http://gank.io/api/";
@@ -24,13 +26,26 @@ public class Constant
     public static final int FRONT = 3;
 
     public static final String MY_LIKE_DATA = "my_like_data";
-    public static final java.lang.String CDN_CODE = "cdn_code";
-    public static final java.lang.String RATE_CODE = "rate_code";
-    public static final java.lang.String USING_MEDIA_CODEC = "using_media_codec";
-    public static final java.lang.String TEN_MEIZI = "ten_meizi";
-    public static final java.lang.String IS_FIRST_OPEN_APP = "is_first_open_app";
+    public static final String CDN_CODE = "cdn_code";
+    public static final String RATE_CODE = "rate_code";
+    public static final String USING_MEDIA_CODEC = "using_media_codec";
+    public static final String TEN_MEIZI = "ten_meizi";
+    public static final String IS_FIRST_OPEN_APP = "is_first_open_app";
     public static final String DAY_NIGHT_STYLE = "day_night_style";
+
+
+    //登录存在本地的key
+    public static final String APP_URSERNAME = "app_ursername";
+    public static final String APP_PASSWORD = "app_password";
+    public static final String APP_NICKNAME = "app_nickname";
+    public static final String APP_LOCATION = "app_location";
+
 
     public static boolean IS_CLEAR = false;
     public static String MY_LIKE_URL = "my_like_url";
+
+    /**
+     * 是否登录标识符
+     */
+    public static final String IS_LOGIN = "is_login";
 }

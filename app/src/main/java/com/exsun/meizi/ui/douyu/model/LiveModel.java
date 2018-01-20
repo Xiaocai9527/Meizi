@@ -54,9 +54,9 @@ public class LiveModel implements LiveContract.Model
 //            return dyService.getTempLiveInfo(roomid).retry(3);
         }
         String time = String.valueOf(new Date().getTime() / 1000);
-        String aid = "androidhd1";
-        String client_sys = "android";
-        String authStr = "room/" + roomid + "?aid=androidhd1&cdn=" + cdn + "&client_sys=android&time=" + time + "Y237pxTx2In5ayGz";
+        String aid = "wp";
+        String client_sys = "wp";
+        String authStr = "room/" + roomid + "?aid=" + aid + "&cdn=" + cdn + "&client_sys=" + client_sys + "&time=" + time + "zNzMV1y4EMxOHS6I5WKm";
         String authMD5 = "";
         try
         {

@@ -1,13 +1,14 @@
 package com.yuyh.library.Base;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import com.yuyh.library.Base.rx.RxManager;
 
 /**
  * Created by xiaokun on 2017/7/26.
  */
-
+@Keep
 public abstract class BasePresenter<M, V>
 {
     public M mModel;

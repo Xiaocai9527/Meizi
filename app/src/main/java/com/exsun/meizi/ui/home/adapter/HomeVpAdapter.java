@@ -1,5 +1,6 @@
 package com.exsun.meizi.ui.home.adapter;
 
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by xiaokun on 2017/8/2.
  */
-
+@Keep
 public class HomeVpAdapter extends FragmentStatePagerAdapter
 {
     private List<Fragment> mFragments;

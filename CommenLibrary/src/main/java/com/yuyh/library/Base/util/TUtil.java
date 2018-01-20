@@ -1,11 +1,13 @@
 package com.yuyh.library.Base.util;
 
+import android.support.annotation.Keep;
+
 import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by Administrator on 2016/12/31.
  */
-
+@Keep
 public class TUtil
 {
     /**

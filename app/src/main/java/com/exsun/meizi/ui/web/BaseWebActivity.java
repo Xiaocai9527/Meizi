@@ -30,11 +30,12 @@ import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.helper.Shares;
 import com.exsun.meizi.helper.Toasts;
+import com.exsun.meizi.ui.home.activity.LoginActivity;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.just.library.AgentWeb;
 import com.just.library.AgentWebUtils;
 import com.just.library.ChromeClientCallbackManager;
-import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.Base.BaseBackActicity;
 import com.yuyh.library.Base.util.RxTransUtil;
 import com.yuyh.library.utils.log.LogUtils;
 
@@ -59,7 +60,7 @@ import io.reactivex.functions.Consumer;
  * Created by xiaokun on 2017/8/3.
  */
 
-public class BaseWebActivity extends BaseActivity
+public class BaseWebActivity extends BaseBackActicity
 {
     public static final String WEB_URL = "web_url";
     public static final String WEB_DESC = "web_desc";
@@ -78,6 +79,7 @@ public class BaseWebActivity extends BaseActivity
     private boolean isPat;
     protected AgentWeb mAgentWeb;
     private List<MyLikeEntity> myLikeEntities;
+    private WebView webView;
 
     public static void jumpToBaseWebActivity(Activity activity, String url, String desc, String author, View shareView, boolean isPattern)
     {
@@ -122,7 +124,7 @@ public class BaseWebActivity extends BaseActivity
     @Override
     public void initView()
     {
-        boolean isLike = MzApplication.mPref.get(url, false);
+        final boolean isLike = MzApplication.mPref.get(url, false);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("");
         toolbar.setContentInsetStartWithNavigation(0);
@@ -173,6 +175,13 @@ public class BaseWebActivity extends BaseActivity
                         }
                         break;
                     case R.id.like:
+                        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+                        if (!isLogin)
+                        {
+                            Toasts.showSingleShort("你还未登录,请先登录");
+                            startActivity(LoginActivity.class);
+                            break;
+                        }
                         boolean isLike = MzApplication.mPref.get(url, false);
                         if (isLike)
                         {
@@ -216,6 +225,7 @@ public class BaseWebActivity extends BaseActivity
         myLikeEntity.setUrl(url);
         myLikeEntity.setDesc(descTitle);
         myLikeEntity.setAuthor(author);
+        myLikeEntity.setCancel(true);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
         {
@@ -233,8 +243,8 @@ public class BaseWebActivity extends BaseActivity
 
 //        myLikeEntities.remove(myLikeEntity);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) entities);
-        EventBus.getDefault().post(entities);
-        Toasts.showSingleShort(R.string.cancel_success);
+        EventBus.getDefault().postSticky(myLikeEntity);
+//        Toasts.showSingleShort(R.string.cancel_success);
     }
 
     /**
@@ -246,6 +256,7 @@ public class BaseWebActivity extends BaseActivity
         myLikeEntity.setUrl(url);
         myLikeEntity.setDesc(descTitle);
         myLikeEntity.setAuthor(author);
+        myLikeEntity.setCancel(false);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
         {
@@ -260,9 +271,9 @@ public class BaseWebActivity extends BaseActivity
         }
 
         myLikeEntities.add(myLikeEntity);
-        EventBus.getDefault().post(myLikeEntities);
+        EventBus.getDefault().postSticky(myLikeEntity);
         MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
-        Toasts.showSingleShort(R.string.save_success);
+//        Toasts.showSingleShort(R.string.save_success);
     }
 
     /**
@@ -336,7 +347,7 @@ public class BaseWebActivity extends BaseActivity
                             String css2 = "\n" +
                                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://chuansong.me/static/css/article_improve.css\"/>";
                             String body = "<head><style>img{max-width:100%}table{width:100%;}" + css1 + css2 + "</style></head>" + "<body>" + s + "</body>";
-                            WebView webView = new WebView(BaseWebActivity.this);
+                            webView = new WebView(BaseWebActivity.this);
                             webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.MATCH_PARENT);
@@ -441,10 +452,16 @@ public class BaseWebActivity extends BaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-
-        if (mAgentWeb.handleKeyEvent(keyCode, event))
+        if (mAgentWeb != null)
         {
-            return true;
+            if (mAgentWeb.handleKeyEvent(keyCode, event))
+            {
+                return true;
+            }
+        }
+        if (webView != null && webView.canGoBack())
+        {
+            webView.goBack();
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -12,7 +12,6 @@ import io.reactivex.Observable;
 /**
  * Created by xiaokun on 2017/8/25.
  */
-
 public interface DyMainContract
 {
     interface Model extends AppBaseModel

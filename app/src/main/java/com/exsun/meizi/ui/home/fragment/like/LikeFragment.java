@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,12 +20,14 @@ import android.widget.TextView;
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
+import com.exsun.meizi.entity.MyUser;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.entity.gank.RadomMzEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.helper.Toasts;
 import com.exsun.meizi.network.Api;
 import com.exsun.meizi.network.ApiService;
+import com.exsun.meizi.ui.home.activity.LoginActivity;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.ui.web.BaseWebActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
@@ -41,6 +45,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -49,14 +59,14 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by xiaokun on 2017/8/8.
  */
-
+@Keep
 public class LikeFragment extends BaseFragment
 {
     @Bind(R.id.like_rv)
-    RecyclerView likeRv;
+    RecyclerView recyclerView;
 
     @Bind(R.id.like_refresh)
-    SwipeRefreshLayout likeRefresh;
+    SwipeRefreshLayout refresh;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.empty_tv)
@@ -91,7 +101,7 @@ public class LikeFragment extends BaseFragment
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
-        likeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
         {
             @Override
             public void onRefresh()
@@ -148,32 +158,112 @@ public class LikeFragment extends BaseFragment
         });
     }
 
-    private List<MyLikeEntity> myLikeEntities;
+//    private List<MyLikeEntity> myLikeEntities;
+
+//    private List<BmobObject> collections = new ArrayList<>();
 
     @Override
     public void doBusiness(final Context context)
     {
-        EventBus.getDefault().register(this);
-        likeRefresh.setRefreshing(true);
-        myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
-        if (myLikeEntities == null)
-        {
-            myLikeEntities = new ArrayList<>();
-        }
-        likeRefresh.setRefreshing(false);
-        likeRv.setLayoutManager(new LinearLayoutManager(mActivity));
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         final int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
-        likeRv.addItemDecoration(new OffsetDecoration(spacing));
-        if (myLikeEntities.isEmpty())
+        recyclerView.addItemDecoration(new OffsetDecoration(spacing));
+        EventBus.getDefault().register(this);
+        refresh.setRefreshing(true);
+        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+        if (isLogin)
         {
-            likeRefresh.setVisibility(View.GONE);
-            emptyTv.setVisibility(View.VISIBLE);
+            loadData(false);
         } else
         {
-            likeRefresh.setVisibility(View.VISIBLE);
+            refresh.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+            emptyTv.setText("你还未登录,请先登录");
+            emptyTv.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                }
+            });
+        }
+    }
+
+    private void loadData(final boolean isClear)
+    {
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        BmobQuery<MyLikeEntity> query = new BmobQuery<>();
+        query.setLimit(500);
+        query.addWhereEqualTo("userName", user);  // 查询当前用户的所有帖子
+        query.findObjects(new FindListener<MyLikeEntity>()
+        {
+            @Override
+            public void done(List<MyLikeEntity> list, BmobException e)
+            {
+                if (e == null)
+                {
+                    Toasts.showSingleShort("查询成功：共" + list.size() + "条数据。");
+                    getDataSuccess(list, isClear);
+                } else
+                {
+                    Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
+    }
+
+    private List<MyLikeEntity> myLikeEntities = new ArrayList<>();
+
+    /**
+     * 获取数据成功
+     *
+     * @param list
+     */
+    private void getDataSuccess(List<MyLikeEntity> list, boolean isClear)
+    {
+        refresh.setRefreshing(false);
+        if (isClear)
+        {
+            myLikeEntities.clear();
+        }
+        if (list.isEmpty())
+        {
+            refresh.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
+            emptyTv.setText("空空如也\n\n你还没有收藏任何文章");
+        } else
+        {
+            refresh.setVisibility(View.VISIBLE);
             emptyTv.setVisibility(View.GONE);
+            myLikeEntities.addAll(list);
             setAdapter(myLikeEntities);
         }
+    }
+
+    /**
+     * 上传收藏数据到服务器
+     *
+     * @param myLikeEntity
+     */
+    private void saveData(MyLikeEntity myLikeEntity)
+    {
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        myLikeEntity.setMyUser(user);
+        myLikeEntity.save(new SaveListener<String>()
+        {
+            @Override
+            public void done(String s, BmobException e)
+            {
+                if (e == null)
+                {
+                    Toasts.showSingleShort("收藏成功");
+                } else
+                {
+                    Toasts.showSingleShort("收藏失败");
+                }
+            }
+        });
     }
 
     /**
@@ -181,23 +271,8 @@ public class LikeFragment extends BaseFragment
      */
     private void refresh()
     {
-        likeRefresh.setRefreshing(true);
-        myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
-        if (myLikeEntities == null)
-        {
-            myLikeEntities = new ArrayList<>();
-        }
-        likeRefresh.setRefreshing(false);
-        if (myLikeEntities.isEmpty())
-        {
-            likeRefresh.setVisibility(View.GONE);
-            emptyTv.setVisibility(View.VISIBLE);
-        } else
-        {
-            likeRefresh.setVisibility(View.VISIBLE);
-            emptyTv.setVisibility(View.GONE);
-            setAdapter(myLikeEntities);
-        }
+        refresh.setRefreshing(true);
+        loadData(true);
     }
 
     /**
@@ -274,23 +349,41 @@ public class LikeFragment extends BaseFragment
                 });
             }
         };
-        likeRv.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessage(List<MyLikeEntity> likeEntities)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMessage(MyLikeEntity myLikeEntity)
     {
-        if (likeEntities == null || likeEntities.isEmpty())
+        if (myLikeEntity.isCancel())
         {
-            likeRefresh.setVisibility(View.GONE);
-            emptyTv.setVisibility(View.VISIBLE);
+            MyLikeEntity entity = new MyLikeEntity();
+            entity.remove("userName");
+            entity.update(myLikeEntity.getObjectId(), new UpdateListener()
+            {
+                @Override
+                public void done(BmobException e)
+                {
+                    if (e == null)
+                    {
+                        Toasts.showSingleShort("取消收藏");
+                        Log.i("bmob", "成功");
+                    } else
+                    {
+                        Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                    }
+                }
+            });
         } else
         {
-            likeRefresh.setVisibility(View.VISIBLE);
+            refresh.setVisibility(View.VISIBLE);
             emptyTv.setVisibility(View.GONE);
+            myLikeEntities.add(myLikeEntity);
+            adapter.notifyDataSetChanged();
+            saveData(myLikeEntity);
         }
-        setAdapter(likeEntities);
     }
+
 
     @Override
     public void onDestroy()

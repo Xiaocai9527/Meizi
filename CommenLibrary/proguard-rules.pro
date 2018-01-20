@@ -17,7 +17,7 @@
 #}
 
 #-ignorewarnings
-#
+
 #-keep class * {
 #    public private *;
 #}
@@ -64,9 +64,9 @@
 #-keepclasseswithmembernames class * {
 #    native <methods>;
 #}
-#
-## 所有继承自Activity/Application/Service/BroadcastReceiver
-## /ContentProvider/Throwable/Exception 不要被混淆
+##
+### 所有继承自Activity/Application/Service/BroadcastReceiver
+### /ContentProvider/Throwable/Exception 不要被混淆
 #-keep public class * extends android.app.Activity
 #-keep public class * extends android.support.v4.app.Fragment
 #-keep public class * extends android.app.Application
@@ -75,20 +75,20 @@
 #-keep public class * extends android.content.ContentProvider
 #-keep public class * extends java.lang.Throwable {*;}
 #-keep public class * extends java.lang.Exception {*;}
-#
-## 保留在Activity中的方法参数是view的方法
-## 从而保证我们在layout里面编写onClick就不会被影响
+##
+### 保留在Activity中的方法参数是view的方法
+### 从而保证我们在layout里面编写onClick就不会被影响
 #-keepclassmembers class * extends android.app.Activity {
 #   public void *(android.view.View);
 #}
-#
-## 枚举类不能被混淆
+##
+### 枚举类不能被混淆
 #-keepclasseswithmembers enum * {
 #    public static **[] values;
 #    public static ** valueOf(java.lang.String);
 #}
-#
-## 保留自定义控件(继承自View)不能被混淆
+##
+### 保留自定义控件(继承自View)不能被混淆
 #-keep public class * extends android.view.View{
 #    *** get*();
 #    void set*(***);
@@ -96,13 +96,13 @@
 #    public <init>(android.content.Context,android.util.AttributeSet);
 #    public <init>(android.content.Context,android.util.AttributeSet,int);
 #}
-#
-## 保留Parcelable序列化的类不被混淆
+##
+### 保留Parcelable序列化的类不被混淆
 #-keep class * implements android.os.Parcelable{
 #    public static final android.os.Parcelable$Creator *;
 #}
-#
-## 保留Serializable序列化的类不被混淆
+##
+### 保留Serializable序列化的类不被混淆
 #-keepclasseswithmembers class * implements java.io.Serializable{
 #    static final long serialVersionUID;
 #    private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -111,43 +111,39 @@
 #    java.lang.Object writeReplace();
 #    java.lang.Object readResolve();
 #}
-#
+##
 ## 对于R(资源)下的所有类及其方法，都不能被混淆
 #-keep class **.R$* {
 #    *;
 #}
 #
-## 对于带有回调函数onXXEvent的，不能被混淆
-#-keepclasseswithmembers class * {
-#    void *(**On*Event);
-#}
+#-keep class com.yuyh.library.utils.**{*;}
 #
-## 对反射的混淆
-#-keep class com.yuyh.library.Base.util.TUtil{
-#    *;
-#}
+#-keep class com.yuyh.library.Base.**{*;}
+
 #-keep class * implements com.yuyh.library.Base.BaseModel{
 #    *;
 #}
-#
+
+##
 #-keep class com.exsun.meizi.BuildConfig { *; }
 #-keep public class * extends android.os.Binder
-#
+##
 ## Keep the support library
 #-keep class android.support.** { *; }
 #-keep interface android.support.** { *; }
-#
+##
 #-keep public class * implements com.bumptech.glide.module.GlideModule
 #-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
 #    **[] $VALUES;
 #    public *;
 #}
 #-dontwarn com.squareup.okhttp.**
-#
+##
 #-keep class butterknife.** { *; }
 #-dontwarn butterknife.internal.**
 #-keep class **$$ViewBinder { *; }
-#
+##
 #-keepclasseswithmembernames class * {
 #    @butterknife.* <fields>;
 #}
@@ -155,25 +151,25 @@
 #-keepclasseswithmembernames class * {
 #    @butterknife.* <methods>;
 #}
+##
+##-keepattributes *Annotation*
+##-keepclassmembers class ** {
+##    @com.squareup.otto.Subscribe public *;
+##    @com.squareup.otto.Produce public *;
+##}
 #
-#-keepattributes *Annotation*
-#-keepclassmembers class ** {
-#    @com.squareup.otto.Subscribe public *;
-#    @com.squareup.otto.Produce public *;
-#}
-
-#
-#-keep public class * implements com.bumptech.glide.module.GlideModule
-#-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-#    **[] $VALUES;
-#    public *;
-#}
-#
-## Keep the support library
-#-keep class android.support.** { *; }
-#-keep interface android.support.** { *; }
-#
-# For RxJava:
+##
+##-keep public class * implements com.bumptech.glide.module.GlideModule
+##-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+##    **[] $VALUES;
+##    public *;
+##}
+##
+### Keep the support library
+##-keep class android.support.** { *; }
+##-keep interface android.support.** { *; }
+##
+## For RxJava:
 #-dontwarn rx.**
 #-dontwarn org.mockito.**
 #-dontwarn org.junit.**
@@ -190,3 +186,38 @@
 #-keepattributes Signature
 #-keepattributes *Annotation*
 #-dontwarn okio.**
+#
+##okhttp
+#-dontwarn com.squareup.okhttp3.**
+#-keep class com.squareup.okhttp3.** { *;}
+#-dontwarn okio.**
+## Retrofit
+#-dontwarn retrofit2.**
+#-keep class retrofit2.** { *; }
+#-keepattributes Exceptions
+## Retrolambda
+#-dontwarn java.lang.invoke.*
+## RxJava RxAndroid
+#-dontwarn sun.misc.**
+#-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+#    long producerIndex;
+#    long consumerIndex;
+#}
+#-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+#    rx.internal.util.atomic.LinkedQueueNode producerNode;
+#}
+#-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+#    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+#}
+####rxandroid-1.2.1
+#-keepclassmembers class rx.android.**{*;}
+#
+## Gson
+#-keep class com.google.gson.stream.** { *; }
+#-keepattributes EnclosingMethod
+#-keep class org.xz_sale.entity.**{*;}
+#-keep class com.google.gson.** {*;}
+#-keep class com.google.**{*;}
+#-keep class sun.misc.Unsafe { *; }
+#-keep class com.google.gson.stream.** { *; }
+#-keep class com.google.gson.examples.android.model.** { *; }

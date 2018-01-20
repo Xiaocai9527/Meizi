@@ -1,3 +1,25 @@
+**2018/1/16更新**：
+
+弃用鸿洋baseAdapter库，更换自己封装的库<a href = "https://github.com/xiaokun19931126/BaseAdapterDemo">baseAdapter</a>;
+
+**2018/1/4更新：**
+
+添加郭霖公众号文章，利用jsoup爬虫；
+
+添加右滑回退功能;
+
+添加behavior功能；
+
+添加splash动画；
+
+​				闪屏页gif
+
+![](screenshots/meizi_splash.gif)
+
+
+
+
+
 利用gank的Api做的一款练习。
 
 APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/app-debug.apk
@@ -10,7 +32,7 @@ APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/a
 
 2. 异步操作处理上，MVP+RxJava/MVP+RxJava+Retrofit的相结合，rxjava中关于map丶flatMap丶zip丶doOnNext操作符等在项目中均有用到；
 
-3. BaseAdapter的使用，用的鸿洋大大的库，大大降低Adapter类的代码量；
+3. BaseAdapter的使用, ~~用的鸿洋大大的库~~(弃用坑太多),用自己封装的<a href = "https://github.com/xiaokun19931126/BaseAdapterDemo">baseAdapter</a>大大降低Adapter类的代码量;
 
 4. BaseActivity、BaseFragment等基类的封装；
 
@@ -26,7 +48,7 @@ APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/a
 
 10. 想做一个im即时通讯模块；
 
-11. 想做一个斗鱼tv直播模块；
+11. ~~想做一个斗鱼tv直播模块~~(已完成);
 
 12. 想利用bmob做一个后台登录，或者将收藏功能做到服务端而不是手机本地保存；
 
