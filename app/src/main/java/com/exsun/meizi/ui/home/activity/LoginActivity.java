@@ -21,7 +21,7 @@ import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.MyUser;
 import com.exsun.meizi.helper.Toasts;
-import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.Base.BaseBackActicity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,7 +42,7 @@ import cn.bmob.v3.listener.SaveListener;
  * </pre>
  */
 
-public class LoginActivity extends BaseActivity
+public class LoginActivity extends BaseBackActicity
 {
     private static final int REGISTER_REQUEST = 0;
     @Bind(R.id.tv_user_name)
@@ -189,14 +189,17 @@ public class LoginActivity extends BaseActivity
                     //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                     //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                     MzApplication.mPref.put(Constant.IS_LOGIN, true);
-                    MzApplication.mPref.put(Constant.APP_URSERNAME, userName);
-                    MzApplication.mPref.put(Constant.APP_PASSWORD, password);
-                    MzApplication.mPref.put(Constant.APP_LOCATION, location);
-                    MzApplication.mPref.put(Constant.APP_NICKNAME, nickName);
+                    MzApplication.mPref.put(Constant.APP_URSERNAME, myUser.getUsername());
+                    MzApplication.mPref.put(Constant.APP_PASSWORD, "jiami");
+                    MzApplication.mPref.put(Constant.APP_LOCATION, myUser.getLocation());
+                    MzApplication.mPref.put(Constant.APP_NICKNAME, myUser.getNickName());
                     EventBus.getDefault().post(myUser);
                     finish();
                 } else
                 {
+                    Toasts.showLong("登录失败" + e.getMessage());
+                    tvLogin.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                     Log.e("LoginActivity", "done(LoginActivity.java:187)" + e.getMessage());
                 }
             }
@@ -215,7 +218,6 @@ public class LoginActivity extends BaseActivity
                 Toasts.showSingleShort("抱歉无能为力");
                 break;
             case R.id.btn_forgot_register:
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 startActivityForResult(RegisterActivity.class, REGISTER_REQUEST);
                 break;
             default:

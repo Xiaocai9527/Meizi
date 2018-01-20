@@ -1,5 +1,6 @@
 package com.yuyh.library.Base;
 
+
 import com.google.gson.annotations.SerializedName;
 
 /**

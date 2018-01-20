@@ -2,6 +2,7 @@ package com.exsun.meizi.ui.home.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -40,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Created by xiaokun on 2017/7/26.
@@ -102,16 +105,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         ImageView headImg = (ImageView) headerView.findViewById(R.id.imageView_nav_header);
         nickName = (TextView) headerView.findViewById(R.id.nick_name);
         ImageLoaderUtils.displayRound(this, headImg, R.mipmap.ic_launcher);
-        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+        final boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
         String nick = MzApplication.mPref.get(Constant.APP_NICKNAME, "");
         String location = MzApplication.mPref.get(Constant.APP_LOCATION, "");
         if (isLogin)
         {
-            headerView.setEnabled(false);
             nickName.setText(nick + "-" + location);
         } else
         {
-            headerView.setEnabled(true);
             nickName.setText("点击登录");
         }
         headView.setOnClickListener(new View.OnClickListener()
@@ -119,18 +120,47 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void onClick(View v)
             {
-                //登录或注册
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-
-                AppUtils.runOnUIDelayed(new Runnable()
+                boolean b = MzApplication.mPref.get(Constant.IS_LOGIN, false);
+                if (b)
                 {
-                    @Override
-                    public void run()
+                    new AlertDialog.Builder(mContext)
+                            .setMessage("退出账号")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    //清空记录,退出登录
+                                    MzApplication.mPref.clear();
+                                    nickName.setText("点击登录");
+                                    BmobUser.logOut();   //清除缓存用户对象
+                                    BmobUser currentUser = BmobUser.getCurrentUser(); // 现在的currentUser是null了
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                }
+                            }).create().show();
+                } else
+                {
+                    //登录或注册
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+
+                    AppUtils.runOnUIDelayed(new Runnable()
                     {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                    }
-                }, 200);
+                        @Override
+                        public void run()
+                        {
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                        }
+                    }, 500);
+                }
             }
         });
     }
@@ -252,7 +282,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void onMessage(MyUser myUser)
     {
         nickName.setText(myUser.getNickName() + "-" + myUser.getLocation());
-        headView.setEnabled(false);
     }
 
     @Override

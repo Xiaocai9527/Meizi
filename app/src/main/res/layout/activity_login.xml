@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:contentInsetStart="0dp"
         app:navigationIcon="@mipmap/back"
         app:title="@string/action_sign_in"
@@ -46,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/login_user_name_hint"
                     android:imeOptions="actionNext"
+                    android:inputType="text"
                     android:maxLength="20"
                     android:maxLines="1"
                     android:singleLine="true"/>

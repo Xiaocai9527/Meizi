@@ -1,6 +1,10 @@
+**2018/1/20更新:**
+
+更新bmob;
+
 **2018/1/16更新**：
 
-弃用鸿洋baseAdapter库，更换自己封装的库<a href = "https://github.com/xiaokun19931126/BaseAdapterDemo">baseAdapter</a>;
+.....
 
 **2018/1/4更新：**
 
@@ -50,7 +54,7 @@ APK下载：https://raw.githubusercontent.com/xiaokun19931126/Meizi/master/apk/a
 
 11. ~~想做一个斗鱼tv直播模块~~(已完成);
 
-12. 想利用bmob做一个后台登录，或者将收藏功能做到服务端而不是手机本地保存；
+12. ~~想利用bmob做一个后台登录，或者将收藏功能做到服务端而不是手机本地保存~~(已完成)；
 
 13. 后面想进行的关于单元测试的编写...；
 

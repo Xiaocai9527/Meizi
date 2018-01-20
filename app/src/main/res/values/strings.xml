@@ -38,8 +38,8 @@
     <string name="input_you_want">默认为Android搜索,键盘回车键搜索</string>
     <string name="search_history">搜索记录</string>
     <string name="history_detail">单击搜索,长按删除记录</string>
-    <string name="login_user_name_hint">用户名</string>
-    <string name="login_user_name_password">密码</string>
+    <string name="login_user_name_hint">用户名(数字和字母)</string>
+    <string name="login_user_name_password">密码(数字和字母)</string>
     <string name="action_sign_in">登录</string>
     <string name="forgot_password">忘记密码</string>
     <string name="register">注册</string>

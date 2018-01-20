@@ -16,10 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.exsun.meizi.R;
-import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.MyUser;
 import com.exsun.meizi.helper.Toasts;
-import com.yuyh.library.Base.BaseActivity;
+import com.yuyh.library.Base.BaseBackActicity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +37,7 @@ import cn.bmob.v3.listener.SaveListener;
  * </pre>
  */
 
-public class RegisterActivity extends BaseActivity
+public class RegisterActivity extends BaseBackActicity
 {
     public static final String REGISTER_USERNAME = "register_username";
     public static final String REGISTER_PASSWORD = "register_password";
@@ -210,7 +209,7 @@ public class RegisterActivity extends BaseActivity
                 tvLogin.setVisibility(View.VISIBLE);
                 if (e == null)
                 {
-                    Toasts.showSingleShort("注册成功:" + myUser.toString());
+                    Toasts.showSingleShort("注册成功:");
                     Intent intent = new Intent();
                     intent.putExtra(RegisterActivity.REGISTER_USERNAME, userName);
                     intent.putExtra(RegisterActivity.REGISTER_PASSWORD, password);
@@ -222,6 +221,8 @@ public class RegisterActivity extends BaseActivity
                 } else
                 {
                     Toasts.showSingleShort("注册失败：" + e.getMessage());
+                    tvLogin.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                     Log.e("RegisterActivity", "done(RegisterActivity.java:207)" + e.getMessage());
                 }
             }

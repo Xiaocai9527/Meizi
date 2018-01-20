@@ -21,9 +21,10 @@
         <activity android:name=".ui.picture.PictureActivity"/>
         <activity
             android:name=".ui.home.activity.LoginActivity"
-            />
+            android:theme="@style/AppTheme.Back"/>
         <activity
-            android:name=".ui.home.activity.RegisterActivity"/>
+            android:name=".ui.home.activity.RegisterActivity"
+            android:theme="@style/AppTheme.Back"/>
         <activity
             android:name=".ui.web.BaseWebActivity"
             android:theme="@style/AppTheme.Back"/>

@@ -193,7 +193,7 @@ public class BaseWebActivity extends BaseBackActicity
                             saveToPhone();
                             likeItem.setIcon(getResources().getDrawable(R.mipmap.likedm));
                             Constant.IS_CLEAR = false;
-                            MzApplication.mPref.put(url, true);
+//                            MzApplication.mPref.put(url, true);
                         }
                         break;
                     case R.id.share:
@@ -221,11 +221,13 @@ public class BaseWebActivity extends BaseBackActicity
      */
     private void deleteFromPhone()
     {
+        String objectId = MzApplication.mPref.get(url + "id", "");
         MyLikeEntity myLikeEntity = new MyLikeEntity();
         myLikeEntity.setUrl(url);
         myLikeEntity.setDesc(descTitle);
         myLikeEntity.setAuthor(author);
         myLikeEntity.setCancel(true);
+        myLikeEntity.setObjectId(objectId);
         myLikeEntities = (List<MyLikeEntity>) MzApplication.cache.getAsObject(Constant.MY_LIKE_DATA);
         if (myLikeEntities == null)
         {

@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
-import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.MyUser;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.entity.gank.RadomMzEntity;
@@ -40,7 +39,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,20 +129,21 @@ public class LikeFragment extends BaseFragment
                 switch (item.getItemId())
                 {
                     case R.id.clear_cache:
-                        List<MyLikeEntity> myLikeEntities = new ArrayList<>();
-                        MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
-                        if (myLikeEntities != null && !myLikeEntities.isEmpty())
-                        {
-                            int size = myLikeEntities.size();
-                            for (int i = 0; i < size; i++)
-                            {
-                                MyLikeEntity myLikeEntity = myLikeEntities.get(i);
-                                String url = myLikeEntity.getUrl();
-                                MzApplication.mPref.put(url, false);
-                            }
-                        }
-                        refresh();
-                        Toasts.showSingleShort(R.string.clear_success);
+//                        List<MyLikeEntity> myLikeEntities = new ArrayList<>();
+//                        MzApplication.cache.put(Constant.MY_LIKE_DATA, (Serializable) myLikeEntities);
+//                        if (myLikeEntities != null && !myLikeEntities.isEmpty())
+//                        {
+//                            int size = myLikeEntities.size();
+//                            for (int i = 0; i < size; i++)
+//                            {
+//                                MyLikeEntity myLikeEntity = myLikeEntities.get(i);
+//                                String url = myLikeEntity.getUrl();
+//                                MzApplication.mPref.put(url, false);
+//                            }
+//                        }
+//                        refresh();
+//                        Toasts.showSingleShort(R.string.clear_success);
+                        Toasts.showSingleLong("敬请期待");
                         break;
                     case R.id.action_change_skin:
                         Toasts.showSingleShort("请在侧边栏操作,谢谢!");
@@ -170,32 +169,22 @@ public class LikeFragment extends BaseFragment
         recyclerView.addItemDecoration(new OffsetDecoration(spacing));
         EventBus.getDefault().register(this);
         refresh.setRefreshing(true);
-        boolean isLogin = MzApplication.mPref.get(Constant.IS_LOGIN, false);
-        if (isLogin)
-        {
-            loadData(false);
-        } else
-        {
-            refresh.setVisibility(View.GONE);
-            emptyTv.setVisibility(View.VISIBLE);
-            emptyTv.setText("你还未登录,请先登录");
-            emptyTv.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                }
-            });
-        }
+        loadData(true);
+        setAdapter(myLikeEntities);
     }
 
     private void loadData(final boolean isClear)
     {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         BmobQuery<MyLikeEntity> query = new BmobQuery<>();
+        if (user == null)
+        {
+            //未登录
+            setNoLogin();
+            return;
+        }
         query.setLimit(500);
-        query.addWhereEqualTo("userName", user);  // 查询当前用户的所有帖子
+        query.addWhereEqualTo("myUser", user);  // 查询当前用户的所有帖子
         query.findObjects(new FindListener<MyLikeEntity>()
         {
             @Override
@@ -213,6 +202,21 @@ public class LikeFragment extends BaseFragment
         });
     }
 
+    private void setNoLogin()
+    {
+        refresh.setVisibility(View.GONE);
+        emptyTv.setVisibility(View.VISIBLE);
+        emptyTv.setText("你还未登录,请先登录");
+        emptyTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
+    }
+
     private List<MyLikeEntity> myLikeEntities = new ArrayList<>();
 
     /**
@@ -222,6 +226,8 @@ public class LikeFragment extends BaseFragment
      */
     private void getDataSuccess(List<MyLikeEntity> list, boolean isClear)
     {
+        Log.e("likeFragment", "getDataSuccess");
+        savePref(list);
         refresh.setRefreshing(false);
         if (isClear)
         {
@@ -237,7 +243,18 @@ public class LikeFragment extends BaseFragment
             refresh.setVisibility(View.VISIBLE);
             emptyTv.setVisibility(View.GONE);
             myLikeEntities.addAll(list);
-            setAdapter(myLikeEntities);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void savePref(List<MyLikeEntity> list)
+    {
+        int size = list.size();
+        for (int i = 0; i < size; i++)
+        {
+            MyLikeEntity myLikeEntity = list.get(i);
+            MzApplication.mPref.put(myLikeEntity.getUrl(), true);
+            MzApplication.mPref.put(myLikeEntity.getUrl() + "id", myLikeEntity.getObjectId());
         }
     }
 
@@ -246,7 +263,7 @@ public class LikeFragment extends BaseFragment
      *
      * @param myLikeEntity
      */
-    private void saveData(MyLikeEntity myLikeEntity)
+    private void saveData(final MyLikeEntity myLikeEntity)
     {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         myLikeEntity.setMyUser(user);
@@ -257,6 +274,9 @@ public class LikeFragment extends BaseFragment
             {
                 if (e == null)
                 {
+                    MzApplication.mPref.put(myLikeEntity.getUrl(), true);
+                    MzApplication.mPref.put(myLikeEntity.getUrl() + "id", s);
+                    Log.e("objectId", s);
                     Toasts.showSingleShort("收藏成功");
                 } else
                 {
@@ -355,25 +375,10 @@ public class LikeFragment extends BaseFragment
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessage(MyLikeEntity myLikeEntity)
     {
+        Log.e("likeFragment", "onMessage");
         if (myLikeEntity.isCancel())
         {
-            MyLikeEntity entity = new MyLikeEntity();
-            entity.remove("userName");
-            entity.update(myLikeEntity.getObjectId(), new UpdateListener()
-            {
-                @Override
-                public void done(BmobException e)
-                {
-                    if (e == null)
-                    {
-                        Toasts.showSingleShort("取消收藏");
-                        Log.i("bmob", "成功");
-                    } else
-                    {
-                        Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
-                    }
-                }
-            });
+            deleteData(myLikeEntity);
         } else
         {
             refresh.setVisibility(View.VISIBLE);
@@ -382,6 +387,38 @@ public class LikeFragment extends BaseFragment
             adapter.notifyDataSetChanged();
             saveData(myLikeEntity);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(MyUser myUser)
+    {
+        loadData(true);
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param myLikeEntity
+     */
+    private void deleteData(MyLikeEntity myLikeEntity)
+    {
+        MyLikeEntity entity = new MyLikeEntity();
+        entity.remove("myUser");
+        entity.update(myLikeEntity.getObjectId(), new UpdateListener()
+        {
+            @Override
+            public void done(BmobException e)
+            {
+                if (e == null)
+                {
+                    Toasts.showSingleShort("取消收藏");
+                    loadData(true);
+                } else
+                {
+                    Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
     }
 
 
