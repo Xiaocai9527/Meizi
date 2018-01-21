@@ -1,6 +1,6 @@
 package com.exsun.meizi.entity.gank;
 
-import com.exsun.meizi.entity.MyUser;
+import com.exsun.meizi.entity.bmob.MyUser;
 
 import java.io.Serializable;
 

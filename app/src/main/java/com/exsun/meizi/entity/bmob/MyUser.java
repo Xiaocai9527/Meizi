@@ -1,4 +1,4 @@
-package com.exsun.meizi.entity;
+package com.exsun.meizi.entity.bmob;
 
 import cn.bmob.v3.BmobUser;
 

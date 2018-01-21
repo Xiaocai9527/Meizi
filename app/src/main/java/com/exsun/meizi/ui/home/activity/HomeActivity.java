@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
-import com.exsun.meizi.entity.MyUser;
+import com.exsun.meizi.entity.bmob.MyUser;
 import com.exsun.meizi.helper.DoubleClickExitHelper;
 import com.exsun.meizi.helper.ImageLoaderUtils;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;

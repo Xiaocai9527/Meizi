@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
-import com.exsun.meizi.entity.MyUser;
+import com.exsun.meizi.entity.bmob.MyUser;
 import com.exsun.meizi.entity.gank.MyLikeEntity;
 import com.exsun.meizi.entity.gank.RadomMzEntity;
 import com.exsun.meizi.helper.ImageLoaderUtils;
