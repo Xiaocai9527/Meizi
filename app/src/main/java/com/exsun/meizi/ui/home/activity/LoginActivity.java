@@ -94,15 +94,14 @@ public class LoginActivity extends BaseBackActicity
     public void initView()
     {
         initToolbar();
+        String nameFromSp = MzApplication.getCustomPref("user_name").get(Constant.APP_URSERNAME, "");
+        if (!TextUtils.isEmpty(nameFromSp))
+        {
+            tvUserName.setText(nameFromSp);
+        }
     }
 
     private void initToolbar()
-    {
-
-    }
-
-    @Override
-    public void doBusiness(Context context)
     {
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
@@ -113,6 +112,12 @@ public class LoginActivity extends BaseBackActicity
                 finish();
             }
         });
+    }
+
+    @Override
+    public void doBusiness(Context context)
+    {
+
     }
 
     private void attemptLogin()
@@ -193,6 +198,7 @@ public class LoginActivity extends BaseBackActicity
                     MzApplication.mPref.put(Constant.APP_PASSWORD, "jiami");
                     MzApplication.mPref.put(Constant.APP_LOCATION, myUser.getLocation());
                     MzApplication.mPref.put(Constant.APP_NICKNAME, myUser.getNickName());
+                    MzApplication.getCustomPref("user_name").put(Constant.APP_URSERNAME, myUser.getUsername());
                     EventBus.getDefault().post(myUser);
                     finish();
                 } else

@@ -61,4 +61,9 @@ public class MzApplication extends Application
         return appApplication;
     }
 
+    public static PrefsUtils getCustomPref(String name)
+    {
+        return new PrefsUtils(appApplication, name);
+    }
+
 }
