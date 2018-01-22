@@ -25,9 +25,10 @@ import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.bmob.MyUser;
-import com.exsun.meizi.helper.DoubleClickExitHelper;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.DoubleClickExitHelper;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.ui.douyu.activity.DyMainActivity;
+import com.exsun.meizi.ui.home.fragment.community.LaotieCommunityFragment;
 import com.exsun.meizi.ui.home.fragment.gank.GankFragment;
 import com.exsun.meizi.ui.home.fragment.guolin.GuolinFragment;
 import com.exsun.meizi.ui.home.fragment.like.LikeFragment;
@@ -60,6 +61,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private GankFragment gankFragment;
     private LikeFragment likeFragment;
     private GuolinFragment guolinFragment;
+    private LaotieCommunityFragment communityFragment;
     private DoubleClickExitHelper doubleClickExitHelper;
     private TextView nickName;
     private View headView;
@@ -220,6 +222,13 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                             guolinFragment = GuolinFragment.getInstance();
                         }
                         showFragment(guolinFragment);
+                        break;
+                    case R.id.community:
+                        if (communityFragment == null)
+                        {
+                            communityFragment = LaotieCommunityFragment.getInstance();
+                        }
+                        showFragment(communityFragment);
                         break;
                     case R.id.nav_meizi:
                         if (gankFragment == null)

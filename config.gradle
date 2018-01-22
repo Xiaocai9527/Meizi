@@ -22,7 +22,7 @@ ext {
     android = [compileSdkVersion: 25,
                buildToolsVersion: "25.0.0",
                applicationId    : "com.exsun.meizi",
-               minSdkVersion    : 16,
+               minSdkVersion    : 17,
                targetSdkVersion : 23,
                versionCode      : 1,
                versionName      : "1.0"]

@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper.colorful;
+package com.exsun.meizi.tool.colorful;
 
 import android.app.Activity;
 import android.content.res.Resources.Theme;
@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
-import com.exsun.meizi.helper.colorful.setter.TextColorSetter;
-import com.exsun.meizi.helper.colorful.setter.ViewBackgroundColorSetter;
-import com.exsun.meizi.helper.colorful.setter.ViewBackgroundDrawableSetter;
-import com.exsun.meizi.helper.colorful.setter.ViewSetter;
+import com.exsun.meizi.tool.colorful.setter.TextColorSetter;
+import com.exsun.meizi.tool.colorful.setter.ViewBackgroundColorSetter;
+import com.exsun.meizi.tool.colorful.setter.ViewBackgroundDrawableSetter;
+import com.exsun.meizi.tool.colorful.setter.ViewSetter;
 
 import java.util.HashSet;
 import java.util.Set;

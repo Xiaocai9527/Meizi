@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper;
+package com.exsun.meizi.tool;
 
 import android.app.Activity;
 import android.content.Intent;

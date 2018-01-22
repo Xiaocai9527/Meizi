@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper;
+package com.exsun.meizi.tool;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;

@@ -14,7 +14,7 @@ import com.exsun.meizi.R;
 import com.exsun.meizi.entity.douyu.RoomsEntity;
 import com.exsun.meizi.entity.douyu.RoomsWithSlidersEntity;
 import com.exsun.meizi.entity.douyu.SlidersEntity;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.ui.douyu.adapter.ChannelAdapter;
 import com.exsun.meizi.ui.douyu.contract.ChannelContract;
 import com.exsun.meizi.ui.douyu.model.ChannelModel;

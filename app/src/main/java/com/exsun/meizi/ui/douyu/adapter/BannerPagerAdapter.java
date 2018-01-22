@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.exsun.meizi.entity.douyu.SlidersEntity;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 
 import java.util.List;
 

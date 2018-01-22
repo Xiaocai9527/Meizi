@@ -4,38 +4,29 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.bmob.MyUser;
 import com.exsun.meizi.entity.bmob.TalkMoodEntity;
-import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.tool.Toasts;
 import com.exsun.meizi.ui.home.activity.LoginActivity;
-import com.exsun.meizi.widget.OffsetDecoration;
 import com.yuyh.library.Base.BaseFragment;
-import com.zhy.adapter.recyclerview.CommonAdapter;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.Bind;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -47,29 +38,28 @@ import cn.bmob.v3.listener.SaveListener;
  * @date 2018/1/20
  */
 
-public class CommunityFragment extends BaseFragment
+public class LaotieCommunityFragment extends BaseFragment
 {
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @Bind(R.id.container)
+    FrameLayout frameLayout;
     private MyUser user;
     private BottomSheetDialog dialog;
-    //    private BaseRecyclerAdapter adapter;
-    private CommonAdapter<TalkMoodEntity> adapter;
+    private CircleFragment circleFragment;
 
-    public static CommunityFragment getInstance()
+    public static LaotieCommunityFragment getInstance()
     {
-        CommunityFragment mCommunityFragment = new CommunityFragment();
+        LaotieCommunityFragment mCommunityFragment = new LaotieCommunityFragment();
         return mCommunityFragment;
     }
 
     @Override
     protected int getLayoutId()
     {
-        return R.layout.fragment_community;
+        return R.layout.fragment_laotie_community;
     }
 
     @Override
@@ -88,9 +78,8 @@ public class CommunityFragment extends BaseFragment
     public void initView(Bundle savedInstanceState, View view)
     {
         initToolbar();
-        initRecyclerView();
+        initFragment();
     }
-
 
     private void initToolbar()
     {
@@ -131,39 +120,16 @@ public class CommunityFragment extends BaseFragment
         });
     }
 
-    private List<TalkMoodEntity> datas = new ArrayList<>();
-
-    private void initRecyclerView()
+    private void initFragment()
     {
-        int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.dimen_2_dp);
-        recyclerView.addItemDecoration(new OffsetDecoration(spacing));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        adapter = new CommonAdapter<TalkMoodEntity>(getContext(), R.layout.item_community, datas)
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        if (circleFragment == null)
         {
-
-            @Override
-            protected void convert(ViewHolder holder, TalkMoodEntity talkMoodEntity, int position)
-            {
-                holder.setText(R.id.category_author, talkMoodEntity.getNickName());
-                holder.setText(R.id.category_date, "发表于 " + talkMoodEntity.getPublishedTime());
-                holder.setText(R.id.category_desc, talkMoodEntity.getContent());
-                holder.setText(R.id.location, "位置:" + talkMoodEntity.getLocation());
-                ImageView headPortrait = holder.getView(R.id.head_portrait);
-                ImageLoaderUtils.displayRound(getContext(), headPortrait, R.mipmap.ic_launcher);
-                holder.setOnClickListener(R.id.cardview, new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Toasts.showSingleShort("点击动态跳转");
-                    }
-                });
-            }
-        };
-        recyclerView.setAdapter(adapter);
-        recyclerView.setAdapter(adapter);
+            circleFragment = CircleFragment.getInstance();
+        }
+        ft.add(R.id.container, circleFragment, "circle").show(circleFragment).commit();
     }
+
 
     private void sendTalkMood()
     {
@@ -220,7 +186,7 @@ public class CommunityFragment extends BaseFragment
                 if (e == null)
                 {
                     Toasts.showSingleShort("发表成功");
-                    loadData(true);
+                    circleFragment.loadData(true);
                 } else
                 {
                     Toasts.showSingleShort("发表失败" + e.getMessage());
@@ -232,33 +198,5 @@ public class CommunityFragment extends BaseFragment
     @Override
     public void doBusiness(Context context)
     {
-        loadData(true);
-    }
-
-    private void loadData(boolean isClear)
-    {
-        if (isClear)
-        {
-            datas.clear();
-        }
-        user = BmobUser.getCurrentUser(MyUser.class);
-        BmobQuery<TalkMoodEntity> query = new BmobQuery<>();
-        query.setLimit(500);
-        query.findObjects(new FindListener<TalkMoodEntity>()
-        {
-            @Override
-            public void done(List<TalkMoodEntity> list, BmobException e)
-            {
-                if (e == null)
-                {
-                    Toasts.showSingleShort("加载成功：共" + list.size() + "条数据。");
-                    datas.addAll(list);
-                    adapter.notifyDataSetChanged();
-                } else
-                {
-                    Toasts.showSingleShort("加载失败:" + e.getMessage());
-                }
-            }
-        });
     }
 }

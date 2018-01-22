@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.Keep;
 
 import com.exsun.meizi.BuildConfig;
-import com.exsun.meizi.helper.Toasts;
+import com.exsun.meizi.tool.Toasts;
 import com.facebook.stetho.Stetho;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.litesuits.orm.LiteOrm;

@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper.colorful.setter;
+package com.exsun.meizi.tool.colorful.setter;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;

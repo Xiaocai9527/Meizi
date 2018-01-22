@@ -22,7 +22,7 @@ import com.exsun.meizi.R;
 import com.exsun.meizi.base.MzApplication;
 import com.exsun.meizi.config.Constant;
 import com.exsun.meizi.entity.gank.SearchEntity;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.exsun.meizi.widget.OffsetDecoration;
 import com.exsun.meizi.widget.WordWrapView;

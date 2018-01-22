@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.douyu.RoomsEntity;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.ui.douyu.activity.LiveActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

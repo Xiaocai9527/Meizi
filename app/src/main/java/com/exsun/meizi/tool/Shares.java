@@ -17,7 +17,7 @@
  * along with Meizhi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.exsun.meizi.helper;
+package com.exsun.meizi.tool;
 
 import android.content.Context;
 import android.content.Intent;

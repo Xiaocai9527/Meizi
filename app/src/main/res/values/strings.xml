@@ -12,9 +12,9 @@
 
 
     <!-- Behavior -->
-    <string name="cover_header_behavior" translatable="false">com.exsun.meizi.helper.CoverHeaderScrollBehavior</string>
-    <string name="content_behavior" translatable="false">com.exsun.meizi.helper.behavior.HeaderScrollBehavior</string>
-    <string name="image_header_behavior" translatable="false">com.exsun.meizi.helper.behavior.ImageHeaderBehavior</string>
+    <string name="cover_header_behavior" translatable="false">com.exsun.meizi.tool.CoverHeaderScrollBehavior</string>
+    <string name="content_behavior" translatable="false">com.exsun.meizi.tool.behavior.HeaderScrollBehavior</string>
+    <string name="image_header_behavior" translatable="false">com.exsun.meizi.tool.behavior.ImageHeaderBehavior</string>
 
 
     <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
@@ -47,5 +47,7 @@
     <string name="login_nick_name_hint">昵称</string>
     <string name="location_city">所在城市</string>
     <string name="login_user_name_password_again">再次输入密码</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
 
 </resources>

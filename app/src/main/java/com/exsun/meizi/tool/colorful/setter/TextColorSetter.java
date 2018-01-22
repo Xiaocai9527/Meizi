@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper.colorful.setter;
+package com.exsun.meizi.tool.colorful.setter;
 
 import android.widget.TextView;
 import android.content.res.Resources.Theme;

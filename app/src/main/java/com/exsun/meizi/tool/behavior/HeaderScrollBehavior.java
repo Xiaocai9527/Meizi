@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper.behavior;
+package com.exsun.meizi.tool.behavior;
 
 import android.content.Context;
 import android.content.res.Resources;

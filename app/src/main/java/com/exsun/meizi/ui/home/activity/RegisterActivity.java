@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.bmob.MyUser;
-import com.exsun.meizi.helper.Toasts;
+import com.exsun.meizi.tool.Toasts;
 import com.yuyh.library.Base.BaseBackActicity;
 
 import java.util.regex.Matcher;

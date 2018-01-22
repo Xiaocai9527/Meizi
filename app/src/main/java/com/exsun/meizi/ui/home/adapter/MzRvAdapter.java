@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.gank.HomeMixEntity;
-import com.exsun.meizi.helper.ImageLoaderUtils;
+import com.exsun.meizi.tool.ImageLoaderUtils;
 import com.exsun.meizi.ui.picture.PictureActivity;
 import com.yuyh.library.Base.BaseActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;

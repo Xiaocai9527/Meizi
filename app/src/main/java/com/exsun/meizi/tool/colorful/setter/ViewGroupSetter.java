@@ -1,4 +1,4 @@
-package com.exsun.meizi.helper.colorful.setter;
+package com.exsun.meizi.tool.colorful.setter;
 
 import android.content.res.Resources.Theme;
 import android.support.v7.widget.RecyclerView;
