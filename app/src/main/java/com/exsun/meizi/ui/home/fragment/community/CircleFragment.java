@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.exsun.meizi.base.ListBaseFragment;
-import com.exsun.meizi.entity.bmob.MyUser;
 import com.exsun.meizi.entity.bmob.TalkMoodEntity;
 import com.exsun.meizi.tool.Toasts;
 import com.exsun.meizi.ui.multitype.CircleViewBinder;
@@ -12,7 +11,6 @@ import com.exsun.meizi.ui.multitype.CircleViewBinder;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import me.drakeet.multitype.Items;
@@ -29,8 +27,6 @@ import me.drakeet.multitype.Items;
 public class CircleFragment extends ListBaseFragment
 {
 
-    private MyUser user;
-
     public CircleFragment()
     {
 
@@ -46,7 +42,16 @@ public class CircleFragment extends ListBaseFragment
     public void initView(Bundle savedInstanceState, View view)
     {
         super.initView(savedInstanceState, view);
-        adapter.register(TalkMoodEntity.class, new CircleViewBinder());
+        CircleViewBinder binder = new CircleViewBinder();
+        binder.setRefreshListener(new CircleViewBinder.RefreshListener()
+        {
+            @Override
+            public void refresh()
+            {
+                loadData(true);
+            }
+        });
+        adapter.register(TalkMoodEntity.class, binder);
     }
 
     @Override
@@ -59,9 +64,8 @@ public class CircleFragment extends ListBaseFragment
     public void loadDataFromRemote(final boolean clear)
     {
         notifyLoadingStarted();
-        user = BmobUser.getCurrentUser(MyUser.class);
         BmobQuery<TalkMoodEntity> query = new BmobQuery<>();
-        query.setLimit(500);
+        query.setLimit(10);
         query.findObjects(new FindListener<TalkMoodEntity>()
         {
             @Override
@@ -91,12 +95,12 @@ public class CircleFragment extends ListBaseFragment
         });
     }
 
-    @Override
-    public void onSwipeRefresh()
-    {
-//        super.onSwipeRefresh();
-        loadDataFromRemote(true);
-    }
+//    @Override
+//    public void onSwipeRefresh()
+//    {
+////        super.onSwipeRefresh();
+//        loadDataFromRemote(true);
+//    }
 
     @Override
     protected boolean onInterceptLoadMore()

@@ -70,6 +70,7 @@ public abstract class ListBaseFragment extends BaseFragment
         adapter = new MultiTypeAdapter(items);
         refreshDelegate = new SwipeRefreshDelegate(this);
         loadMoreDelegate = new LoadMoreDelegate(this);
+        //初始int值为0
         loadingCount = new AtomicInteger(0);
     }
 
@@ -87,25 +88,21 @@ public abstract class ListBaseFragment extends BaseFragment
 
     protected abstract void loadData(boolean clear);
 
-
     protected boolean onInterceptLoadMore()
     {
         return false;
     }
-
 
     protected void setRefresh(boolean refresh)
     {
         refreshDelegate.setRefresh(refresh);
     }
 
-
     @Override
     public void onSwipeRefresh()
     {
         loadData(true);
     }
-
 
     @Override
     public final void onLoadMore()
@@ -120,18 +117,15 @@ public abstract class ListBaseFragment extends BaseFragment
         }
     }
 
-
     protected boolean isShowingRefresh()
     {
         return refreshDelegate.isShowingRefresh();
     }
 
-
     public void setEnd(boolean end)
     {
         isEnd = end;
     }
-
 
     public boolean isEnd()
     {
@@ -148,7 +142,6 @@ public abstract class ListBaseFragment extends BaseFragment
         recyclerView.smoothScrollToPosition(position);
     }
 
-
     @Override
     public boolean isLoading()
     {
@@ -157,11 +150,13 @@ public abstract class ListBaseFragment extends BaseFragment
 
     protected void notifyLoadingStarted()
     {
+        //加载开始自增
         loadingCount.getAndIncrement();
     }
 
     protected void notifyLoadingFinished()
     {
+        //加载结束自减
         loadingCount.decrementAndGet();
     }
 }

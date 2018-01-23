@@ -1,28 +1,30 @@
 package com.exsun.meizi.ui.home.fragment.community;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.exsun.meizi.R;
 import com.exsun.meizi.entity.bmob.MyUser;
 import com.exsun.meizi.entity.bmob.TalkMoodEntity;
+import com.exsun.meizi.entity.eventbus.EventBusObject;
 import com.exsun.meizi.tool.Toasts;
 import com.exsun.meizi.ui.home.activity.LoginActivity;
 import com.yuyh.library.Base.BaseFragment;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import cn.bmob.v3.BmobUser;
@@ -38,17 +40,19 @@ import cn.bmob.v3.listener.SaveListener;
  * @date 2018/1/20
  */
 
-public class LaotieCommunityFragment extends BaseFragment
+public class LaotieCommunityFragment extends BaseFragment implements SendDialogFragment.ConfirmDialogListener
 {
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
-
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.container)
     FrameLayout frameLayout;
+    @Bind(R.id.editTextBodyLl)
+    LinearLayout linearLayout;
+
     private MyUser user;
-    private BottomSheetDialog dialog;
     private CircleFragment circleFragment;
+    private SendDialogFragment fragment;
 
     public static LaotieCommunityFragment getInstance()
     {
@@ -77,6 +81,7 @@ public class LaotieCommunityFragment extends BaseFragment
     @Override
     public void initView(Bundle savedInstanceState, View view)
     {
+        EventBus.getDefault().register(this);
         initToolbar();
         initFragment();
     }
@@ -105,8 +110,9 @@ public class LaotieCommunityFragment extends BaseFragment
                         user = BmobUser.getCurrentUser(MyUser.class);
                         if (user == null)
                         {
-                            startActivity(LoginActivity.class);
+                            startActivity(new Intent(getContext(), LoginActivity.class));
                             Toasts.showSingleShort("请先登录");
+                            break;
                         }
                         //发表动态
                         sendTalkMood();
@@ -130,44 +136,12 @@ public class LaotieCommunityFragment extends BaseFragment
         ft.add(R.id.container, circleFragment, "circle").show(circleFragment).commit();
     }
 
-
     private void sendTalkMood()
     {
-        dialog = new BottomSheetDialog(getContext());
-        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.send_talk_mood, null);
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edit_text);
-        Button btnOk = (Button) dialogView.findViewById(R.id.btn_ok);
-        Button btnCancel = (Button) dialogView.findViewById(R.id.btn_cancel);
-        dialog.setContentView(dialogView);
-        btnCancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                dialog.dismiss();
-            }
-        });
-        btnOk.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //fasong
-                String content = editText.getText().toString().trim();
-                long time = System.currentTimeMillis();
-                SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
-                String publishedTime = sdf.format(new Date(time));
-                String location = user.getLocation();
-                TalkMoodEntity talkMoodEntity = new TalkMoodEntity();
-                talkMoodEntity.setContent(content);
-                talkMoodEntity.setLocation(location);
-                talkMoodEntity.setPublishedTime(publishedTime);
-                talkMoodEntity.setUser(user);
-                talkMoodEntity.setNickName(user.getNickName());
-                saveData(talkMoodEntity);
-            }
-        });
-        dialog.show();
+        FragmentManager fm = getChildFragmentManager();
+        fragment = SendDialogFragment.getInstance(user);
+        fragment.setTargetFragment(LaotieCommunityFragment.this, 0);
+        fragment.show(fm, "send_dialog_fragment");
     }
 
     /**
@@ -182,7 +156,7 @@ public class LaotieCommunityFragment extends BaseFragment
             @Override
             public void done(String s, BmobException e)
             {
-                dialog.dismiss();
+                fragment.dismiss();
                 if (e == null)
                 {
                     Toasts.showSingleShort("发表成功");
@@ -198,5 +172,24 @@ public class LaotieCommunityFragment extends BaseFragment
     @Override
     public void doBusiness(Context context)
     {
+    }
+
+    @Override
+    public void confirm(TalkMoodEntity talkMoodEntity)
+    {
+        saveData(talkMoodEntity);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(EventBusObject.OpenEditObject openEditObject)
+    {
+        linearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

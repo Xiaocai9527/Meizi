@@ -40,19 +40,15 @@ public class SwipeRefreshDelegate
 
     private OnSwipeRefreshListener providedListener;
 
-
     public interface OnSwipeRefreshListener
     {
-
         void onSwipeRefresh();
     }
-
 
     public SwipeRefreshDelegate(OnSwipeRefreshListener listener)
     {
         this.providedListener = listener;
     }
-
 
     public void attach(Activity activity)
     {
@@ -60,13 +56,11 @@ public class SwipeRefreshDelegate
         trySetupSwipeRefresh();
     }
 
-
     public void attach(View fragment)
     {
         ButterKnife.bind(this, fragment);
         trySetupSwipeRefresh();
     }
-
 
     private void trySetupSwipeRefresh()
     {
@@ -82,7 +76,6 @@ public class SwipeRefreshDelegate
             });
         }
     }
-
 
     public void setRefresh(boolean requestDataRefresh)
     {
@@ -109,7 +102,6 @@ public class SwipeRefreshDelegate
         }
     }
 
-
     public void setEnabled(boolean enable)
     {
         if (swipeRefreshLayout == null)
@@ -118,7 +110,6 @@ public class SwipeRefreshDelegate
         }
         swipeRefreshLayout.setEnabled(enable);
     }
-
 
     public boolean isShowingRefresh()
     {

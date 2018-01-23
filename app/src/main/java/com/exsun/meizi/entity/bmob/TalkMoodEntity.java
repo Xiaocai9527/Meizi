@@ -1,6 +1,7 @@
 package com.exsun.meizi.entity.bmob;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * <pre>
@@ -23,6 +24,8 @@ public class TalkMoodEntity extends BmobObject
     private String location;
     //昵称
     private String nickName;
+    // 多对多 点赞的所有用户(用户也可以点赞多个帖子)
+    private BmobRelation likes;
 
     public String getNickName()
     {
@@ -72,5 +75,15 @@ public class TalkMoodEntity extends BmobObject
     public void setLocation(String location)
     {
         this.location = location;
+    }
+
+    public BmobRelation getLikes()
+    {
+        return likes;
+    }
+
+    public void setLikes(BmobRelation likes)
+    {
+        this.likes = likes;
     }
 }
