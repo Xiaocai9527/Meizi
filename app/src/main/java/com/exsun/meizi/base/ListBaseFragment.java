@@ -90,6 +90,10 @@ public abstract class ListBaseFragment extends BaseFragment
 
     protected boolean onInterceptLoadMore()
     {
+        if (isLoading())
+        {
+            return true;
+        }
         return false;
     }
 

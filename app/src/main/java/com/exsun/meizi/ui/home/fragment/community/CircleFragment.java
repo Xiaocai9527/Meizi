@@ -61,11 +61,19 @@ public class CircleFragment extends ListBaseFragment
         loadDataFromRemote(clear);
     }
 
+    private int page = 0;
+    private int limit = 10;
+
     public void loadDataFromRemote(final boolean clear)
     {
+        if (clear)
+        {
+            page = 0;
+        }
         notifyLoadingStarted();
         BmobQuery<TalkMoodEntity> query = new BmobQuery<>();
-        query.setLimit(10);
+        query.setLimit(limit);
+        query.setSkip(limit * page);
         query.findObjects(new FindListener<TalkMoodEntity>()
         {
             @Override
@@ -73,12 +81,16 @@ public class CircleFragment extends ListBaseFragment
             {
                 if (e == null)
                 {
+                    page++;
                     setRefresh(false);
                     notifyLoadingFinished();
 
                     if (list.size() < 10)
                     {
                         setEnd(true);
+                    } else
+                    {
+                        setEnd(false);
                     }
 
                     Toasts.showSingleShort("加载成功：共" + list.size() + "条数据。");
@@ -102,13 +114,14 @@ public class CircleFragment extends ListBaseFragment
 //        loadDataFromRemote(true);
 //    }
 
-    @Override
-    protected boolean onInterceptLoadMore()
-    {
-        if (!isLoading())
-        {
-            loadDataFromRemote(false);
-        }
-        return true;
-    }
+//    @Override
+//    protected boolean onInterceptLoadMore()
+//    {
+//        if (!isLoading())
+//        {
+//            loadDataFromRemote(false);
+//            return false;
+//        }
+//        return true;
+//    }
 }
